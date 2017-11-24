@@ -9,7 +9,7 @@
     - requires nested resources w/ restful urls
         - nested resource must povide a form that relates to parent resource
 5. views
-    - requires a nested form w/ a custom attribute writer 
+    - requires a nested form w/ a custom attribute writer
     - authentication: standard login and outside service (fb)
         - authentication (use oauth for FB)
     - forms should display validation errors enclosed in class="fields_with_errors" with error messages present in views
@@ -26,7 +26,7 @@ General notes:
 
 
 GEMS to research
--factory_girl_rails #creates seed data
+-factory_bot #creates seed data
 -database_cleaner #look up how ot use this again
 -faker #generates fake data
 -friendly_id #slugging and permalink gem

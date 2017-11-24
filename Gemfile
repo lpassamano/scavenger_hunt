@@ -40,7 +40,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  gem 'factory_girl_rails'
+  gem 'factory_bot'
   gem 'database_cleaner'
   gem 'pry'
   gem 'better_errors'
