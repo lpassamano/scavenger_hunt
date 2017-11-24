@@ -1,8 +1,32 @@
 1. setup
-  -gem file
-    -sql gem -- check what heroku allows
-        gem 'pg'
-    -rspec
-    -devise?
-    -oauth for fb
-  -spec
+  -spec folders (delete test folders)
+
+2. db tables
+3. models
+    - requires some validations
+    - requires one AR scope level method (see the boat lab)
+4. controllers
+    - requires nested resources w/ restful urls
+        - nested resource must povide a form that relates to parent resource
+5. views
+    - requires a nested form w/ a custom attribute writer 
+    - authentication: standard login and outside service (fb)
+        - authentication (use oauth for FB)
+    - forms should display validation errors enclosed in class="fields_with_errors" with error messages present in views
+6. check off requirements in spec file
+7. write README.md
+
+General notes:
+-keep it dry
+-separation of concerns (mvc and btwn models)
+-use helper methods in views and partials
+-record coding session
+
+
+
+
+GEMS to research
+-factory_girl_rails #creates seed data
+-database_cleaner #look up how ot use this again
+-faker #generates fake data
+-friendly_id #slugging and permalink gem
