@@ -1,7 +1,4 @@
-1. setup
-  -spec folders (delete test folders)
-
-2. db tables
+2. db tables  -- troubleshoot rake 
 3. models
     - requires some validations
     - requires one AR scope level method (see the boat lab)
@@ -12,7 +9,7 @@
     - requires a nested form w/ a custom attribute writer
     - authentication: standard login and outside service (fb)
         - authentication (use oauth for FB)
-    - forms should display validation errors enclosed in class="fields_with_errors" with error messages present in views
+    - forms should display validation errors enclosed in class="fields_with_errors" with error messages present in views   --- put devise errors in layouts/application for now!
 6. check off requirements in spec file
 7. write README.md
 
