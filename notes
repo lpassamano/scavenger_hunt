@@ -1,0 +1,8 @@
+1. setup
+  -gem file
+    -sql gem -- check what heroku allows
+        gem 'pg'
+    -rspec
+    -devise?
+    -oauth for fb
+  -spec
