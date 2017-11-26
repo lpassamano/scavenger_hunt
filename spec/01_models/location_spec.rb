@@ -9,4 +9,9 @@ RSpec.describe Location, type: :model do
     @location.hunts << Hunt.find(1)
     expect(@location.hunts.count).to eq(1)
   end
+
+  it 'is invalid given a state that is not a two letter abbreviation' do
+    location = Location.new(city: "Somewhere", state: "Somewhere")
+    expect(location.valid?).to be(false)
+  end
 end
