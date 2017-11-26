@@ -1,7 +1,9 @@
-2. db tables  -- troubleshoot rake 
+2. db tables  -- troubleshoot rake
 3. models
     - requires some validations
     - requires one AR scope level method (see the boat lab)
+    - validate location#state w/ regex to make sure it is a valid state
+    
 4. controllers
     - requires nested resources w/ restful urls
         - nested resource must povide a form that relates to parent resource
@@ -10,6 +12,9 @@
     - authentication: standard login and outside service (fb)
         - authentication (use oauth for FB)
     - forms should display validation errors enclosed in class="fields_with_errors" with error messages present in views   --- put devise errors in layouts/application for now!
+5.5 features
+    - when hunt is active there is a leaderboard on the hunt view page
+    - can only join pending hunts
 6. check off requirements in spec file
 7. write README.md
 
