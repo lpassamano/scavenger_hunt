@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before (:each) do
-    #create a user
     @user = User.first
     @hunt1 = Hunt.new
     @hunt2 = Hunt.new
