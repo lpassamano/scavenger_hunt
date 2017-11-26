@@ -17,7 +17,7 @@ RSpec.describe Hunt, type: :model do
   end
 
   it 'has a location' do
-    @hunt.location = Location.create
+    @hunt.location = Location.create(city: "Los Angeles", state: "CA")
     expect(@hunt.location).to eq(Location.last)
   end
 
