@@ -1,7 +1,6 @@
 
 3. models
     - requires some validations
-      - item - requires name
       - team - if no name is given, one will be auto assigned based on id
     - requires one AR scope level method (see the boat lab)
 
