@@ -9,5 +9,4 @@ RSpec.describe Location, type: :model do
     @location.hunts << Hunt.find(1)
     expect(@location.hunts.count).to eq(1)
   end
-
 end
