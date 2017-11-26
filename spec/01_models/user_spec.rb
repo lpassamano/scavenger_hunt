@@ -12,7 +12,6 @@ RSpec.describe User, type: :model do
     @user.hunts << @hunt1
     @user.hunts << @hunt2
     @user.hunts << @hunt3
-    binding.pry
 
     expect(@user.hunts.count).to eq(3)
   end
