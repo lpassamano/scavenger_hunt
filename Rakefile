@@ -2,5 +2,11 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require_relative 'config/application'
+require 'database_cleaner'
 
 Rails.application.load_tasks
+
+DatabaseCleaner.strategy = :truncation
+task :clear_db do
+  DatabaseCleaner.clean
+end

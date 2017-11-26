@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   before(:each) do
-    @item = Item.new(hunt: Hunt.create)
+    hunt = Hunt.first
+    @item = Item.create(hunt: hunt)
   end
 
   it 'has a hunt' do
-    expect(@item.hunt).to eq(Hunt.last)
+    expect(@item.hunt).to eq(Hunt.first)
   end
 
   it 'has a user' do

@@ -2,16 +2,17 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before (:each) do
-    @user = User.first
-    @hunt1 = Hunt.new
-    @hunt2 = Hunt.new
-    @hunt3 = Hunt.new
+    @user = User.create(name: Faker::Internet.user_name, email: Faker::Internet.email, password: "password123")
+    @hunt1 = Hunt.new(location: Location.first)
+    @hunt2 = Hunt.new(location: Location.first)
+    @hunt3 = Hunt.new(location: Location.first)
   end
 
   it 'has many hunts' do
     @user.hunts << @hunt1
     @user.hunts << @hunt2
     @user.hunts << @hunt3
+    binding.pry
 
     expect(@user.hunts.count).to eq(3)
   end
