@@ -52,13 +52,13 @@ RSpec.describe Hunt, type: :model do
   end
 
   it 'requires a name, date, location, start and finish time' do
-    no_name = Hunt.new(date: Faker::Date.forward, location: Location.first, start_time: 10:00:00, finish_time: 12:00:00)
-    no_date = Hunt.new(name: "Test Hunt", location: Location.first, start_time: 10:00:00, finish_time: 12:00:00)
-    no_location = = Hunt.new(name: "Test Hunt", date: Faker::Date.forward, start_time: 10:00:00, finish_time: 12:00:00)
-    no_start = Hunt.new(name: "Test Hunt", date: Faker::Date.forward, location: Location.first, finish_time: 12:00:00)
-    no_end = Hunt.new(name: "Test Hunt", date: Faker::Date.forward, location: Location.first, start_time: 10:00:00)
-    hunt = = Hunt.new(name: "Test Hunt", date: Faker::Date.forward, location: Location.first, start_time: 10:00:00, finish_time: 12:00:00)
-
+    no_name = Hunt.new(date: Faker::Date.forward, location: Location.first, start_time: '10:00:00', finish_time: '12:00:00')
+    no_date = Hunt.new(name: "Test Hunt", location: Location.first, start_time: '10:00:00', finish_time: '12:00:00')
+    no_location = Hunt.new(name: "Test Hunt", date: Faker::Date.forward, start_time: '10:00:00', finish_time: '12:00:00')
+    no_start = Hunt.new(name: "Test Hunt", date: Faker::Date.forward, location: Location.first, finish_time: '12:00:00')
+    no_end = Hunt.new(name: "Test Hunt", date: Faker::Date.forward, location: Location.first, start_time: '10:00:00')
+    hunt = Hunt.new(name: "Test Hunt", date: Faker::Date.forward, location: Location.first, start_time: '10:00:00', finish_time: '12:00:00')
+    binding.pry 
     expect(no_name.valid?).to eq(false)
     expect(no_date.valid?).to eq(false)
     expect(no_location.valid?).to eq(false)
@@ -68,12 +68,12 @@ RSpec.describe Hunt, type: :model do
   end
 
   it 'is invalid if the end time is before the start time' do
-    hunt = Hunt.new(name: "Test Hunt", date: Faker::Date.forward, location: Location.first, start_time: 12:00:00, finish_time: 10:00:00)
+    hunt = Hunt.new(name: "Test Hunt", date: Faker::Date.forward, location: Location.first, start_time: '12:00:00', finish_time: '10:00:00')
     expect(hunt.valid?).to eq(false)
   end
 
   it 'cannot be instantiated with a date in the past' do
-    hunt = Hunt.new(name: "Test Hunt", date: Faker::Date.backward, location: Location.first, start_time: 12:00:00, finish_time: 10:00:00)
+    hunt = Hunt.new(name: "Test Hunt", date: Faker::Date.backward, location: Location.first, start_time: '12:00:00', finish_time: '10:00:00')
     expect(hunt.valid?).to eq(false)
   end
 end

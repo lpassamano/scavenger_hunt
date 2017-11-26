@@ -20,9 +20,8 @@ end
     location: Location.first,
     name: Faker::Zelda.location,
     date: Faker::Date.forward(90),
-    start_time: 10:00:00
-    finish_time: 12:00:00
-    duration: 2,
+    start_time: '10:00:00',
+    finish_time: '12:00:00',
     status: "pending"
   )
 end
