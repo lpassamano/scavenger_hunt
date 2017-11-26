@@ -10,8 +10,8 @@ RSpec.describe Location, type: :model do
     expect(@location.hunts.count).to eq(1)
   end
 
-  it 'is invalid given a state that is not a two letter abbreviation' do
-    location = Location.new(city: "Somewhere", state: "Somewhere")
-    expect(location.valid?).to be(false)
+  it 'is invalid if the city given is not in the state given' do
+    location = Location.new(city: "New York", state: "NY")
+    expect(location.valid?).to eq(false)
   end
 end

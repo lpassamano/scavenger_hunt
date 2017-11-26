@@ -3,5 +3,5 @@ class Location < ActiveRecord::Base
 
   validates :city, presence: true
   validates :state, presence: true
-  validates :state, format: { with: /b[A-Z]{2}\b/i, message: "Please type enter the state's abbreviation" }
+  #validates :state, format: { with: /b[A-Z]{2}\b/, message: "Please type enter the state's abbreviation" }
 end

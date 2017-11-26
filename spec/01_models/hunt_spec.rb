@@ -12,7 +12,6 @@ RSpec.describe Hunt, type: :model do
   it 'has many items' do
     @hunt.items << Item.new
     @hunt.items << Item.new
-
     expect(@hunt.items.count).to eq(2)
   end
 
