@@ -19,8 +19,8 @@ end
     user: User.first,
     location: Location.first,
     name: Faker::Zelda.location,
-    start_time: '2018, 1, 1, 12, 00, 00',
-    finish_time: '2018, 1, 1, 15, 00, 00',
+    start_time: DateTime.news(2018, 1, 1, 12, 00, 00),
+    finish_time: DateTime.new(2018, 1, 1, 15, 00, 00),
     status: "pending"
   )
 end
