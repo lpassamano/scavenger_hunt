@@ -50,4 +50,16 @@ RSpec.describe Hunt, type: :model do
     Hunt.create(user: User.first, location: Location.first, status: "completed")
     expect(Hunt.completed.count).to eq(count + 1)
   end
+
+  it 'requires a name, date, location, start and finish time' do
+
+  end
+
+  it 'is invalid if the end time is before the start time' do
+
+  end
+
+  it 'cannot be instantiated with a date in the past' do
+
+  end
 end
