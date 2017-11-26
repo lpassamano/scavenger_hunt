@@ -21,12 +21,12 @@ RSpec.describe Team, type: :model do
     @team.participants << @user2
     @team.participants << @user3
 
-    expect(@team.participants.count).to eq(2)
+    expect(@team.participants.to_a.count).to eq(2)
   end
 
   it 'has many found items' do
     @team.found_items << FoundItem.new(item: @item)
 
-    expect(@team.found_items.count).to eq(1)
+    expect(@team.found_items.to_a.count).to eq(1)
   end
 end

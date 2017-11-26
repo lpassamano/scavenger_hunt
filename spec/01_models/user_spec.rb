@@ -23,12 +23,12 @@ RSpec.describe User, type: :model do
   end
 
   it 'has many teams' do
-    @user.teams << Team.new
+    @user.teams << Team.new(hunt: @hunt1)
     expect(@user.teams.count).to eq(1)
   end
 
   it 'has a current team' do
-    @user.current_team = Team.create
+    @user.current_team = Team.create(hunt: @hunt1)
     expect(@user.current_team).to eq(Team.last)
   end
 
