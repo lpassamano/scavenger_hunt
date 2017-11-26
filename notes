@@ -1,9 +1,9 @@
-2. db tables  -- troubleshoot rake
+
 3. models
     - requires some validations
     - requires one AR scope level method (see the boat lab)
     - validate location#state w/ regex to make sure it is a valid state
-    
+
 4. controllers
     - requires nested resources w/ restful urls
         - nested resource must povide a form that relates to parent resource
