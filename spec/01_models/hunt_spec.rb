@@ -3,10 +3,6 @@ require 'rails_helper'
 RSpec.describe Hunt, type: :model do
   before (:each) do
     @hunt = Hunt.create(user: User.first, location: Location.first)
-
-    @hunt1 = Hunt.create(user: User.first, location: Location.first, status: "pending")
-    @hunt2 = Hunt.create(user: User.first, location: Location.first, status: "active")
-    @hunt3 = Hunt.create(user: User.first, location: Location.first, status: "completed")
   end
 
   it 'has a user' do
@@ -32,15 +28,26 @@ RSpec.describe Hunt, type: :model do
     expect(@hunt.teams.count).to eq(2)
   end
 
+  it 'a new hunt has a default status of pending' do
+    hunt = Hunt.create(user: User.first, location: Location.first)
+    expect(hunt.status).to eq("pending")
+  end
+
   it 'has a method to display all pending hunts' do
-    expect(Hunt.pending).to eq(1)
+    count = Hunt.pending.count
+    Hunt.create(user: User.first, location: Location.first)
+    expect(Hunt.pending.count).to eq(count + 1)
   end
 
   it 'has a method to display all active hunts' do
-    expect(Hunt.active).to eq(1)
+    count = Hunt.active.count
+    Hunt.create(user: User.first, location: Location.first, status: "active")
+    expect(Hunt.active.count).to eq(count + 1)
   end
 
   it 'has a method to display all completed hunts' do
-    expect(Hunt.complete).to eq(1)
+    count = Hunt.completed.count
+    Hunt.create(user: User.first, location: Location.first, status: "completed")
+    expect(Hunt.completed.count).to eq(count + 1)
   end
 end

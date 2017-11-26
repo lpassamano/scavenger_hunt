@@ -14,16 +14,16 @@
   )
 end
 
-3.times do
-  Hunt.create(
-    user: User.first,
-    location: Location.first,
-    name: Faker::Zelda.location,
-    date: Faker::Date.forward(90),
-    duration: 2,
-    status: "pending"
-  )
-end
+#3.times do
+#  Hunt.create(
+#    user: User.first,
+#    location: Location.first,
+#    name: Faker::Zelda.location,
+#    date: Faker::Date.forward(90),
+#    duration: 2,
+#    status: "pending"
+#  )
+#end
 
 Location.create(city: "New York", state: "NY")
 
