@@ -26,7 +26,11 @@ RSpec.describe Team, type: :model do
 
   it 'has many found items' do
     @team.found_items << FoundItem.new(item: @item)
-
     expect(@team.found_items.to_a.count).to eq(1)
+  end
+
+  it 'will generate a name if one is not given at initialization' do
+    team = Team.new(hunt: Hunt.first)
+    expect(team.name).to eq("Team #{team.id}")
   end
 end
