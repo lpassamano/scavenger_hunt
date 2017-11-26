@@ -11,7 +11,7 @@ RSpec.describe Location, type: :model do
   end
 
   it 'is invalid if the city given is not in the state given' do
-    location = Location.new(city: "New York", state: "NY")
+    location = Location.new(city: "New York", state: "NJ")
     expect(location.valid?).to eq(false)
   end
 end
