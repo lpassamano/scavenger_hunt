@@ -7,7 +7,9 @@ class Hunt < ActiveRecord::Base
   validates :name, presence: true
   validates :location, presence: true
   validates :start_time, presence: true
-  validates :finish_time, presence: true 
+  validates :finish_time, presence: true
+  validates_datetime :finish_time, :after => :start_time
+  validates_datetime :start_time, :after => DateTime.current
 
   def self.pending
     Hunt.where(status: "pending")
