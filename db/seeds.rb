@@ -19,9 +19,8 @@ end
     user: User.first,
     location: Location.first,
     name: Faker::Zelda.location,
-    date: Faker::Date.forward(90),
-    start_time: '10:00:00',
-    finish_time: '12:00:00',
+    start_time: '2018, 1, 1, 12, 00, 00',
+    finish_time: '2018, 1, 1, 15, 00, 00',
     status: "pending"
   )
 end

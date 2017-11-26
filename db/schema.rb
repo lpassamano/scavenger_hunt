@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126201941) do
+ActiveRecord::Schema.define(version: 20171126221909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,9 +26,8 @@ ActiveRecord::Schema.define(version: 20171126201941) do
     t.string "status", default: "pending"
     t.integer "location_id"
     t.integer "user_id"
-    t.time "start_time"
-    t.time "finish_time"
-    t.date "date"
+    t.datetime "start_time"
+    t.datetime "finish_time"
   end
 
   create_table "items", force: :cascade do |t|
