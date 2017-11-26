@@ -22,4 +22,8 @@ class Hunt < ActiveRecord::Base
   def self.completed
     Hunt.where(status: "completed")
   end
+
+  def date
+    self.start_time.strftime("%A, %B%e, %Y")
+  end
 end
