@@ -4,6 +4,11 @@ class Hunt < ActiveRecord::Base
   has_many :teams
   belongs_to :location
 
+  validates :name, presence: true
+  validates :location, presence: true
+  validates :start_time, presence: true
+  validates :finish_time, presence: true 
+
   def self.pending
     Hunt.where(status: "pending")
   end
