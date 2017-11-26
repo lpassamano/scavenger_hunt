@@ -1,6 +1,7 @@
 
 3. models
     - requires some validations
+      - cannot create a hunt in the past
     - requires one AR scope level method (see the boat lab)
     - validate location#state w/ regex to make sure it is a valid state
 
@@ -26,7 +27,7 @@ General notes:
 
 GEMS to research
 -factory_bot #creates seed data
-    http://www.rubydoc.info/gems/factory_bot/file/GETTING_STARTED.md 
+    http://www.rubydoc.info/gems/factory_bot/file/GETTING_STARTED.md
 -database_cleaner #look up how ot use this again
 -faker #generates fake data
 -friendly_id #slugging and permalink gem
