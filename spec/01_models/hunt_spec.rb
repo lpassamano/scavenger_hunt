@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Hunt, type: :model do
   before (:each) do
-    @hunt = Hunt.create(user: User.first)
+    @hunt = Hunt.create(user: User.first, location: Location.create)
   end
 
   it 'has a user' do
