@@ -51,14 +51,14 @@ RSpec.describe Hunt, type: :model do
     expect(Hunt.completed.count).to eq(count + 1)
   end
 
-  it 'requires a name, date, location, start and finish time' do
-    no_name = Hunt.new(location: Location.first, start_time: '2018, 1, 1, 12, 00, 00', finish_time: '2018, 1, 1, 15, 00, 00')
-    no_date = Hunt.new(name: "Test Hunt", location: Location.first, start_time: '2018, 1, 1, 12, 00, 00', finish_time: '2018, 1, 1, 15, 00, 00')
-    no_location = Hunt.new(name: "Test Hunt", start_time: '2018, 1, 1, 12, 00, 00', finish_time: '2018, 1, 1, 15, 00, 00')
-    no_start = Hunt.new(name: "Test Hunt", location: Location.first, finish_time: '2018, 1, 1, 15, 00, 00')
-    no_end = Hunt.new(name: "Test Hunt", location: Location.first, start_time: '2018, 1, 1, 12, 00, 00')
-    hunt = Hunt.new(name: "Test Hunt", location: Location.first, start_time: '2018, 1, 1, 12, 00, 00', finish_time: '2018, 1, 1, 15, 00, 00')
-    binding.pry
+  it 'requires a name, location, start and finish time' do
+    no_name = Hunt.new(location: Location.first, start_time: '2018, 1, 1, 12, 00, 00', finish_time: '2018, 1, 1, 15, 00, 00', user: User.first)
+    no_date = Hunt.new(name: "Test Hunt", location: Location.first, start_time: '2018, 1, 1, 12, 00, 00', finish_time: '2018, 1, 1, 15, 00, 00', user: User.first)
+    no_location = Hunt.new(name: "Test Hunt", start_time: '2018, 1, 1, 12, 00, 00', finish_time: '2018, 1, 1, 15, 00, 00', user: User.first)
+    no_start = Hunt.new(name: "Test Hunt", location: Location.first, finish_time: '2018, 1, 1, 15, 00, 00', user: User.first)
+    no_end = Hunt.new(name: "Test Hunt", location: Location.first, start_time: '2018, 1, 1, 12, 00, 00', user: User.first)
+    hunt = Hunt.new(name: "Test Hunt", location: Location.first, start_time: '2018, 1, 1, 12, 00, 00', finish_time: '2018, 1, 1, 15, 00, 00', user: User.first)
+
     expect(no_name.valid?).to eq(false)
     expect(no_date.valid?).to eq(false)
     expect(no_location.valid?).to eq(false)
