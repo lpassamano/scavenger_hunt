@@ -17,7 +17,7 @@ RSpec.describe User, type: :model do
 
   it 'has many items' do
     @user.hunts << @hunt1
-    @hunt1.items << Item.new
+    @hunt1.items << Item.new(name: "Cat")
     expect(@user.items.count).to eq(1)
   end
 

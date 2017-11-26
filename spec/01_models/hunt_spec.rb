@@ -10,8 +10,8 @@ RSpec.describe Hunt, type: :model do
   end
 
   it 'has many items' do
-    @hunt.items << Item.new
-    @hunt.items << Item.new
+    @hunt.items << Item.new(name: "Ball")
+    @hunt.items << Item.new(name: "Stick")
     expect(@hunt.items.count).to eq(2)
   end
 
