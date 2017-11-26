@@ -1,8 +1,6 @@
 
 3. models
     - requires some validations
-      - location requires city and state
-      - location - validate state w/ regex
       - item - requires name
       - team - if no name is given, one will be auto assigned based on id
     - requires one AR scope level method (see the boat lab)
