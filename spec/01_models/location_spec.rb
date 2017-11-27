@@ -14,4 +14,8 @@ RSpec.describe Location, type: :model do
     location = Location.new(city: "New York", state: "NJ")
     expect(location.valid?).to eq(false)
   end
+
+  it 'lists all pending hunts in a specific location' do
+    expect(@location.pending_hunts.count).to eq(1)
+  end
 end
