@@ -30,7 +30,7 @@ RSpec.describe Team, type: :model do
   end
 
   it 'will generate a name if one is not given at initialization' do
-    team = Team.new(hunt: Hunt.first)
+    team = Team.create(hunt: Hunt.first)
     expect(team.name).to eq("Team #{team.id}")
   end
 end
