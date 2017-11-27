@@ -35,9 +35,10 @@ RSpec.describe Team, type: :model do
   end
 
   it 'lists items that still need to be found' do
+    @team.hunt = @hunt
+    @team.save
     @team.found_items << FoundItem.create(item: @item, found: false)
     @team.found_items << FoundItem.create(item: Item.create(name: "black cat"), found: true)
-
-    expect(team.missing_items.count).to eq(1)
+    expect(@team.missing_items.count).to eq(1)
   end
 end

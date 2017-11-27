@@ -7,4 +7,8 @@ class Team < ActiveRecord::Base
   def name
     read_attribute(:name) || "Team #{self.id}"
   end
+
+  def missing_items
+    self.found_items.where(found: false)
+  end
 end
