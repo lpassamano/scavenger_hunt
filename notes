@@ -1,6 +1,6 @@
 
 3. models
-    - requires one AR scope level method (see the boat lab)
+    - requires one AR scope level method (see the boat lab - https://github.com/lpassamano/model-class-methods-lab-v-000) --- I think this is done, but will need to check!
 
 4. controllers
     - requires nested resources w/ restful urls
