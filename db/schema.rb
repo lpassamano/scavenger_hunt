@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126221909) do
+ActiveRecord::Schema.define(version: 20171127002036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "found_items", force: :cascade do |t|
-    t.boolean "found"
+    t.boolean "found", default: false
     t.integer "team_id"
     t.integer "item_id"
   end
