@@ -13,8 +13,18 @@
 
   # when completed:
     ## shows final tally of all teams
-    ## link to team show page on the team name 
+    ## link to team show page on the team name
 
-# add hunt form
+# add/edit hunt form
+  # name
+  # location (add nested form for new or select from list)
+  # nested form for items
+  # start and end time
+  # can only be edited by its user 
 
-# edit hunt form
+# index
+  # list all pending hunts by start date ascending w/ link to hunt show page
+
+# index by location
+  ## url /hunts/location-slug
+  # list all pending hunts in that location as in the index page
