@@ -1,4 +1,5 @@
 # show page
+  # nested route: hunts/hunt-slug/teams/team-slug
   # when hunt is pending:
     ## list all team members w/ link to their user pages
     ## has join team button
@@ -13,4 +14,4 @@
 # new/edit team
   # field for name
   # option to invite users - autocomplete w/ registered users usernames?
-  # can be edited by any team participant 
+  # can be edited by any team participant
