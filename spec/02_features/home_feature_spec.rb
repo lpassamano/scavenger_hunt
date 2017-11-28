@@ -1,7 +1,7 @@
 describe 'Feature Test: Home', :type => :feature do
   describe 'Pending Hunts' do
     context "logged in" do
-      it "displays all of the current user's pending hunts with link to hunt's show page" do
+      it "displays all of the current user's pending hunts with link to hunt's show page and their team name" do
 
       end
 
