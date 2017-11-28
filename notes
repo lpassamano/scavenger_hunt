@@ -1,6 +1,7 @@
+11/27 to do:
+- make sure devise sign in/out works
+- start working on controllers 
 
-3. models
-    - requires one AR scope level method (see the boat lab - https://github.com/lpassamano/model-class-methods-lab-v-000) --- I think this is done, but will need to check!
 
 4. controllers
     - requires nested resources w/ restful urls
@@ -16,6 +17,7 @@
     - can only join pending hunts
 6. check off requirements in spec file
 7. write README.md
+    - requires one AR scope level method (see the boat lab - https://github.com/lpassamano/model-class-methods-lab-v-000) --- I think this is done, but will need to check!
 
 General notes:
 -keep it dry
