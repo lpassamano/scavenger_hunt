@@ -21,19 +21,23 @@ class Hunt < ActiveRecord::Base
     end
   end
 
-  def self.pending
+  def self.all_pending
     Hunt.where(status: "pending")
   end
 
-  def self.active
+  def self.all_active
     Hunt.where(status: "active")
   end
 
-  def self.completed
+  def self.all_completed
     Hunt.where(status: "completed")
   end
 
   def date
     self.start_time.strftime("%A, %B%e, %Y")
+  end
+
+  def pending?
+    self.status == "pending"
   end
 end

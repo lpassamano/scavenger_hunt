@@ -33,21 +33,21 @@ RSpec.describe Hunt, type: :model do
   end
 
   it 'has a method to display all pending hunts' do
-    count = Hunt.pending.count
+    count = Hunt.all_pending.count
     Hunt.create(user: User.first, name: "Test Hunt", location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00))
-    expect(Hunt.pending.count).to eq(count + 1)
+    expect(Hunt.all_pending.count).to eq(count + 1)
   end
 
   it 'has a method to display all active hunts' do
-    count = Hunt.active.count
+    count = Hunt.all_active.count
     Hunt.create(user: User.first, location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), status: "active", name: "Test Hunt")
-    expect(Hunt.active.count).to eq(count + 1)
+    expect(Hunt.all_active.count).to eq(count + 1)
   end
 
   it 'has a method to display all completed hunts' do
-    count = Hunt.completed.count
+    count = Hunt.all_completed.count
     Hunt.create(user: User.first, location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), status: "completed", name: "Test Hunt")
-    expect(Hunt.completed.count).to eq(count + 1)
+    expect(Hunt.all_completed.count).to eq(count + 1)
   end
 
   it 'requires a name, location, start and finish time' do

@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :teams, through: :team_participants
   belongs_to :current_team, class_name: "Team", required: false
 
+  #delete this method if not used
   def team(hunt)
     self.teams.where(hunt_id: hunt.id).first
   end
