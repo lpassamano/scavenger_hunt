@@ -14,6 +14,6 @@ class User < ApplicationRecord
   belongs_to :current_team, class_name: "Team", required: false
 
   def team(hunt)
-    self.teams.where(hunt_id: hunt.id)
+    self.teams.where(hunt_id: hunt.id).first
   end
 end
