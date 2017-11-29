@@ -79,7 +79,7 @@ RSpec.describe Hunt, type: :model do
     @hunt.start_time = DateTime.new(2017, 11, 28, 12, 00, 00)
     expect(@hunt.status).to eq("active")
 
-    @hunt.end_time = DateTime.new(2017, 11, 28, 13, 00, 00)
+    @hunt.finish_time = DateTime.new(2017, 11, 28, 13, 00, 00)
     expect(@hunt.status).to eq("completed")
   end
 

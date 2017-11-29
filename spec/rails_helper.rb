@@ -42,11 +42,11 @@ RSpec.configure do |config|
     load "#{Rails.root}/db/seeds.rb"
   end
 
-  config.before(:each) do
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.start
-    load "#{Rails.root}/db/seeds.rb"
-  end
+  #config.before(:each) do
+  #  DatabaseCleaner.strategy = :truncation
+  #  DatabaseCleaner.start
+  #  load "#{Rails.root}/db/seeds.rb"
+  #end
 
   config.before(:each, :js => true) do
     DatabaseCleaner.strategy = :truncation

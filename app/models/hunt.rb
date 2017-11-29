@@ -11,6 +11,16 @@ class Hunt < ActiveRecord::Base
   validates_datetime :finish_time, :after => :start_time
   validates_datetime :start_time, :after => DateTime.current
 
+  def status
+    if DateTime.current < self.start_time
+      "pending"
+    elsif DateTime.current >= self.start_time && DateTime.current <= self.finish_time
+      "active"
+    elsif DateTime.current > self.finish_time
+      "completed"
+    end
+  end
+
   def self.pending
     Hunt.where(status: "pending")
   end
