@@ -12,4 +12,8 @@ class User < ApplicationRecord
   has_many :team_participants
   has_many :teams, through: :team_participants
   belongs_to :current_team, class_name: "Team", required: false
+
+  def team(hunt)
+    self.teams.where(hunt_id: hunt.id)
+  end
 end
