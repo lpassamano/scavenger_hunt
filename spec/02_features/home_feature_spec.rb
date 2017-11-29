@@ -24,6 +24,7 @@ describe 'Feature Test: Home', :type => :feature do
 
       it "alerts the current user if they have a hunt starting in less than 48 hours" do
         visit root_path
+        #create method User#hunts.upcoming and use this for alert 
       end
     end
   end
