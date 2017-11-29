@@ -1,18 +1,29 @@
 describe 'Feature Test: Home', :type => :feature do
   describe 'Pending Hunts' do
-    context "logged in" do
-      it "displays all of the current user's pending hunts with link to hunt's show page and their team name" do
-
-      end
-
-      it "alerts the current user if they have a hunt starting in less than 48 hours" do
-
+    context "not logged in" do
+      it "does not display the Pending Hunts section" do
+        visit root_path
+        expect(page).to_not have_content "Upcoming Hunts"
       end
     end
 
-    context "not logged in" do
-      it "does not display the Pending Hunts section" do
+    context "logged in" do
+      before(:each) do
+        @user = User.first
+        login_as(@user, scope: :user)
+      end
 
+      it "displays all of the current user's pending hunts with link to hunt's show page and their team name" do
+        visit root_path
+        @user.hunts.pending.each do |hunt|
+          expect(page).to have_link(hunt.name, href: hunt_path(hunt))
+          user_team = hunt.teams.participants.where(user_id: @user.id)
+          expect(page).to have_link(user_team.name, href: team_path(user_team))
+        end
+      end
+
+      it "alerts the current user if they have a hunt starting in less than 48 hours" do
+        visit root_path
       end
     end
   end
