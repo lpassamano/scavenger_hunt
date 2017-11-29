@@ -74,6 +74,15 @@ RSpec.describe Hunt, type: :model do
     expect(hunt.valid?).to eq(false)
   end
 
+  it 'updates the status of the hunt to active at start time and completed at end time' do
+    #this test will only work until 1/1/2018
+    @hunt.start_time = DateTime.new(2017, 11, 28, 12, 00, 00)
+    expect(@hunt.status).to eq("active")
+
+    @hunt.end_time = DateTime.new(2017, 11, 28, 13, 00, 00)
+    expect(@hunt.status).to eq("completed")
+  end
+
   it 'has a method to display the date' do
     expect(@hunt.date).to eq("Monday, January 1, 2018")
   end
