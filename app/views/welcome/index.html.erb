@@ -1,2 +1,11 @@
 <h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+
+<h2>Your Upcoming Hunts</h2>
+
+<ul>
+  <% current_user.hunts.pending.each do |hunt| %>
+    <li>
+      <%= link_to hunt.name, hunt_path(hunt) %> | <%= link_to hunt.teams.participants.where(user_id: @user.id) %>
+    </li>
+  <% end %>
+</ul>
