@@ -8,6 +8,7 @@
         - authentication (use oauth for FB)
     - forms should display validation errors enclosed in class="fields_with_errors" with error messages present in views   --- put devise errors in layouts/application for now!
     - dropdown menu w/ all us states
+    - add username field to login/signup pages
 5.5 features
     - when hunt is active there is a leaderboard on the hunt view page
     - can only join pending hunts

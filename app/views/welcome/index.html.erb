@@ -1,11 +1,15 @@
 <h1>Welcome#index</h1>
 
-<h2>Your Upcoming Hunts</h2>
+<% if current_user %>
 
-<ul>
-  <% current_user.hunts.pending.each do |hunt| %>
-    <li>
-      <%= link_to hunt.name, hunt_path(hunt) %> | <%= link_to hunt.teams.participants.where(user_id: @user.id) %>
-    </li>
-  <% end %>
-</ul>
+  <h2>Your Upcoming Hunts</h2>
+
+  <ul>
+    <% current_user.hunts.pending.each do |hunt| %>
+      <li>
+        <%= link_to hunt.name, hunt_path(hunt) %> | <%= link_to current_user.team(hunt), team_path(current_user.team(hunt)) %>
+      </li>
+    <% end %>
+  </ul>
+
+<% end %>

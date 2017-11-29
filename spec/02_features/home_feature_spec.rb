@@ -17,8 +17,7 @@ describe 'Feature Test: Home', :type => :feature do
         visit root_path
         @user.hunts.pending.each do |hunt|
           expect(page).to have_link(hunt.name, href: hunt_path(hunt))
-          user_team = hunt.teams.participants.where(user_id: @user.id)
-          expect(page).to have_link(user_team.name, href: team_path(user_team))
+          expect(page).to have_link(@user.team(hunt), href: team_path(@user.team(hunt)))
         end
       end
 
