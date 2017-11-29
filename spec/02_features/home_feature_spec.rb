@@ -24,8 +24,18 @@ describe 'Feature Test: Home', :type => :feature do
       end
 
       it "alerts the current user if they have a hunt starting in less than 48 hours" do
-        visit root_path
         #create method User#hunts.upcoming and use this for alert
+        hunt = Hunt.find(2)
+        #will only work through November 30!
+        hunt.start_time = DateTime.new(2017, 11, 30, 10, 00, 00)
+        hunt.teams << Team.create
+        @user.teams << Team.last
+
+        visit root_path
+        within(:css, "li.upcoming_hunt") do
+          expect(page).to have_link(team.hunt.name, href: hunt_path(team.hunt))
+          expect(page).to have_link(team.name, href: team_path(team))
+        end
       end
     end
   end
