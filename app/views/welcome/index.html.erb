@@ -5,10 +5,12 @@
   <h2>Your Upcoming Hunts</h2>
 
   <ul>
-    <% current_user.hunts.pending.each do |hunt| %>
+    <% current_user.teams.each do |team| %>
+      <% if team.hunt.status == "pending" %>
       <li>
-        <%= link_to hunt.name, hunt_path(hunt) %> | <%= link_to current_user.team(hunt).name, team_path(current_user.team(hunt)) %>
+        <%= link_to team.hunt.name, hunt_path(team.hunt) %> | <%= link_to team.name, team_path(team) %>
       </li>
+      <% end %>
     <% end %>
   </ul>
 
