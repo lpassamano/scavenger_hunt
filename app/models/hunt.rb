@@ -40,4 +40,8 @@ class Hunt < ActiveRecord::Base
   def pending?
     self.status == "pending"
   end
+
+  def upcoming?
+    DateTime.current >= (self.start_time.to_time - 48.hours).to_datetime 
+  end
 end
