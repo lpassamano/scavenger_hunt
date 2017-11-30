@@ -118,8 +118,8 @@ describe 'Feature Test: Home', :type => :feature do
     context "not logged in" do
       it "displays the top 5 most popular hunts" do
         visit root_path
-        # determines popularity by most participants
-        expect(page).to have_selector('li', count: 4)
+        # extra li is for the sign in/up nav item
+        expect(page).to have_selector('li', count: 6)
       end
 
       it "has a links to either sign in or sign up" do

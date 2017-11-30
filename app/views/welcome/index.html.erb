@@ -32,4 +32,15 @@
     <%= link_to "Add Your Location", edit_user_path(current_user) %>
   <% end %>
 
+<% else %>
+
+  <h3>Check out our top five hunts!</h3>
+  <ol>
+    <%= Hunt.top_five.each do |hunt| %>
+      <li>
+        <%= hunt.name %>
+      </li>
+    <% end %>
+  </ol>
+
 <% end %>
