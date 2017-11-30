@@ -14,6 +14,8 @@
     - can only join pending hunts
     - when hunt becomes active the current_team of all team participants becomes the team's id
     - status of hunt automatically turns to active at start time and completed at end time
+5.6 integrate use of slugs instead of ids in the urls
+5.7 add descriptions to hunts???? see what the show page looks like once some styling is added.
 5.9 REFACTOR!!!
 6. check off requirements in spec file
 7. write README.md
@@ -31,3 +33,7 @@ GEMS to research
 -database_cleaner #look up how ot use this again
 -faker #generates fake data
 -friendly_id #slugging and permalink gem
+
+
+Ideas for future development:
+- make items for hunt appear in order (ie the next one shows only after you find the first one)
