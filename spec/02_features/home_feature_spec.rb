@@ -71,31 +71,40 @@ describe 'Feature Test: Home', :type => :feature do
   end
 
   describe "Headers" do
-    context "logged in" do
-      it "has link to browse all hunts" do
-
-      end
-
-      it "has link to add a new hunt" do
-
-      end
-
-      it "has a link to the home page" do
-
-      end
-
-      it "tells the user who they are logged in as" do
-
-      end
-
-      it "has log out link" do
-
+    context "not logged in" do
+      it "has a link to sign in or sign up" do
+        expect(page).to have_link("Sign In", new_user_session_path)
+        expect(page).to have_link("Sign Up", new_user_registration_path)
+        expect(page).to_not have_link("Home", root_path)
       end
     end
 
-    context "not logged in" do
-      it "has a link to sign in or sign up" do
+    context "logged in" do
+      before(:each) do
+        @user = User.find(1)
+        login_as(@user, scope: :user)
+      end
 
+      it "has link to browse all hunts" do
+        expect(page).to have_link("Browse Hunts", hunts_path)
+      end
+
+      it "has link to add a new hunt" do
+        expect(page).to have_link("Add New Hunt", new_hunt_path)
+      end
+
+      it "has a link to the home page" do
+        expect(page).to have_link("Home", root_path)
+      end
+
+      it "tells the user who they are logged in as" do
+        expect(page).to have_link("#{@user.name}", user_path(@user))
+      end
+
+      it "has log out link" do
+        #no login link
+        expect(page).to have_link("Sign Out", destroy_user_session_path)
+        expect(page).to_not have_link("Sign In", new_user_session_path)
       end
     end
   end
