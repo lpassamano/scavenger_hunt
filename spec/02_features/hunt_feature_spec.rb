@@ -2,7 +2,8 @@ describe 'Feature Test: Hunts', :type => :feature do
   describe 'index page' do
     context 'not logged in' do
       it 'redirects to the home page' do
-
+        visit hunts_path
+        expect(page.current_path).to eq(root_path)
       end
     end
 
