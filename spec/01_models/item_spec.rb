@@ -11,6 +11,6 @@ RSpec.describe Item, type: :model do
   end
 
   it 'has a user' do
-    expect(@item.user).to eq(@item.hunt.user)
+    expect(@item.owner).to eq(@item.hunt.owner)
   end
 end
