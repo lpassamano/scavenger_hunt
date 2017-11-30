@@ -16,4 +16,20 @@
     <% end %>
   </ul>
 
+  <h2>Nearby Hunts</h2>
+
+  <% if current_user.location %>
+    <ul>
+      <% current_user.location.pending_hunts.each do |hunt| %>
+        <li>
+          <%= content_tag :li, class: "#{'upcoming_hunt' if hunt.upcoming?}" do %>
+            <%= link_to hunt.name, hunt_path(hunt) %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <%= link_to "Add Your Location", edit_user_path(current_user) %>
+  <% end %>
+
 <% end %>
