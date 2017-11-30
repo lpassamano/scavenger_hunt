@@ -36,7 +36,7 @@
 
   <h3>Check out our top five hunts!</h3>
   <ol>
-    <%= Hunt.top_five.each do |hunt| %>
+    <% Hunt.top_five.each do |hunt| %>
       <li>
         <%= hunt.name %>
       </li>
