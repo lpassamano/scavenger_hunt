@@ -14,6 +14,7 @@
     - can only join pending hunts
     - when hunt becomes active the current_team of all team participants becomes the team's id
     - status of hunt automatically turns to active at start time and completed at end time
+5.9 REFACTOR!!!
 6. check off requirements in spec file
 7. write README.md
     - requires one AR scope level method (see the boat lab - https://github.com/lpassamano/model-class-methods-lab-v-000) --- I think this is done, but will need to check!
