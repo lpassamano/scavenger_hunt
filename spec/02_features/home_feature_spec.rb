@@ -53,12 +53,16 @@ describe 'Feature Test: Home', :type => :feature do
         login_as(@user, scope: :user)
       end
 
-      it "lists all hunts that are pending in the current user's home location" do
-
+      it "will have a link for the current user to set their location if it has not already been set" do
+        expect(page).to have_link("Add Your Location", edit_user_path(@user))
       end
 
-      it "will have a link for the current user to set their location if it has not already been set" do
-
+      it "lists all hunts that are pending in the current user's home location" do
+        location = Location.find(1)
+        @user.location = location
+        location.pending_hunts.each do |hunt|
+          expect(page).to have_link(hunt.name, hunt_path(hunt))
+        end
       end
     end
   end
