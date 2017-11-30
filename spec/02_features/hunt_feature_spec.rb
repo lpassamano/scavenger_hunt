@@ -151,6 +151,22 @@ describe 'Feature Test: Hunts', :type => :feature do
         login_as(@user, scope: :user)
       end
 
+      it 'allows a user to create a new hunt' do
+        #name, start_time, finish_time
+        #redirects to show page after to check if it was added
+      end
+
+      it 'contains a nested form to add location' do
+
+      end
+
+      it 'contains a nested form to add items' do
+
+      end
+
+      it 'displays errors if the hunt was not saved' do
+        # rerenders the add form
+      end
     end
   end
 
@@ -167,14 +183,21 @@ describe 'Feature Test: Hunts', :type => :feature do
         login_as(@user, scope: :user)
       end
 
+      it 'can only be edited by its owner' do
+
+      end
+
+      it 'start and finish time cannot be changed to the past' do
+
+      end
+
+      it 'successfully updates a hunt' do
+
+      end
+
+      it 'displays error if the hunt was not saved' do
+
+      end
     end
   end
 end
-
-
-# add/edit hunt form
-  # name
-  # location (add nested form for new or select from list)
-  # nested form for items
-  # start and end time
-  # can only be edited by its user
