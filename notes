@@ -1,4 +1,7 @@
-
+To do:
+- update seed data
+  - each hunt needs different start/finish times
+  - users need to be spread out over the different hunts
 
 4. controllers
     - requires nested resources w/ restful urls
