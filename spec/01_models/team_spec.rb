@@ -6,7 +6,7 @@ RSpec.describe Team, type: :model do
     @user1 = User.create(name: Faker::Internet.user_name, email: Faker::Internet.email, password: "password123")
     @user2 = User.create(name: Faker::Internet.user_name, email: Faker::Internet.email, password: "password123")
     @user3 = User.create(name: Faker::Internet.user_name, email: Faker::Internet.email, password: "password123")
-    @hunt = Hunt.create(location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), user: @user1, name: "Test Hunt")
+    @hunt = Hunt.create(location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), owner: @user1, name: "Test Hunt")
     @item = Item.create(hunt: @hunt)
   end
 
