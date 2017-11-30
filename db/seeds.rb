@@ -18,7 +18,7 @@ Location.create(city: "New York", state: "NY")
 
 10.times do
   Hunt.create(
-    user: User.first,
+    owner: User.first,
     location: Location.first,
     name: Faker::Zelda.location,
     start_time: DateTime.new(2018, 1, 1, 12, 00, 00),

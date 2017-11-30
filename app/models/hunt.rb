@@ -1,5 +1,5 @@
 class Hunt < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :owner, class_name: "User", foreign_key: "user_id"
   has_many :items
   has_many :teams
   belongs_to :location
