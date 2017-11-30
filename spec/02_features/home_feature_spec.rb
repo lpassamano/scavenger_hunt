@@ -74,9 +74,9 @@ describe 'Feature Test: Home', :type => :feature do
     context "not logged in" do
       it "has a link to sign in or sign up" do
         visit root_path
-        expect(page).to have_link("Sign In", new_user_session_path)
-        expect(page).to have_link("Sign Up", new_user_registration_path)
-        expect(page).to_not have_link("Home", root_path)
+        expect(page).to have_link("Sign In", href: new_user_session_path)
+        expect(page).to have_link("Sign Up", href: new_user_registration_path)
+        expect(page).to_not have_link("Home", href: root_path)
       end
     end
 
@@ -88,28 +88,28 @@ describe 'Feature Test: Home', :type => :feature do
 
       it "has link to browse all hunts" do
         visit root_path
-        expect(page).to have_link("Browse Hunts", hunts_path)
+        expect(page).to have_link("Browse Hunts", href: hunts_path)
       end
 
       it "has link to add a new hunt" do
         visit root_path
-        expect(page).to have_link("Add New Hunt", new_hunt_path)
+        expect(page).to have_link("Add New Hunt", href: new_hunt_path)
       end
 
       it "has a link to the home page" do
         visit root_path
-        expect(page).to have_link("Home", root_path)
+        expect(page).to have_link("Home", href: root_path)
       end
 
       it "tells the user who they are logged in as" do
         visit root_path
-        expect(page).to have_link("#{@user.name}", user_path(@user))
+        expect(page).to have_link("#{@user.name}", href: user_path(@user))
       end
 
       it "has log out link" do
         visit root_path
-        expect(page).to have_link("Sign Out", destroy_user_session_path)
-        expect(page).to_not have_link("Sign In", new_user_session_path)
+        expect(page).to have_link("Sign Out", href: destroy_user_session_path)
+        expect(page).to_not have_link("Sign In", href: new_user_session_path)
       end
     end
   end
