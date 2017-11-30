@@ -34,7 +34,7 @@ describe 'Feature Test: Hunts', :type => :feature do
       end
     end
 
-    context 'logged in as hunt user' do
+    context 'logged in as hunt owner' do
       before(:each) do
         @user = User.find(1)
         login_as(@user, scope: :user)
@@ -63,7 +63,17 @@ describe 'Feature Test: Hunts', :type => :feature do
       end
 
       context 'active hunt' do
+        it 'does not allow the user to edit or delete a hunt once it has started' do
+          # no edit options for anything
+        end
 
+        it 'has leaderboard listing teams by number of items found in descending order' do
+
+        end
+
+        it 'links to team show page on the team name' do
+
+        end
       end
 
       context 'completed hunt' do
@@ -73,6 +83,7 @@ describe 'Feature Test: Hunts', :type => :feature do
 
     context 'logged in as participant' do
       before(:each) do
+        #change this to different user
         @user = User.find(1)
         login_as(@user, scope: :user)
       end
@@ -100,27 +111,32 @@ describe 'Feature Test: Hunts', :type => :feature do
       end
 
       context 'active hunt' do
+        it 'has leaderboard listing teams by number of items found in descending order' do
 
+        end
+
+        it 'links to team show page on the team name' do
+
+        end
       end
 
       context 'completed hunt' do
+        #this page is the same if you are the hunt owner or participant
+        before(:each) do
+          @user = User.find(1)
+          login_as(@user, scope: :user)
+        end
 
+        it 'shows final tally of all teams' do
+
+        end
+
+        it 'has a link to each team show page' do
+
+        end
       end
     end
   end
-
-  # hunt show page
-
-    # while active:
-      ## has leaderboard listing teams by number of items found in descending order
-      ## link to team show page on the team name
-
-    # when completed:
-      ## shows final tally of all teams
-      ## link to team show page on the team name
-
-
-
 
   describe 'add new hunt form' do
     context 'not logged in' do
