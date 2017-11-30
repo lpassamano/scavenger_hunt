@@ -3,6 +3,7 @@ To do:
   - each hunt needs different start/finish times
   - users need to be spread out over the different hunts
 
+
 4. controllers
     - requires nested resources w/ restful urls
         - nested resource must provide a form that relates to parent resource
