@@ -55,7 +55,7 @@ describe 'Feature Test: Home', :type => :feature do
 
       it "will have a link for the current user to set their location if it has not already been set" do
         visit root_path
-        expect(page).to have_link("Add Your Location", edit_user_path(@user))
+        expect(page).to have_link("Add Your Location", href: edit_user_path(@user))
       end
 
       it "lists all hunts that are pending in the current user's home location" do
@@ -73,6 +73,7 @@ describe 'Feature Test: Home', :type => :feature do
   describe "Headers" do
     context "not logged in" do
       it "has a link to sign in or sign up" do
+        visit root_path
         expect(page).to have_link("Sign In", new_user_session_path)
         expect(page).to have_link("Sign Up", new_user_registration_path)
         expect(page).to_not have_link("Home", root_path)
@@ -86,23 +87,27 @@ describe 'Feature Test: Home', :type => :feature do
       end
 
       it "has link to browse all hunts" do
+        visit root_path
         expect(page).to have_link("Browse Hunts", hunts_path)
       end
 
       it "has link to add a new hunt" do
+        visit root_path
         expect(page).to have_link("Add New Hunt", new_hunt_path)
       end
 
       it "has a link to the home page" do
+        visit root_path
         expect(page).to have_link("Home", root_path)
       end
 
       it "tells the user who they are logged in as" do
+        visit root_path
         expect(page).to have_link("#{@user.name}", user_path(@user))
       end
 
       it "has log out link" do
-        #no login link
+        visit root_path
         expect(page).to have_link("Sign Out", destroy_user_session_path)
         expect(page).to_not have_link("Sign In", new_user_session_path)
       end
