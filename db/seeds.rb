@@ -16,7 +16,7 @@ end
 
 Location.create(city: "New York", state: "NY")
 
-3.times do
+10.times do
   Hunt.create(
     user: User.first,
     location: Location.first,

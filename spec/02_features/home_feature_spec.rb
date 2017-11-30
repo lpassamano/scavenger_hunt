@@ -117,11 +117,15 @@ describe 'Feature Test: Home', :type => :feature do
   describe "No Current User" do
     context "not logged in" do
       it "displays the top 5 most popular hunts" do
-
+        visit root_path
+        # determines popularity by most participants
+        expect(page).to have_selector('li', count: 4)
       end
 
       it "has a links to either sign in or sign up" do
-
+        visit root_path
+        expect(page).to have_link("Sign In", href: new_user_session_path)
+        expect(page).to have_link("Sign Up", href: new_user_registration_path)
       end
     end
   end
