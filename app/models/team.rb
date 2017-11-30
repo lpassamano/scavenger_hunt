@@ -11,4 +11,8 @@ class Team < ActiveRecord::Base
   def missing_items
     self.found_items.where(found: false)
   end
+
+  def participants_count
+    self.participants.count
+  end
 end

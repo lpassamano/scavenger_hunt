@@ -11,6 +11,7 @@ class Hunt < ActiveRecord::Base
   validates_datetime :finish_time, :after => :start_time
   validates_datetime :start_time, :after => DateTime.current
 
+  ## Attribute Setter Methods ##
   def status
     if DateTime.current < self.start_time
       "pending"
@@ -21,18 +22,25 @@ class Hunt < ActiveRecord::Base
     end
   end
 
+  ## Class Methods ##
   def self.all_pending
-    Hunt.where(status: "pending")
+    self.where(status: "pending")
   end
 
   def self.all_active
-    Hunt.where(status: "active")
+    self.where(status: "active")
   end
 
   def self.all_completed
-    Hunt.where(status: "completed")
+    self.where(status: "completed")
   end
 
+  def self.top_five
+    list = self.all.sort {|x, y| y.participants_count <=> x.participants_count}
+    list[0, 5]
+  end
+
+  ## Instance Methods ##
   def date
     self.start_time.strftime("%A, %B%e, %Y")
   end
@@ -42,6 +50,14 @@ class Hunt < ActiveRecord::Base
   end
 
   def upcoming?
-    DateTime.current >= (self.start_time.to_time - 48.hours).to_datetime 
+    DateTime.current >= (self.start_time.to_time - 48.hours).to_datetime
+  end
+
+  def participants_count
+    count = 0
+    self.teams.each do |team|
+      count += team.participants_count
+    end
+    count
   end
 end

@@ -1,7 +1,7 @@
 
 4. controllers
     - requires nested resources w/ restful urls
-        - nested resource must povide a form that relates to parent resource
+        - nested resource must provide a form that relates to parent resource
 5. views
     - requires a nested form w/ a custom attribute writer
     - authentication: standard login and outside service (fb)
