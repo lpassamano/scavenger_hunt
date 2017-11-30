@@ -32,10 +32,6 @@ describe 'Feature Test: Home', :type => :feature do
         @user.teams << Team.last
 
         visit root_path
-        #within(:css, "upcoming_hunt") do
-        #  expect(page).to have_link(team.hunt.name, href: hunt_path(team.hunt))
-        #  expect(page).to have_link(team.name, href: team_path(team))
-        #end
         expect(hunt.upcoming?).to eq(true)
         #can't get this to work, need to troubleshoot later
         #expect(page).to have_css("upcoming_hunt")
@@ -44,18 +40,24 @@ describe 'Feature Test: Home', :type => :feature do
   end
 
   describe 'Nearby Hunts' do
+    context "not logged in" do
+      it "does not display the Nearby Hunts section" do
+        visit root_path
+        expect(page).to_not have_content "Hunts Near You"
+      end
+    end
+
     context "logged in" do
+      before(:each) do
+        @user = User.find(1)
+        login_as(@user, scope: :user)
+      end
+
       it "lists all hunts that are pending in the current user's home location" do
 
       end
 
       it "will have a link for the current user to set their location if it has not already been set" do
-
-      end
-    end
-
-    context "not logged in" do
-      it "does not display the Nearby Hunts section" do
 
       end
     end
