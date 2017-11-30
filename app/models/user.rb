@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :team_participants
   has_many :teams, through: :team_participants
   belongs_to :current_team, class_name: "Team", required: false
+  belongs_to :location, required: false
 
   #delete this method if not used
   def team(hunt)

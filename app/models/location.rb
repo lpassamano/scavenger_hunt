@@ -1,5 +1,6 @@
 class Location < ActiveRecord::Base
   has_many :hunts
+  has_many :users 
 
   validates :city, presence: true
   validates :state, presence: true
