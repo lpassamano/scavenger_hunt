@@ -34,7 +34,7 @@ describe 'Feature Test: Home', :type => :feature do
         visit root_path
         expect(hunt.upcoming?).to eq(true)
         #can't get this to work, need to troubleshoot later
-        #expect(page).to have_css("upcoming_hunt")
+        #expect(page).to have_css("#upcoming_hunt", visible: false)
       end
     end
   end
