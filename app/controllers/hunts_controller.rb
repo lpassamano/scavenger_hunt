@@ -3,7 +3,7 @@ class HuntsController < ApplicationController
     if current_user
       @locations = Location.all
       if !params[:location].blank?
-        @hunts = Location.pending_hunts(params[:location])
+        @hunts = Hunt.pending_in(params[:location])
       else
         @hunts = Hunt.all_pending
       end

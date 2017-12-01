@@ -27,6 +27,10 @@ class Hunt < ActiveRecord::Base
     self.where(status: "pending").order(:start_time)
   end
 
+  def self.pending_in(location_id)
+    self.all_pending.where(location: location_id)
+  end
+
   def self.all_active
     self.where(status: "active")
   end
