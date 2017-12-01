@@ -7,7 +7,6 @@
   <ul>
     <% current_user.teams.each do |team| %>
       <% if team.hunt.status == "pending" %>
-      <!-- update this list so it displays by start date ascending -->
       <!-- add dates to hunt information -->
         <%= content_tag :li, class: "#{'upcoming_hunt' if team.hunt.upcoming?}" do %>
           <%= link_to team.hunt.name, hunt_path(team.hunt) %> | <%= link_to team.name, team_path(team) %>
