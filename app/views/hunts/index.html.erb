@@ -1,1 +1,9 @@
 <h2>Upcoming Hunts</h2>
+
+<ul>
+  <% Hunt.all_pending.each do |hunt| %>
+  <%= content_tag :li, class: "#{'upcoming_hunt' if hunt.upcoming?}" do %>
+    <%= link_to hunt.name, hunt_path(hunt) %> | <%= hunt.date %>
+  <% end %>
+  <% end %>
+</ul>
