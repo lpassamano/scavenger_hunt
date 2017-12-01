@@ -14,11 +14,16 @@ describe 'Feature Test: Hunts', :type => :feature do
       end
 
       it 'lists all pending hunts by start date in ascending order' do
-        
+        visit hunts_path
+        hunts = Hunt.all_pending.sort {|x, y| x.start_time <=> y.start_time}
+        expect(hunts == Hunt.all_pending).to eq(true)
       end
 
       it 'has a link to each hunts show page' do
-
+        visit hunts_path
+        Hunt.all_pending.each do |hunt|
+          expect(page).to have_link(hunt.name, href: hunt_path(hunt))
+        end
       end
 
       it 'has the ability to filter by location' do
