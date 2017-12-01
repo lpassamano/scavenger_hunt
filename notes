@@ -18,6 +18,7 @@
 5.6 integrate use of slugs instead of ids in the urls
 5.7 add descriptions to hunts???? see what the show page looks like once some styling is added.
 5.9 REFACTOR!!!
+5.9.1  go back and delete unused methods!  
 6. check off requirements in spec file
 7. write README.md
     - requires one AR scope level method (see the boat lab - https://github.com/lpassamano/model-class-methods-lab-v-000) --- I think this is done, but will need to check!
@@ -37,5 +38,5 @@ GEMS to research
 
 
 Ideas for future development:
-- JQUERY PROJECT - for filter by location in Hunts index view make the city list update once you select the state 
+- JQUERY PROJECT - for filter by location in Hunts index view make the city list update once you select the state
 - make items for hunt appear in order (ie the next one shows only after you find the first one)
