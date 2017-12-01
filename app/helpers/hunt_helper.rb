@@ -28,4 +28,12 @@ module HuntHelper
       link_to("Add Your Location", edit_user_path(user))
     end
   end
+
+  def display_top_five_hunts
+    html = []
+    Hunt.top_five.each do |hunt|
+      html << li_for_hunt(hunt, :with_date)
+    end
+    content_tag(:ol,html.join.html_safe)
+  end
 end
