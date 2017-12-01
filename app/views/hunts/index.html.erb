@@ -1,16 +1,19 @@
+<% if !params[:city].blank? %>
+  <% @hunts = Location.find_by(id: params[:city]).pending_hunts %>
+<% end %>
+
 <h2>Upcoming Hunts</h2>
 
 <div>
   <h3>Filter by Location:</h3>
   <%= form_tag("/hunts", method: "get") do %>
-    <%= select_tag "city", options_from_collection_for_select(Location.all, "id", "city"), include_blank: true, id: "filter_city" %>
-    <%= select_tag "state", options_for_select(Location.all_states), include_blank: true, id: "filter_state" %>
+    <%= select_tag "city", options_from_collection_for_select(Location.all, "id", "city_state"), include_blank: true %>
     <%= submit_tag "Filter" %>
   <% end %>
 </div>
 
 <ul>
-  <% Hunt.all_pending.each do |hunt| %>
+  <% @hunts.each do |hunt| %>
   <%= content_tag :li, class: "#{'upcoming_hunt' if hunt.upcoming?}" do %>
     <%= link_to hunt.name, hunt_path(hunt) %> | <%= hunt.date %>
   <% end %>

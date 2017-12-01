@@ -32,7 +32,6 @@ describe 'Feature Test: Hunts', :type => :feature do
         visit hunts_path
         #need to have test select the city and state and click button!
         select(location.city, from: "city").select_option
-        select(location.state, from: "state").select_option
         click_button("Filter")
 
         Hunt.all_pending.each do |hunt|
