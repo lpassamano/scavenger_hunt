@@ -29,11 +29,11 @@ module HuntHelper
     end
   end
 
-  def display_top_five_hunts
+  def display_hunts(hunts)
     html = []
-    Hunt.top_five.each do |hunt|
+    hunts.each do |hunt|
       html << li_for_hunt(hunt, :with_date)
     end
-    content_tag(:ol,html.join.html_safe)
+    content_tag(:ul,html.join.html_safe)
   end
 end

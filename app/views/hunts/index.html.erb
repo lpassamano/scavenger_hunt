@@ -8,8 +8,4 @@
   <% end %>
 </div>
 
-<ul>
-  <% @hunts.each do |hunt| %>
-    <%= li_for_hunt(hunt, :with_date) %>
-  <% end %>
-</ul>
+<%= display_hunts(@hunts) %>
