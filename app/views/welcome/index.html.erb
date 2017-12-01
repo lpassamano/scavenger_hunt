@@ -6,7 +6,7 @@
   <%= display_upcoming_hunts_for(current_user) %>
 
   <h2>Nearby Hunts</h2>
-  <%= display_hunts_near(current_user) %>
+  <%= display_nearby_hunts(@nearby_hunts) %>
 
 <% else %>
 

@@ -19,13 +19,11 @@ module HuntHelper
     content_tag(:ul, html.join.html_safe)
   end
 
-  def display_hunts_near(user)
-    if !!user.location
-      html = []
-      Hunt.pending_in(user.location).each {|hunt| html << li_for_hunt(hunt, :with_date)}
-      content_tag(:ul, html.join.html_safe)
+  def display_nearby_hunts(hunts)
+    if hunts.nil?
+      link_to("Add Your Location", edit_user_path(current_user))
     else
-      link_to("Add Your Location", edit_user_path(user))
+      display_hunts(hunts)
     end
   end
 
