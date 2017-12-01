@@ -42,7 +42,10 @@ class Hunt < ActiveRecord::Base
 
   ## Instance Methods ##
   def date
-    self.start_time.strftime("%A, %B%e, %Y")
+    # display as Sat, December 2 at 12pm
+    start = self.start_time
+    start_str = (start.strftime("%a, %B %-e at %-I:%M") + start.strftime("%p").downcase)
+    #self.start_time.strftime("%a, %B%e at %m:%M %p")
   end
 
   def pending?
