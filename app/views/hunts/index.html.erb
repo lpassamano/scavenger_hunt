@@ -1,13 +1,9 @@
-<% if !params[:city].blank? %>
-  <% @hunts = Location.find_by(id: params[:city]).pending_hunts %>
-<% end %>
-
 <h2>Upcoming Hunts</h2>
 
 <div>
   <h3>Filter by Location:</h3>
   <%= form_tag("/hunts", method: "get") do %>
-    <%= select_tag "city", options_from_collection_for_select(Location.all, "id", "city_state"), include_blank: true %>
+    <%= select_tag "location", options_from_collection_for_select(@locations, "id", "city_state"), include_blank: true %>
     <%= submit_tag "Filter" %>
   <% end %>
 </div>

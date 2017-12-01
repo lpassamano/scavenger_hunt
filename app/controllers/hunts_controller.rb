@@ -1,9 +1,12 @@
 class HuntsController < ApplicationController
-  helper_method :params
-
   def index
     if current_user
-      @hunts = Hunt.all_pending
+      @locations = Location.all
+      if !params[:location].blank?
+        @hunts = Location.pending_hunts(params[:location])
+      else
+        @hunts = Hunt.all_pending
+      end
       render :index
     else
       redirect_to root_path

@@ -27,11 +27,9 @@ describe 'Feature Test: Hunts', :type => :feature do
       end
 
       it 'has the ability to filter by location' do
-        ## url = /hunts/location-slug
         location = Location.find_by(city: "New York")
         visit hunts_path
-        #need to have test select the city and state and click button!
-        select(location.city, from: "city").select_option
+        select(location.city_state, from: "location").select_option
         click_button("Filter")
 
         Hunt.all_pending.each do |hunt|
