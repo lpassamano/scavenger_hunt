@@ -14,7 +14,7 @@ describe 'Feature Test: Hunts', :type => :feature do
       end
 
       it 'lists all pending hunts by start date in ascending order' do
-
+        
       end
 
       it 'has a link to each hunts show page' do
