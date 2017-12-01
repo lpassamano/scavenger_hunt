@@ -3,17 +3,10 @@
 <% if current_user %>
 
   <h2>Your Upcoming Hunts</h2>
-
-  <ul>
-    <% current_user.teams.each do |team| %>
-      <% if team.hunt.status == "pending" %>
-        <%= li_for_hunt(team.hunt, team, :with_date_and_team) %>
-      <% end %>
-    <% end %>
-  </ul>
+  <%= display_upcoming_hunts_for(current_user) %>
 
   <h2>Nearby Hunts</h2>
-  <%= display_nearby_hunts(current_user) %>
+  <%= display_hunts_near(current_user) %>
 
 <% else %>
 
