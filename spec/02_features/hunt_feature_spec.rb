@@ -46,13 +46,17 @@ describe 'Feature Test: Hunts', :type => :feature do
   describe 'show page' do
     context 'not logged in' do
       it 'redirects to the home page' do
-
+        hunt = Hunt.find(1)
+        visit hunt_path(hunt)
+        expect(page.current_path).to eq(root_path)
       end
     end
 
     context 'logged in as hunt owner' do
       before(:each) do
         @user = User.find(1)
+        @owner_hunt = Hunt.where(owner: @user).first
+        @participant_hunt = @user.upcoming_hunts.find {|hunt| hunt.owner != @user}
         login_as(@user, scope: :user)
       end
 

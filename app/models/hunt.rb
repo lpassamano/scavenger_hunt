@@ -2,6 +2,7 @@ class Hunt < ActiveRecord::Base
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
   has_many :items
   has_many :teams
+  has_many :participants, through: :teams
   belongs_to :location
 
   validates :name, presence: true
@@ -27,8 +28,12 @@ class Hunt < ActiveRecord::Base
     self.where(status: "pending").order(:start_time)
   end
 
-  def self.pending_in(location_id)
-    self.all_pending.where(location: location_id)
+  def self.pending_in(location)
+    self.all_pending.where(location: location)
+  end
+
+  def self.upcoming_for(user)
+    self.all_pending.joins(:participants).where(user: user)
   end
 
   def self.all_active
@@ -40,7 +45,7 @@ class Hunt < ActiveRecord::Base
   end
 
   def self.top_five
-    list = self.all.sort {|x, y| y.participants_count <=> x.participants_count}
+    list = self.all.sort {|x, y| y.participants.count <=> x.participants.count}
     list[0, 5]
   end
 
@@ -58,13 +63,5 @@ class Hunt < ActiveRecord::Base
 
   def upcoming?
     DateTime.current >= (self.start_time.to_time - 48.hours).to_datetime
-  end
-
-  def participants_count
-    count = 0
-    self.teams.each do |team|
-      count += team.participants_count
-    end
-    count
   end
 end
