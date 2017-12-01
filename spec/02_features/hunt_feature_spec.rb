@@ -28,7 +28,16 @@ describe 'Feature Test: Hunts', :type => :feature do
 
       it 'has the ability to filter by location' do
         ## url = /hunts/location-slug
+        location = Location.find_by(city: "New York")
+        visit hunts_path(location)
 
+        Hunt.all_pending.each do |hunt|
+          if hunt.location == location
+            expect(page).to have_link(hunt.name, href: hunt_path(hunt))
+          else
+            expect(page).to_not have_link(hunt.name, href: hunt_path(hunt))
+          end
+        end
       end
     end
   end
