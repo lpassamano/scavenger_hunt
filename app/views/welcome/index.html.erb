@@ -17,11 +17,7 @@
   <% if !!current_user.location %>
     <ul>
       <% current_user.location.pending_hunts.each do |hunt| %>
-        <li>
-          <%= content_tag :li, class: "#{'upcoming_hunt' if hunt.upcoming?}" do %>
-            <%= link_to hunt.name, hunt_path(hunt) %>
-          <% end %>
-        </li>
+        <%= li_for_hunt(hunt, :with_date) %>
       <% end %>
     </ul>
   <% else %>
@@ -33,9 +29,7 @@
   <h3>Check out our top five hunts!</h3>
   <ol>
     <% Hunt.top_five.each do |hunt| %>
-      <li>
-        <%= hunt.name %>
-      </li>
+      <%= li_for_hunt(hunt, :with_date) %>
     <% end %>
   </ol>
 
