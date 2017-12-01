@@ -13,16 +13,7 @@
   </ul>
 
   <h2>Nearby Hunts</h2>
-
-  <% if !!current_user.location %>
-    <ul>
-      <% current_user.location.pending_hunts.each do |hunt| %>
-        <%= li_for_hunt(hunt, :with_date) %>
-      <% end %>
-    </ul>
-  <% else %>
-    <%= link_to "Add Your Location", edit_user_path(current_user) %>
-  <% end %>
+  <%= display_nearby_hunts(current_user) %>
 
 <% else %>
 
