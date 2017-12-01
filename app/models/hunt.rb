@@ -24,7 +24,7 @@ class Hunt < ActiveRecord::Base
 
   ## Class Methods ##
   def self.all_pending
-    self.where(status: "pending")
+    self.where(status: "pending").order(:start_time)
   end
 
   def self.all_active
