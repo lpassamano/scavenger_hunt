@@ -19,7 +19,7 @@ Location.create(city: "Dallas", state: "TX")
   finish = (start + 2.hours).to_datetime
 
   Hunt.create(
-    owner_id: user,
+    user_id: user,
     location_id: location,
     name: Faker::Zelda.location,
     start_time: start,
@@ -50,9 +50,7 @@ end
 
 ## Assign Users to Teams ##
 max = Team.all.count
-team_id = rand(1..max)
 User.all.each do |user|
-  user.team_participants << TeamParticipant.new(team_id: team_id)
-  user.current_team_id = team_id
+  user.team_participants << TeamParticipant.new(team_id: rand(1..max))
   user.save
 end
