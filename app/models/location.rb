@@ -1,6 +1,6 @@
 class Location < ActiveRecord::Base
   has_many :hunts
-  has_many :users 
+  has_many :users
 
   validates :city, presence: true
   validates :state, presence: true
@@ -8,5 +8,9 @@ class Location < ActiveRecord::Base
 
   def pending_hunts
     self.hunts.where(status: "pending")
+  end
+
+  def self.all_states
+    (Location.all.collect {|l| l.state}).uniq
   end
 end

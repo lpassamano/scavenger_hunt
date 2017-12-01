@@ -1,5 +1,14 @@
 <h2>Upcoming Hunts</h2>
 
+<div>
+  <h3>Filter by Location:</h3>
+  <%= form_tag("/hunts", method: "get") do %>
+    <%= select_tag "City", options_from_collection_for_select(Location.all, "id", "city"), include_blank: true %>
+    <%= select_tag "State", options_for_select(Location.all_states), include_blank: true %>
+    <%= submit_tag "Filter" %>
+  <% end %>
+</div>
+
 <ul>
   <% Hunt.all_pending.each do |hunt| %>
   <%= content_tag :li, class: "#{'upcoming_hunt' if hunt.upcoming?}" do %>
