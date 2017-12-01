@@ -3,8 +3,8 @@
 <div>
   <h3>Filter by Location:</h3>
   <%= form_tag("/hunts", method: "get") do %>
-    <%= select_tag "City", options_from_collection_for_select(Location.all, "id", "city"), include_blank: true %>
-    <%= select_tag "State", options_for_select(Location.all_states), include_blank: true %>
+    <%= select_tag "city", options_from_collection_for_select(Location.all, "id", "city"), include_blank: true, id: "filter_city" %>
+    <%= select_tag "state", options_for_select(Location.all_states), include_blank: true, id: "filter_state" %>
     <%= submit_tag "Filter" %>
   <% end %>
 </div>

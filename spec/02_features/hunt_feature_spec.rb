@@ -31,8 +31,8 @@ describe 'Feature Test: Hunts', :type => :feature do
         location = Location.find_by(city: "New York")
         visit hunts_path
         #need to have test select the city and state and click button!
-        find("#filter_hunts_city").find(:xpath, location.city).select_option
-        find("#filter_hunts_state").find(:xpath, location.state).select_option
+        select(location.city, from: "city").select_option
+        select(location.state, from: "state").select_option
         click_button("Filter")
 
         Hunt.all_pending.each do |hunt|
