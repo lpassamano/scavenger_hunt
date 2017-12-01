@@ -32,9 +32,7 @@ describe 'Feature Test: Home', :type => :feature do
         @user.teams << Team.last
 
         visit root_path
-        expect(hunt.upcoming?).to eq(true)
-        #can't get this to work, need to troubleshoot later
-        #expect(page).to have_css("#upcoming_hunt", visible: false)
+        page.has_css?("li#upcoming_hunt")
       end
     end
   end
