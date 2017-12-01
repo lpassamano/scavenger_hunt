@@ -1,11 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
+## Create Users ##
 25.times do
   User.create(
     name: Faker::Internet.user_name,
@@ -15,48 +8,51 @@
 end
 
 Location.create(city: "New York", state: "NY")
+Location.create(city: "Los Angeles", state: "CA")
+Location.create(city: "Dallas", state: "TX")
 
+## Create Hunts ##
 10.times do
+  user = rand(1..25)
+  location = rand(1..3)
+  start = (DateTime.current + rand(1..365).days).to_datetime
+  finish = (start + 2.hours).to_datetime
+
   Hunt.create(
-    owner: User.first,
-    location: Location.first,
+    owner_id: user,
+    location_id: location,
     name: Faker::Zelda.location,
-    start_time: DateTime.new(2018, 1, 1, 12, 00, 00),
-    finish_time: DateTime.new(2018, 1, 1, 15, 00, 00),
-    status: "pending"
+    start_time: start,
+    finish_time: finish
   )
 end
 
-15.times do
-  Item.create(
-    name: Faker::Cat.breed,
-    hunt: Hunt.first
-  )
-end
+## Add Items to Hunts ##
+## Add Teams to Hunts ##
+## Add FoundItems for Item/Team ##
+Hunt.all.each do |hunt|
+  10.times do
+    Item.create(
+      name: Faker::Zelda.item,
+      hunt: hunt
+    )
+  end
 
-5.times do
-  Team.create(
-    hunt: Hunt.first
-  )
+  5.times do
+    team = Team.create(hunt: hunt)
 
-  team = Team.last
-  item_id = 1
-
-  15.times do
-    team.found_items << FoundItem.new(item_id: item_id)
-    team.save
-    item_id += 1
+    hunt.items.each do |item|
+      item.found_items << FoundItem.new(team: team)
+      item.save
+    end
   end
 end
 
-team_id = 1
+## Assign Users to Teams ##
+max = Team.all.count
+team_id = rand(1..max)
 User.all.each do |user|
   user.team_participants << TeamParticipant.new(team_id: team_id)
   user.current_team_id = team_id
   user.save
-  if team_id == 5
-    team_id = 1
-  else
-    team_id += 1
-  end
 end
