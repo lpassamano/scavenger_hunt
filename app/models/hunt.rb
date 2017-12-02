@@ -12,6 +12,8 @@ class Hunt < ActiveRecord::Base
   validates_datetime :finish_time, :after => :start_time
   validates_datetime :start_time, :after => DateTime.current
 
+  scope :pending, -> { where(status: "pending")}
+
   ## Attribute Setter Methods ##
   def status
     if DateTime.current < self.start_time
@@ -24,6 +26,7 @@ class Hunt < ActiveRecord::Base
   end
 
   ## Class Methods ##
+  #change to scopes for all http://guides.rubyonrails.org/active_record_querying.html#scopes
   def self.all_pending
     self.where(status: "pending").order(:start_time)
   end
@@ -33,7 +36,16 @@ class Hunt < ActiveRecord::Base
   end
 
   def self.upcoming_for(user)
-    self.all_pending.joins(:participants).where(user: user)
+    #see if this can happen 
+
+    #SELECT * FROM hunts
+    #  JOIN teams ON teams.hunt_id = hunts.id
+    #  JOIN team_participants ON team_participants.team_id = team.id
+    #  JOIN users ON users.id = team_participants.user_id
+    #WHERE
+    #  hunt.status = "pending"
+
+    self.joins(teams: {team_participants: :user}).where(user: {user_id: user.id}, hunt: {status: "pending"})
   end
 
   def self.all_active

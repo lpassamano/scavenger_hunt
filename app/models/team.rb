@@ -1,9 +1,11 @@
 class Team < ActiveRecord::Base
   has_many :team_participants
-  has_many :participants, through: :team_participants, class_name: 'User', foreign_key: 'user_id'
+  has_many :participants, through: :team_participants, source: :user
   belongs_to :hunt
   delegate :status, to: :hunt
   has_many :found_items
+
+  scope :pending, -> { where()}
 
   def name
     read_attribute(:name) || "Team #{self.id}"

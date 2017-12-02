@@ -9,14 +9,14 @@ RSpec.describe User, type: :model do
   end
 
   it 'has many hunts' do
-    @user.hunts << @hunt1
-    @user.hunts << @hunt2
-    @user.hunts << @hunt3
-    expect(@user.hunts.count).to eq(3)
+    @user.owned_hunts << @hunt1
+    @user.owned_hunts << @hunt2
+    @user.owned_hunts << @hunt3
+    expect(@user.owned_hunts.count).to eq(3)
   end
 
   it 'has many items' do
-    @user.hunts << @hunt1
+    @user.owned_hunts << @hunt1
     @hunt1.items << Item.new(name: "Cat")
     expect(@user.items.count).to eq(1)
   end

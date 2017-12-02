@@ -1,4 +1,5 @@
 class HuntsController < ApplicationController
+  # do a before each check!
   def index
     if current_user
       @locations = Location.all
@@ -14,5 +15,11 @@ class HuntsController < ApplicationController
   end
 
   def show
+    if current_user
+      @hunt = Hunt.find(params[:id]) 
+      render :show
+    else
+      redirect_to root_path
+    end
   end
 end
