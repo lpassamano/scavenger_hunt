@@ -15,7 +15,7 @@ Location.create(city: "Dallas", state: "TX")
 10.times do
   user = rand(1..25)
   location = rand(1..3)
-  start = (DateTime.current + rand(1..365).days).to_datetime
+  start = (DateTime.current + rand(0..30).days).to_datetime
   finish = (start + 2.hours).to_datetime
 
   Hunt.create(

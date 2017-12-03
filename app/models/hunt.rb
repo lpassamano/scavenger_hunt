@@ -12,31 +12,44 @@ class Hunt < ActiveRecord::Base
   validates_datetime :finish_time, :after => :start_time
   validates_datetime :start_time, :after => DateTime.current
 
-  scope :pending, -> { where(status: "pending")}
-
   ## Attribute Setter Methods ##
   def status
     if DateTime.current < self.start_time
-      "pending"
+      self.status = "pending"
     elsif DateTime.current >= self.start_time && DateTime.current <= self.finish_time
-      "active"
+      self.status = "active"
     elsif DateTime.current > self.finish_time
-      "completed"
+      self.status = "completed"
     end
   end
 
   ## Class Methods ##
-  #change to scopes for all http://guides.rubyonrails.org/active_record_querying.html#scopes
-  def self.all_pending
-    self.where(status: "pending").order(:start_time)
+  def self.pending
+    self.update_status
+    self.where(status: "pending").sort{|x, y| x.start_time <=> y.start_time}
+  end
+
+  def self.active
+    self.update_status
+    self.where(status: "active")
+  end
+
+  def self.completed
+    self.update_status
+    self.where(status: "completed")
+  end
+
+  def self.update_status
+    self.all.each {|hunt| hunt.status}
   end
 
   def self.pending_in(location)
-    self.all_pending.where(location: location)
+    self.update_status
+    self.pending.where(location: location)
   end
 
   def self.upcoming_for(user)
-    #see if this can happen 
+    #see if this can happen
 
     #SELECT * FROM hunts
     #  JOIN teams ON teams.hunt_id = hunts.id
@@ -45,15 +58,7 @@ class Hunt < ActiveRecord::Base
     #WHERE
     #  hunt.status = "pending"
 
-    self.joins(teams: {team_participants: :user}).where(user: {user_id: user.id}, hunt: {status: "pending"})
-  end
-
-  def self.all_active
-    self.where(status: "active")
-  end
-
-  def self.all_completed
-    self.where(status: "completed")
+    #self.joins(teams: {team_participants: :user}).where(user: {user_id: user.id}, hunt: {status: "pending"})
   end
 
   def self.top_five
@@ -75,5 +80,9 @@ class Hunt < ActiveRecord::Base
 
   def upcoming?
     DateTime.current >= (self.start_time.to_time - 48.hours).to_datetime
+  end
+
+  def active?
+    self.status == "active"
   end
 end

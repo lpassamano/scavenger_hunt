@@ -1,8 +1,14 @@
 <h1><%= @hunt.name %></h1>
 
 <% if current_user == @hunt.owner %>
-  <%= link_to "Edit Hunt", edit_hunt_path(@hunt) %> |
-  <%= button_to "Delete Hunt", hunt_path(@hunt), :method => "delete", :class => "destroy" %>
+  <% if @hunt.pending? %>
+    <%= link_to "Edit Hunt", edit_hunt_path(@hunt) %> |
+    <%= button_to "Delete Hunt", hunt_path(@hunt), :method => "delete", :class => "destroy" %>
+  <% elsif @hunt.active? %>
+    <p>
+      <em>Hunt cannot be edited or deleted while it is active.</em>
+    </p>
+  <% end %>
 <% end %>
 
 <ul>
@@ -17,7 +23,7 @@
 
 <% if current_user == @hunt.owner %>
   <h3>Items:</h3>
-  
+
   <ol>
     <% @hunt.items.each do |item| %>
       <li>

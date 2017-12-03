@@ -6,7 +6,7 @@ class HuntsController < ApplicationController
       if !params[:location].blank?
         @hunts = Hunt.pending_in(params[:location])
       else
-        @hunts = Hunt.all_pending
+        @hunts = Hunt.pending
       end
       render :index
     else
@@ -16,7 +16,7 @@ class HuntsController < ApplicationController
 
   def show
     if current_user
-      @hunt = Hunt.find(params[:id]) 
+      @hunt = Hunt.find(params[:id])
       render :show
     else
       redirect_to root_path

@@ -15,13 +15,13 @@ describe 'Feature Test: Hunts', :type => :feature do
 
       it 'lists all pending hunts by start date in ascending order' do
         visit hunts_path
-        hunts = Hunt.all_pending.sort {|x, y| x.start_time <=> y.start_time}
-        expect(hunts == Hunt.all_pending).to eq(true)
+        hunts = Hunt.pending.sort {|x, y| x.start_time <=> y.start_time}
+        expect(hunts == Hunt.pending).to eq(true)
       end
 
       it 'has a link to each hunts show page' do
         visit hunts_path
-        Hunt.all_pending.each do |hunt|
+        Hunt.pending.each do |hunt|
           expect(page).to have_link(hunt.name, href: hunt_path(hunt))
         end
       end
@@ -32,7 +32,7 @@ describe 'Feature Test: Hunts', :type => :feature do
         select(location.city_state, from: "location").select_option
         click_button("Filter")
 
-        Hunt.all_pending.each do |hunt|
+        Hunt.pending.each do |hunt|
           if hunt.location == location
             expect(page).to have_link(hunt.name, href: hunt_path(hunt))
           else
@@ -54,7 +54,7 @@ describe 'Feature Test: Hunts', :type => :feature do
 
     context 'logged in as hunt owner' do
       before(:each) do
-        @owner_hunt = Hunt.first
+        @owner_hunt = Hunt.pending.last
         @user = @owner_hunt.owner
         @participant_hunt = @user.upcoming_participating_hunts.find {|hunt| hunt.owner != @user}
         login_as(@user, scope: :user)
@@ -105,16 +105,34 @@ describe 'Feature Test: Hunts', :type => :feature do
         end
       end
 
-      context 'active hunt' do
+      context 'active hunt -- owner page' do
         before(:each) do
-          @owner_hunt.start_time = DateTime.new(2017, 12, 3, 12, 00, 00)
-          @participant_hunt.start_time = DateTime.new(2017.12, 3, 12, 00, 00)
+          @active_hunt = Hunt.active.first
+          @user = @active_owner_hunt.owner
+          login_as(@user, scope: :user)
         end
 
         it 'does not allow the owner to edit or delete a hunt once it has started' do
-          # no edit options for anything
-          visit hunt_path(@owner_hunt)
+          visit hunt_path(@active_hunt)
           expect(page).to have_content("Hunt cannot be edited or deleted while it is active")
+        end
+
+        it 'has leaderboard listing teams by number of items found in descending order' do
+
+        end
+
+        it 'links to team show page on the team name' do
+
+        end
+
+        it 'does not have edit/delete item options' do
+
+        end
+      end
+
+      context 'active hunt -- participant page' do
+        before(:each) do
+
         end
 
         it 'has leaderboard listing teams by number of items found in descending order' do
