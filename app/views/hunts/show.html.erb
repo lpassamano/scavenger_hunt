@@ -14,3 +14,16 @@
 </ul>
 
 <%= link_to "Make New Team", new_hunt_team_path(@hunt) %>
+
+<% if current_user == @hunt.owner %>
+  <h3>Items:</h3>
+  
+  <ol>
+    <% @hunt.items.each do |item| %>
+      <li>
+        <%= item.name %><br />
+        <%= link_to "Edit Item", edit_hunt_item_path(@hunt, item) %> | <%= button_to "Remove Item", hunt_item_path(@hunt, item), :method => "delete", :class => "destroy" %>
+      </li>
+    <% end %>
+  </ol>
+<% end %>

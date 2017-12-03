@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   #make sure to define root route!!
   resources :hunts do
     resources :teams, only: [:show, :new, :create, :edit, :update]
+    resources :items, only: [:new, :create, :edit, :update, :destroy]
   end
 
   resources :users, only: [:edit, :update]
