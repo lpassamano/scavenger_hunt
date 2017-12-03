@@ -56,7 +56,6 @@ describe 'Feature Test: Hunts', :type => :feature do
       before(:each) do
         @owner_hunt = Hunt.pending.first
         @user = @owner_hunt.owner
-        @participant_hunt = @user.upcoming_participating_hunts.find {|hunt| hunt.owner != @user}
         login_as(@user, scope: :user)
       end
 
@@ -64,34 +63,28 @@ describe 'Feature Test: Hunts', :type => :feature do
         it 'has edit link only for its user' do
           visit hunt_path(@owner_hunt)
           expect(page).to have_link("Edit Hunt", href: edit_hunt_path(@owner_hunt))
-
-          visit hunt_path(@participant_hunt)
-          expect(page).to_not have_link("Edit Hunt", href: edit_hunt_path(@participant_hunt))
         end
 
-        it 'has a delete button only for its user' do
+        it 'has a delete button' do
           visit hunt_path(@owner_hunt)
           expect(page).to have_button("Delete Hunt")
-
-          visit hunt_path(@participant_hunt)
-          expect(page).to_not have_button("Delete Hunt")
         end
 
         it 'lists all teams participating in the hunt with number of team members and a link to join the team' do
-          visit hunt_path(@participant_hunt)
+          visit hunt_path(@owner_hunt)
 
-          @participant_hunt.teams.each do |team|
+          @owner_hunt.teams.each do |team|
             expect(page).to have_content(team.name)
             expect(page).to have_button("Join Team")
           end
         end
 
         it 'has link to create a new team' do
-          visit hunt_path(@participant_hunt)
-          expect(page).to have_link("Make New Team", href: new_hunt_team_path(@participant_hunt))
+          visit hunt_path(@owner_hunt)
+          expect(page).to have_link("Make New Team", href: new_hunt_team_path(@owner_hunt))
         end
 
-        it 'lists all items with links to edit and remove item for owner only' do
+        it 'lists all items with links to edit and remove item' do
           visit hunt_path(@owner_hunt)
 
           @owner_hunt.items.each do |item|
@@ -99,13 +92,10 @@ describe 'Feature Test: Hunts', :type => :feature do
             expect(page).to have_link("Edit Item", href: edit_hunt_item_path(@owner_hunt, item))
             expect(page).to have_button("Remove Item")
           end
-
-          visit hunt_path(@participant_hunt)
-          expect(page).to_not have_content(@participant_hunt.items.first.name)
         end
       end
 
-      context 'active hunt -- owner page' do
+      context 'active hunt' do
         before(:each) do
           @active_hunt = Hunt.active.first
           @user = @active_hunt.owner
@@ -141,61 +131,87 @@ describe 'Feature Test: Hunts', :type => :feature do
         end
       end
 
-      context 'active hunt -- participant page' do
-        before(:each) do
-
-        end
-
-        it 'has leaderboard listing teams by number of items found in descending order' do
-
-        end
-
-        it 'links to team show page on the team name' do
-
-        end
-      end
-
       context 'completed hunt' do
+        #this page is the same if you are the hunt owner or participant
+        before(:each) do
+          @user = User.find(1)
+          login_as(@user, scope: :user)
+        end
 
+        it 'shows final tally of all teams' do
+
+        end
+
+        it 'has a link to each team show page' do
+
+        end
+
+        it 'does not have links to edit/delete the hunt or items' do
+          
+        end
       end
     end
 
     context 'logged in as participant' do
       before(:each) do
-        #change this to different user
-        @user = User.find(1)
+        @user = @owner_hunt.owner
+        @participant_hunt = @user.upcoming_participating_hunts.find {|hunt| hunt.owner != @user}
         login_as(@user, scope: :user)
       end
 
       context 'pending hunt' do
         it 'has no link to edit hunt' do
-
+          visit hunt_path(@participant_hunt)
+          expect(page).to_not have_link("Edit Hunt", href: edit_hunt_path(@participant_hunt))
         end
 
         it 'has no delete button' do
-
+          visit hunt_path(@participant_hunt)
+          expect(page).to_not have_button("Delete Hunt")
         end
 
         it 'lists all teams participating in the hunt with number of team members and link to join the team' do
+          visit hunt_path(@participant_hunt)
 
+          @participant_hunt.teams.each do |team|
+            expect(page).to have_content(team.name)
+            expect(page).to have_button("Join Team")
+          end
         end
 
         it 'has a link to create a new team' do
-
+          visit hunt_path(@participant_hunt)
+          expect(page).to have_link("Make New Team", href: new_hunt_team_path(@participant_hunt))
         end
 
         it 'does not list the items for the hunt' do
-
+          visit hunt_path(@participant_hunt)
+          expect(page).to_not have_content(@participant_hunt.items.first.name)
         end
       end
 
       context 'active hunt' do
-        it 'has leaderboard listing teams by number of items found in descending order' do
-
+        before(:each) do
+          @active_hunt = Hunt.active.first
+          @participant = @active_hunt.teams.first.participants.find {|user| user != @active_hunt.owner}
+          login_as(@participant, scope: :user)
         end
 
-        it 'links to team show page on the team name' do
+        it 'has leaderboard listing teams by number of items found in descending order' do
+          visit hunt_path(@active_hunt)
+          expect(page).to have_content("Leaderboard")
 
+          teams = @active_hunt.teams.sort {|x, y| y.found_items.count <=> x.found_items.count}
+          expect(teams == @active_hunt.leaderboard).to eq(true)
+
+          @active_hunt.teams.each do |team|
+            expect(page).to have_link(team.name, href: hunt_team_path(@active_hunt, team))
+            expect(page).to have_content(team.found_items.count)
+        end
+
+        it 'alerts the user that the hunt is active and that they can participate via team show page' do
+          visit hunt_path(@active_hunt)
+          expect(page).to have_link("Join your team and start finding items!", href: hunt_team_path(@active_hunt, @participant.current_team))
         end
       end
 
