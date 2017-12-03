@@ -17,8 +17,18 @@ class Hunt < ActiveRecord::Base
     if DateTime.current < self.start_time
       self.status = "pending"
     elsif DateTime.current >= self.start_time && DateTime.current <= self.finish_time
+      self.teams.each do |team|
+        team.participants.each do |participant|
+          participant.current_team = team
+        end
+      end
       self.status = "active"
     elsif DateTime.current > self.finish_time
+      self.teams.each do |team|
+        team.participants.each do |participant|
+          participant.current_team = nil
+        end
+      end
       self.status = "completed"
     end
   end
