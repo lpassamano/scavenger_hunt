@@ -27,6 +27,20 @@ Location.create(city: "Dallas", state: "TX")
   )
 end
 
+## Make one Hunt Active ##
+h = Hunt.find(1)
+h.start_time = (DateTime.current + 1.seconds)
+h.finish_time = (DateTime.current + 1.years)
+h.name = "Active Hunt"
+h.save
+
+## Make one Hunt Completed ##
+h = Hunt.find(2)
+h.start_time = (DateTime.current + 1.seconds)
+h.finish_time = (DateTime.current + 2.seconds)
+h.name = "Completed Hunt"
+h.save
+
 ## Add Items to Hunts ##
 ## Add Teams to Hunts ##
 ## Add FoundItems for Item/Team ##

@@ -10,7 +10,7 @@ class Hunt < ActiveRecord::Base
   validates :start_time, presence: true
   validates :finish_time, presence: true
   validates_datetime :finish_time, :after => :start_time
-  validates_datetime :start_time, :after => DateTime.current
+  validates_datetime :start_time, :after => DateTime.current, on: :create
 
   ## Attribute Setter Methods ##
   def status
@@ -40,7 +40,10 @@ class Hunt < ActiveRecord::Base
   end
 
   def self.update_status
-    self.all.each {|hunt| hunt.status}
+    self.all.each do |hunt|
+      hunt.status
+      hunt.save
+    end 
   end
 
   def self.pending_in(location)
