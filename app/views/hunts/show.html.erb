@@ -1,4 +1,4 @@
-<h2><%= @hunt.name %></h2>
+<h1><%= @hunt.name %></h1>
 
 <% if current_user == @hunt.owner %>
   <%= link_to "Edit Hunt", edit_hunt_path(@hunt) %> |

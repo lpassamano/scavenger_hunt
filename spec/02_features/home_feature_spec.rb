@@ -15,11 +15,8 @@ describe 'Feature Test: Home', :type => :feature do
 
       it "displays all of the current user's pending hunts with link to hunt's show page and their team name" do
         visit root_path
-        @user.teams.each do |team|
-          if team.hunt.status == "pending"
-            expect(page).to have_link(team.hunt.name, href: hunt_path(team.hunt))
-            expect(page).to have_link(team.name, href: team_path(team))
-          end
+        @user.all_upcoming_hunts.each do |hunt|
+          expect(page).to have_link(hunt.name, href: hunt_path(hunt))
         end
       end
 

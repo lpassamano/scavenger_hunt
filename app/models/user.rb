@@ -19,10 +19,23 @@ class User < ApplicationRecord
     self.teams.where(hunt_id: hunt.id).first
   end
 
-  def upcoming_hunts
+  def all_upcoming_hunts
+    hunts = (upcoming_participating_hunts << upcoming_owned_hunts).flatten
+    hunts.sort! {|y, z| y.start_time <=> z.start_time }
+  end
+
+  def upcoming_participating_hunts
     self.teams.collect do |team|
       if team.status == "pending"
         team.hunt
+      end
+    end
+  end
+
+  def upcoming_owned_hunts
+    self.owned_hunts do |hunt|
+      if hunt.status == "pending"
+        hunt
       end
     end
   end

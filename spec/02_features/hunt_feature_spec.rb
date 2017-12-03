@@ -56,7 +56,7 @@ describe 'Feature Test: Hunts', :type => :feature do
       before(:each) do
         @user = User.find(1)
         @owner_hunt = Hunt.where(owner: @user).first
-        @participant_hunt = @user.upcoming_hunts.find {|hunt| hunt.owner != @user}
+        @participant_hunt = @user.upcoming_participating_hunts.find {|hunt| hunt.owner != @user}
         login_as(@user, scope: :user)
       end
 

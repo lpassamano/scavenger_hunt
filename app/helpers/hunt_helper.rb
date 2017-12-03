@@ -8,12 +8,17 @@ module HuntHelper
   end
 
   def with_date_and_team(hunt, team)
-    with_date(hunt) + tag(:br) + link_to("#{team.name}", team_path(team))
+    if current_user.teams.include?(team)
+      user_team = link_to("#{team.name}", team_path(team))
+    else
+      user_team = ""
+    end
+    with_date(hunt) + tag(:br) + user_team
   end
 
   def display_upcoming_hunts_for(user)
     html = []
-    user.upcoming_hunts.each do |hunt|
+    user.all_upcoming_hunts.each do |hunt|
       html << li_for_hunt(hunt, user.team(hunt), :with_date_and_team)
     end
     content_tag(:ul, html.join.html_safe)
