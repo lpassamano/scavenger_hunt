@@ -23,6 +23,7 @@ RSpec.describe User, type: :model do
 
   it 'has many teams' do
     @user.teams << Team.new(hunt: @hunt1)
+    @user.save
     expect(@user.teams.count).to eq(1)
   end
 
