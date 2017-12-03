@@ -71,10 +71,10 @@ describe 'Feature Test: Hunts', :type => :feature do
 
         it 'has a delete button only for its user' do
           visit hunt_path(@owner_hunt)
-          expect(page).to have_button("Delete Hunt", destroy_hunt_path(@owner_hunt))
+          expect(page).to have_button("Delete Hunt")
 
           visit hunt_path(@participant_hunt)
-          expect(page).to_not have_button("Delete Hunt", destroy_hunt_path(@participant_hunt))
+          expect(page).to_not have_button("Delete Hunt")
         end
 
         it 'lists all teams participating in the hunt with number of team members and a link to join the team' do

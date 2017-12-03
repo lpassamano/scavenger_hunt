@@ -1,2 +1,6 @@
-<h1>Hunt#show</h1>
-<p>Find me in app/views/hunt/show.html.erb</p>
+<h2><%= @hunt.name %></h2>
+
+<% if current_user == @hunt.owner %>
+  <%= link_to "Edit Hunt", edit_hunt_path(@hunt) %> |
+  <%= button_to "Delete Hunt", hunt_path(@hunt), :method => "delete", :class => "destroy" %>
+<% end %>
