@@ -88,4 +88,8 @@ class Hunt < ActiveRecord::Base
   def active?
     self.status == "active"
   end
+
+  def leaderboard
+    self.teams.sort {|x, y| y.found_items.count <=> x.found_items.count}
+  end
 end

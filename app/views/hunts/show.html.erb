@@ -11,24 +11,49 @@
   <% end %>
 <% end %>
 
-<ul>
-  <% @hunt.teams.each do |team| %>
-    <li>
-      <%= team.name %> | <%= button_to "Join Team", hunt_team_path(team), :method => "patch", :class => "submit" %>
-    </li>
+<% if @hunt.pending? %>
+
+  <ul>
+    <% @hunt.teams.each do |team| %>
+      <li>
+        <%= team.name %> | <%= button_to "Join Team", hunt_team_path(team), :method => "patch", :class => "submit" %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= link_to "Make New Team", new_hunt_team_path(@hunt) %>
+
+  <% if current_user == @hunt.owner %>
+    <h3>Items:</h3>
+
+    <ol>
+      <% @hunt.items.each do |item| %>
+        <li>
+          <%= item.name %><br />
+          <%= link_to "Edit Item", edit_hunt_item_path(@hunt, item) %> | <%= button_to "Remove Item", hunt_item_path(@hunt, item), :method => "delete", :class => "destroy" %>
+        </li>
+      <% end %>
+    </ol>
   <% end %>
-</ul>
 
-<%= link_to "Make New Team", new_hunt_team_path(@hunt) %>
+<% elsif @hunt.active? %>
 
-<% if current_user == @hunt.owner %>
+  <h3>Leaderboard</h3>
+
+  <ol>
+    <% @hunt.leaderboard.each do |team| %>
+      <li>
+        <%= link_to team.name, hunt_team_path(@hunt, team) %> | Found: <%= team.found_items.count %>
+      </li>
+    <% end %>
+  </ol>
+
   <h3>Items:</h3>
 
   <ol>
     <% @hunt.items.each do |item| %>
       <li>
-        <%= item.name %><br />
-        <%= link_to "Edit Item", edit_hunt_item_path(@hunt, item) %> | <%= button_to "Remove Item", hunt_item_path(@hunt, item), :method => "delete", :class => "destroy" %>
+        <%= item.name %>
       </li>
     <% end %>
   </ol>
