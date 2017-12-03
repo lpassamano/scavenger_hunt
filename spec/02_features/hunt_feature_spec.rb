@@ -118,15 +118,26 @@ describe 'Feature Test: Hunts', :type => :feature do
         end
 
         it 'has leaderboard listing teams by number of items found in descending order' do
+          visit hunt_path(@active_hunt)
+          expect(page).to have_content("Leaderboard")
 
-        end
+          teams = @active_hunt.teams.sort {|x, y| y.found_items.count <=> x.found_items.count}
+          expect(teams == @active_hunt.leaderboard).to eq(true)
 
-        it 'links to team show page on the team name' do
-
+          @active_hunt.teams.each do |team|
+            expect(page).to have_link(team.name, href: hunt_team_path(@active_hunt, team))
+            expect(page).to have_content(team.found_items.count)
+          end
         end
 
         it 'does not have edit/delete item options' do
+          visit hunt_path(@active_hunt)
 
+          @active_hunt.items.each do |item|
+            expect(page).to have_content(item.name)
+            expect(page).to_not have_link("Edit Item", href: edit_hunt_item_path(@owner_hunt, item))
+            expect(page).to_not have_button("Remove Item")
+          end
         end
       end
 
