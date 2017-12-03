@@ -63,10 +63,10 @@ describe 'Feature Test: Hunts', :type => :feature do
       context 'pending hunt' do
         it 'has edit link only for its user' do
           visit hunt_path(@owner_hunt)
-          expect(page).to have_link("Edit Hunt", edit_hunt_path(@owner_hunt))
+          expect(page).to have_link("Edit Hunt", href: edit_hunt_path(@owner_hunt))
 
           visit hunt_path(@participant_hunt)
-          expect(page).to_not have_link("Edit Hunt", edit_hunt_path(@participant_hunt))
+          expect(page).to_not have_link("Edit Hunt", href: edit_hunt_path(@participant_hunt))
         end
 
         it 'has a delete button only for its user' do
@@ -88,11 +88,20 @@ describe 'Feature Test: Hunts', :type => :feature do
 
         it 'has link to create a new team' do
           visit hunt_path(@participant_hunt)
-          expect(page).to have_link("Make New Team", new_hunt_team_path(@participant_hunt))
+          expect(page).to have_link("Make New Team", href: new_hunt_team_path(@participant_hunt))
         end
 
         it 'lists all items with links to edit and remove item for owner only' do
+          visit hunt_path(@owner_hunt)
 
+          @owner_hunt.items.each do |item|
+            expect(page).to have_content(item.name)
+            expect(page).to have_link("Edit Item", href: edit_hunt_item_path(@owner_hunt, item))
+            expect(page).to have_button("Remove Item")
+          end
+
+          visit hunt_path(@participant_hunt)
+          expect(page).to_not have_content(@participant_hunt.items.first.name)
         end
       end
 
