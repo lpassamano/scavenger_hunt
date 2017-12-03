@@ -43,12 +43,12 @@ class Hunt < ActiveRecord::Base
     self.all.each do |hunt|
       hunt.status
       hunt.save
-    end 
+    end
   end
 
   def self.pending_in(location)
     self.update_status
-    self.pending.where(location: location)
+    self.where(location: location).where(status: "pending")
   end
 
   def self.upcoming_for(user)

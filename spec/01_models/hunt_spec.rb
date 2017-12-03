@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Hunt, type: :model do
-  @active_hunt = Hunt.create(owner: User.first, location: Location.first, start_time: (DateTime.current + 1.seconds), finish_time: DateTime.new(2018, 12, 1, 15, 00, 00), name: "Active Hunt")
-  @completed_hunt = Hunt.create(owner: User.first, location: Location.first, start_time: (DateTime.current + 1.seconds), finish_time: (DateTime.current + 2.seconds), name: "Completed Hunt")
 
   before (:each) do
     @hunt = Hunt.create(owner: User.first, location: Location.first, name: "Test Hunt", start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00))

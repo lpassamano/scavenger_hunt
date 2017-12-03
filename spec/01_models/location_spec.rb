@@ -6,7 +6,7 @@ RSpec.describe Location, type: :model do
   end
 
   it 'has many hunts' do
-    @location.hunts << Hunt.find(1)
+    @location.hunts << Hunt.find(3)
     expect(@location.hunts.count).to eq(1)
   end
 
@@ -16,7 +16,7 @@ RSpec.describe Location, type: :model do
   end
 
   it 'lists all pending hunts in a specific location' do
-    @location.hunts << Hunt.find(1)
+    @location.hunts << Hunt.find(3)
     expect(@location.pending_hunts.count).to eq(1)
   end
 end

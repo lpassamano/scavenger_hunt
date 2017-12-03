@@ -56,6 +56,7 @@ describe 'Feature Test: Home', :type => :feature do
       it "lists all hunts that are pending in the current user's home location" do
         location = Location.find(1)
         @user.location = location
+        @user.save
 
         visit root_path
         location.pending_hunts.each do |hunt|

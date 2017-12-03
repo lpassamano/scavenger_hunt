@@ -54,7 +54,7 @@ describe 'Feature Test: Hunts', :type => :feature do
 
     context 'logged in as hunt owner' do
       before(:each) do
-        @owner_hunt = Hunt.pending.last
+        @owner_hunt = Hunt.pending.first
         @user = @owner_hunt.owner
         @participant_hunt = @user.upcoming_participating_hunts.find {|hunt| hunt.owner != @user}
         login_as(@user, scope: :user)
@@ -108,7 +108,7 @@ describe 'Feature Test: Hunts', :type => :feature do
       context 'active hunt -- owner page' do
         before(:each) do
           @active_hunt = Hunt.active.first
-          @user = @active_owner_hunt.owner
+          @user = @active_hunt.owner
           login_as(@user, scope: :user)
         end
 
