@@ -61,12 +61,20 @@ describe 'Feature Test: Hunts', :type => :feature do
       end
 
       context 'pending hunt' do
-        it 'has edit link for its user' do
+        it 'has edit link only for its user' do
+          visit hunt_path(@owner_hunt)
+          expect(page).to have_link("Edit Hunt", edit_hunt_path(@owner_hunt))
 
+          visit hunt_path(@participant_hunt)
+          expect(page).to_not have_link("Edit Hunt", edit_hunt_path(@participant_hunt))
         end
 
-        it 'has a delete button for its user' do
+        it 'has a delete button only for its user' do
+          visit hunt_path(@owner_hunt)
+          expect(page).to have_button("Delete Hunt", destroy_hunt_path(@owner_hunt))
 
+          visit hunt_path(@participant_hunt)
+          expect(page).to_not have_button("Delete Hunt", destroy_hunt_path(@participant_hunt))
         end
 
         it 'lists all teams participating in the hunt with number of team members and a link to join the team' do
