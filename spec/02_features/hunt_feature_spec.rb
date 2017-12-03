@@ -106,8 +106,15 @@ describe 'Feature Test: Hunts', :type => :feature do
       end
 
       context 'active hunt' do
-        it 'does not allow the user to edit or delete a hunt once it has started' do
+        before(:each) do
+          @owner_hunt.start_time = DateTime.new(2017, 12, 3, 12, 00, 00)
+          @participant_hunt.start_time = DateTime.new(2017.12, 3, 12, 00, 00)
+        end
+
+        it 'does not allow the owner to edit or delete a hunt once it has started' do
           # no edit options for anything
+          visit hunt_path(@owner_hunt)
+          expect(page).to have_content("Hunt cannot be edited or deleted while it is active")
         end
 
         it 'has leaderboard listing teams by number of items found in descending order' do
