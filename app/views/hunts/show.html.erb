@@ -1,12 +1,19 @@
 <h1><%= @hunt.name %></h1>
 
-<% if current_user == @hunt.owner %>
-  <% if @hunt.pending? %>
+<% if @hunt.pending? && current_user == @hunt.owner %>
     <%= link_to "Edit Hunt", edit_hunt_path(@hunt) %> |
     <%= button_to "Delete Hunt", hunt_path(@hunt), :method => "delete", :class => "destroy" %>
-  <% elsif @hunt.active? %>
+<% elsif @hunt.active? %>
+  <% if current_user == @hunt.owner %>
     <p>
       <em>Hunt cannot be edited or deleted while it is active.</em>
+    </p>
+  <% elsif @hunt.teams.include?(current_user.current_team) %>
+    <p>
+      The hunt is on!
+    </p>
+    <p>
+      <%= link_to "Join your team and start finding items.", hunt_team_path(current_user.current_team) %>
     </p>
   <% end %>
 <% end %>

@@ -147,14 +147,14 @@ describe 'Feature Test: Hunts', :type => :feature do
         end
 
         it 'does not have links to edit/delete the hunt or items' do
-          
+
         end
       end
     end
 
     context 'logged in as participant' do
       before(:each) do
-        @user = @owner_hunt.owner
+        @user = User.first
         @participant_hunt = @user.upcoming_participating_hunts.find {|hunt| hunt.owner != @user}
         login_as(@user, scope: :user)
       end
@@ -195,6 +195,7 @@ describe 'Feature Test: Hunts', :type => :feature do
           @active_hunt = Hunt.active.first
           @participant = @active_hunt.teams.first.participants.find {|user| user != @active_hunt.owner}
           login_as(@participant, scope: :user)
+          @team = @active_hunt.teams.where(participant: @participant).first
         end
 
         it 'has leaderboard listing teams by number of items found in descending order' do
@@ -207,11 +208,12 @@ describe 'Feature Test: Hunts', :type => :feature do
           @active_hunt.teams.each do |team|
             expect(page).to have_link(team.name, href: hunt_team_path(@active_hunt, team))
             expect(page).to have_content(team.found_items.count)
+          end
         end
 
         it 'alerts the user that the hunt is active and that they can participate via team show page' do
           visit hunt_path(@active_hunt)
-          expect(page).to have_link("Join your team and start finding items!", href: hunt_team_path(@active_hunt, @participant.current_team))
+          expect(page).to have_link("Join your team and start finding items.", href: hunt_team_path(@active_hunt, @participant.current_team))
         end
       end
 
