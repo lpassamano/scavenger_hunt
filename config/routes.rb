@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #make sure to define root route!!
-  resources :hunts
-  resources :teams, only: [:show, :new, :create, :edit, :update]
+  resources :hunts do
+    resources :teams, only: [:show, :new, :create, :edit, :update]
+  end
+
   resources :users, only: [:edit, :update]
 end

@@ -8,9 +8,9 @@
 <ul>
   <% @hunt.teams.each do |team| %>
     <li>
-      <%= team.name %> | <%= button_to "Join Team", team_path(team), :method => "post", :class => "submit" %>
+      <%= team.name %> | <%= button_to "Join Team", hunt_team_path(team), :method => "patch", :class => "submit" %>
     </li>
   <% end %>
 </ul>
 
-<%= link_to "Make New Team", new_team_path %>
+<%= link_to "Make New Team", new_hunt_team_path(@hunt) %>

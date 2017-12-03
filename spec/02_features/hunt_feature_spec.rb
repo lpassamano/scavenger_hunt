@@ -88,7 +88,7 @@ describe 'Feature Test: Hunts', :type => :feature do
 
         it 'has link to create a new team' do
           visit hunt_path(@participant_hunt)
-          expect(page).to have_link("Make New Team", new_team_path)
+          expect(page).to have_link("Make New Team", new_hunt_team_path(@participant_hunt))
         end
 
         it 'lists all items with links to edit and remove item for owner only' do

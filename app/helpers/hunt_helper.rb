@@ -9,7 +9,7 @@ module HuntHelper
 
   def with_date_and_team(hunt, team)
     if current_user.teams.include?(team)
-      user_team = link_to("#{team.name}", team_path(team))
+      user_team = link_to("#{team.name}", hunt_team_path(hunt, team))
     else
       user_team = ""
     end
