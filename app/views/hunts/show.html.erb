@@ -4,3 +4,13 @@
   <%= link_to "Edit Hunt", edit_hunt_path(@hunt) %> |
   <%= button_to "Delete Hunt", hunt_path(@hunt), :method => "delete", :class => "destroy" %>
 <% end %>
+
+<ul>
+  <% @hunt.teams.each do |team| %>
+    <li>
+      <%= team.name %> | <%= button_to "Join Team", team_path(team), :method => "post", :class => "submit" %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Make New Team", new_team_path %>
