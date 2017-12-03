@@ -78,14 +78,20 @@ describe 'Feature Test: Hunts', :type => :feature do
         end
 
         it 'lists all teams participating in the hunt with number of team members and a link to join the team' do
+          visit hunt_path(@participant_hunt)
 
+          @participant_hunt.teams.each do |team|
+            expect(page).to have_content(team.name)
+            expect(page).to have_button("Join Team")
+          end
         end
 
         it 'has link to create a new team' do
-
+          visit hunt_path(@participant_hunt)
+          expect(page).to have_link("Make New Team", new_team_path)
         end
 
-        it 'lists all items with links to edit and remove item' do
+        it 'lists all items with links to edit and remove item for owner only' do
 
         end
       end
