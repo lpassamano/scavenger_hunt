@@ -26,6 +26,7 @@ class Hunt < ActiveRecord::Base
   end
 
   def update_current_team(*t)
+    #need to fix this to make it work!
     self.teams.each do |team|
       team.participants.each do |participant|
         participant.current_team = t || participant.current_team = team
