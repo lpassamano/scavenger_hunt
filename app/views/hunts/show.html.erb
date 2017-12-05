@@ -13,9 +13,13 @@
       The hunt is on!
     </p>
     <p>
-      <%= link_to "Join your team and start finding items.", hunt_team_path(current_user.current_team) %>
+      <%= link_to "Join your team and start finding items.", hunt_team_path(@hunt, current_user.current_team) %>
     </p>
   <% end %>
+<% elsif @hunt.completed? && current_user == @hunt.owner %>
+  <p>
+    <em>Hunt cannot be edited or deleted after it is completed.</em>
+  </p>
 <% end %>
 
 <% if @hunt.pending? %>
@@ -43,9 +47,13 @@
     </ol>
   <% end %>
 
-<% elsif @hunt.active? %>
+<% else %>
 
-  <h3>Leaderboard</h3>
+  <% if @hunt.active? %>
+    <h3>Leaderboard</h3>
+  <% elsif @hunt.completed? %>
+    <h3>Final Scores</h3>
+  <% end %>
 
   <ol>
     <% @hunt.leaderboard.each do |team| %>

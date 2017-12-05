@@ -154,8 +154,8 @@ describe 'Feature Test: Hunts', :type => :feature do
         end
 
         it 'does not have links to edit/delete the hunt or items' do
-          visit hunt_path(@acompleted_hunt)
-          expect(page).to have_content("Hunt cannot be edited or deleted while it is active")
+          visit hunt_path(@completed_hunt)
+          expect(page).to have_content("Hunt cannot be edited or deleted after it is completed.")
 
           @completed_hunt.items.each do |item|
             expect(page).to have_content(item.name)
@@ -235,9 +235,9 @@ describe 'Feature Test: Hunts', :type => :feature do
       context 'completed hunt' do
         #this page is the same if you are the hunt owner or participant
         before(:each) do
-          @user = User.find(2)
+          @participant = User.find(2)
           @completed_hunt = Hunt.find(2)
-          login_as(@user, scope: :user)
+          login_as(@participant, scope: :user)
         end
 
         it 'shows final tally of all teams with link to team show pages' do
@@ -251,6 +251,11 @@ describe 'Feature Test: Hunts', :type => :feature do
             expect(page).to have_link(team.name, href: hunt_team_path(@completed_hunt, team))
             expect(page).to have_content(team.found_items.count)
           end
+        end
+
+        it 'has no alert for the user' do
+          visit hunt_path(@completed_hunt)
+          expect(page).to_not have_link("Join your team and start finding items.", href: hunt_team_path(@completed_hunt, @participant.current_team))
         end
       end
     end

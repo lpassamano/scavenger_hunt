@@ -33,7 +33,7 @@ class Hunt < ActiveRecord::Base
           participant.save
         else
           participant.current_team = nil if participant.current_team == team
-          participant.save 
+          participant.save
         end
       end
     end
@@ -103,6 +103,10 @@ class Hunt < ActiveRecord::Base
 
   def active?
     self.status == "active"
+  end
+
+  def completed?
+    self.status == "completed"
   end
 
   def leaderboard
