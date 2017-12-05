@@ -1,3 +1,10 @@
+## Active Hunt: 1
+## Completed Hunt: 2
+## Pending Hunt: 3
+## All Test Hunts Owner: 1
+## All Test Teams Participant: 2
+
+
 ## Create Users ##
 25.times do
   User.create(
@@ -27,11 +34,15 @@ Location.create(city: "Dallas", state: "TX")
   )
 end
 
+## Make one owner for Hunt of each status ##
+owner = User.find(1)
+
 ## Make one Hunt Active ##
 h = Hunt.find(1)
 h.start_time = (DateTime.current + 1.seconds)
 h.finish_time = (DateTime.current + 1.years)
 h.name = "Active Hunt"
+h.owner = owner
 h.save
 
 ## Make one Hunt Completed ##
@@ -39,7 +50,24 @@ h = Hunt.find(2)
 h.start_time = (DateTime.current + 1.seconds)
 h.finish_time = (DateTime.current + 2.seconds)
 h.name = "Completed Hunt"
+h.owner = owner
 h.save
+
+## Add one pending Hunt ##
+h = Hunt.find(3)
+h.name = "Pending Hunt"
+h.owner = owner
+h.save
+
+## Make one team for each Hunt ##
+active_team = Team.create(hunt_id: 1)
+completed_team = Team.create(hunt_id: 2)
+pending_team = Team.create(hunt_id: 3)
+
+## Make one participant on Team for Active Hunt ##
+active_team.participants << User.find(2)
+completed_team.participants << User.find(2)
+pending_team.participants << User.find(2)
 
 ## Add Items to Hunts ##
 ## Add Teams to Hunts ##

@@ -53,13 +53,14 @@ describe 'Feature Test: Hunts', :type => :feature do
     end
 
     context 'logged in as hunt owner' do
-      before(:each) do
-        @owner_hunt = Hunt.pending.first
-        @user = @owner_hunt.owner
-        login_as(@user, scope: :user)
-      end
 
       context 'pending hunt' do
+        before(:each) do
+          @owner_hunt = Hunt.find(3)
+          @user = @owner_hunt.owner
+          login_as(@user, scope: :user)
+        end
+
         it 'has edit link only for its user' do
           visit hunt_path(@owner_hunt)
           expect(page).to have_link("Edit Hunt", href: edit_hunt_path(@owner_hunt))
@@ -97,7 +98,7 @@ describe 'Feature Test: Hunts', :type => :feature do
 
       context 'active hunt' do
         before(:each) do
-          @active_hunt = Hunt.active.first
+          @active_hunt = Hunt.find(1)
           @user = @active_hunt.owner
           login_as(@user, scope: :user)
         end
@@ -153,13 +154,14 @@ describe 'Feature Test: Hunts', :type => :feature do
     end
 
     context 'logged in as participant' do
-      before(:each) do
-        @user = User.first
-        @participant_hunt = @user.upcoming_participating_hunts.find {|hunt| hunt.owner != @user}
-        login_as(@user, scope: :user)
-      end
 
       context 'pending hunt' do
+        before(:each) do
+          @user = User.find(2)
+          @participant_hunt = Hunt.find(3)
+          login_as(@user, scope: :user)
+        end
+
         it 'has no link to edit hunt' do
           visit hunt_path(@participant_hunt)
           expect(page).to_not have_link("Edit Hunt", href: edit_hunt_path(@participant_hunt))
@@ -192,10 +194,10 @@ describe 'Feature Test: Hunts', :type => :feature do
 
       context 'active hunt' do
         before(:each) do
-          @active_hunt = Hunt.active.first
-          @participant = @active_hunt.teams.first.participants.find {|user| user != @active_hunt.owner}
+          @active_hunt = Hunt.find(1)
+          @participant = User.find(2)
           login_as(@participant, scope: :user)
-          @team = @active_hunt.teams.where(participant: @participant).first
+          @team = @participant.teams.where(hunt: @active_hunt)
         end
 
         it 'has leaderboard listing teams by number of items found in descending order' do
@@ -220,7 +222,7 @@ describe 'Feature Test: Hunts', :type => :feature do
       context 'completed hunt' do
         #this page is the same if you are the hunt owner or participant
         before(:each) do
-          @user = User.find(1)
+          @user = User.find(2)
           login_as(@user, scope: :user)
         end
 

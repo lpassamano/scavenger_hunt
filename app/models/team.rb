@@ -4,6 +4,7 @@ class Team < ActiveRecord::Base
   belongs_to :hunt
   delegate :status, to: :hunt
   has_many :found_items
+  has_many :items, through: :found_items
 
   scope :pending, -> { where()}
 
