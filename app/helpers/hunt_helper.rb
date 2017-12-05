@@ -41,8 +41,15 @@ module HuntHelper
   end
 
   def edit_and_delete_buttons(hunt)
-    if hunt.pending? && current_user == hunt.owner
-      link_to("Edit Hunt", edit_hunt_path(hunt)) + button_to("Delete Hunt", hunt_path(hunt), :method => "delete", :class => "destroy")
+    if current_user == hunt.owner
+      case hunt.status
+      when "pending"
+        link_to("Edit Hunt", edit_hunt_path(hunt)) + button_to("Delete Hunt", hunt_path(hunt), :method => "delete", :class => "destroy")
+      when "active"
+        content_tag(:p, content_tag(:em, "Hunt cannot be edited or deleted while it is active."))
+      when "completed"
+        content_tag(:p, content_tag(:em, "Hunt cannot be edited or deleted after it is completed."))
+      end
     end
   end
 end

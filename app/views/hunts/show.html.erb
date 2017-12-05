@@ -1,9 +1,6 @@
 <h1><%= @hunt.name %></h1>
 
 <%= edit_and_delete_buttons(@hunt) %>
-  <!--<#% if @hunt.pending? && current_user == @hunt.owner %>
-      <#%= link_to "Edit Hunt", edit_hunt_path(@hunt) %> |
-      <#%= button_to "Delete Hunt", hunt_path(@hunt), :method => "delete", :class => "destroy" %>-->
 
 <% if @hunt.active? %>
   <% if current_user == @hunt.owner %>
@@ -18,6 +15,7 @@
       <%= link_to "Join your team and start finding items.", hunt_team_path(@hunt, current_user.current_team) %>
     </p>
   <% end %>
+
 <% elsif @hunt.completed? && current_user == @hunt.owner %>
   <p>
     <em>Hunt cannot be edited or deleted after it is completed.</em>
