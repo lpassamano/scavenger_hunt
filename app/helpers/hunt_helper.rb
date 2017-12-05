@@ -39,4 +39,10 @@ module HuntHelper
     end
     content_tag(:ul,html.join.html_safe)
   end
+
+  def edit_and_delete_buttons(hunt)
+    if hunt.pending? && current_user == hunt.owner
+      link_to("Edit Hunt", edit_hunt_path(hunt)) + button_to("Delete Hunt", hunt_path(hunt), :method => "delete", :class => "destroy")
+    end
+  end
 end
