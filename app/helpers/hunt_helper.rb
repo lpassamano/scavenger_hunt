@@ -44,12 +44,20 @@ module HuntHelper
     if current_user == hunt.owner
       case hunt.status
       when "pending"
-        link_to("Edit Hunt", edit_hunt_path(hunt)) + button_to("Delete Hunt", hunt_path(hunt), :method => "delete", :class => "destroy")
+        link_to("Edit Hunt", edit_hunt_path(hunt)) +
+        button_to("Delete Hunt", hunt_path(hunt), :method => "delete", :class => "destroy")
       when "active"
         content_tag(:p, content_tag(:em, "Hunt cannot be edited or deleted while it is active."))
       when "completed"
         content_tag(:p, content_tag(:em, "Hunt cannot be edited or deleted after it is completed."))
       end
+    end
+  end
+
+  def link_to_team_for_active_hunt(hunt)
+    if hunt.active? && hunt.teams.include?(current_user.current_team)
+      content_tag(:p, "The hunt is on!") +
+      content_tag(:p, link_to("Join your team and start finding items.", hunt_team_path(hunt, current_user.current_team)))
     end
   end
 end

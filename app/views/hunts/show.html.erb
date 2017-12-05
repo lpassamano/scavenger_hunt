@@ -1,36 +1,9 @@
 <h1><%= @hunt.name %></h1>
 
 <%= edit_and_delete_buttons(@hunt) %>
+<%= link_to_team_for_active_hunt(@hunt) %>
 
-<% if @hunt.active? %>
-  <% if current_user == @hunt.owner %>
-    <p>
-      <em>Hunt cannot be edited or deleted while it is active.</em>
-    </p>
-  <% elsif @hunt.teams.include?(current_user.current_team) %>
-    <p>
-      The hunt is on!
-    </p>
-    <p>
-      <%= link_to "Join your team and start finding items.", hunt_team_path(@hunt, current_user.current_team) %>
-    </p>
-  <% end %>
-
-<% elsif @hunt.completed? && current_user == @hunt.owner %>
-  <p>
-    <em>Hunt cannot be edited or deleted after it is completed.</em>
-  </p>
-<% end %>
-
-<% if @hunt.pending? %>
-
-  <ul>
-    <% @hunt.teams.each do |team| %>
-      <li>
-        <%= team.name %> | <%= button_to "Join Team", hunt_team_path(team), :method => "patch", :class => "submit" %>
-      </li>
-    <% end %>
-  </ul>
+<%= display_teams_for(@hunt) %>
 
   <%= link_to "Make New Team", new_hunt_team_path(@hunt) %>
 
@@ -47,21 +20,7 @@
     </ol>
   <% end %>
 
-<% else %>
 
-  <% if @hunt.active? %>
-    <h3>Leaderboard</h3>
-  <% elsif @hunt.completed? %>
-    <h3>Final Scores</h3>
-  <% end %>
-
-  <ol>
-    <% @hunt.leaderboard.each do |team| %>
-      <li>
-        <%= link_to team.name, hunt_team_path(@hunt, team) %> | Found: <%= team.found_items.count %>
-      </li>
-    <% end %>
-  </ol>
 
   <h3>Items:</h3>
 
@@ -72,4 +31,3 @@
       </li>
     <% end %>
   </ol>
-<% end %>
