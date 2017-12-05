@@ -123,7 +123,7 @@ describe 'Feature Test: Hunts', :type => :feature do
 
         it 'does not have edit/delete item options' do
           visit hunt_path(@active_hunt)
-          
+
           @active_hunt.items.each do |item|
             expect(page).to have_content(item.name)
             expect(page).to_not have_link("Edit Item", href: edit_hunt_item_path(@active_hunt, item))
@@ -136,19 +136,32 @@ describe 'Feature Test: Hunts', :type => :feature do
         #this page is the same if you are the hunt owner or participant
         before(:each) do
           @user = User.find(1)
+          @completed_hunt = Hunt.find(2)
           login_as(@user, scope: :user)
         end
 
-        it 'shows final tally of all teams' do
+        it 'shows final tally of all teams with link to team show pages' do
+          visit hunt_path(@completed_hunt)
+          expect(page).to have_content("Final Scores")
 
-        end
+          teams = @completed_hunt.teams.sort {|x, y| y.found_items.count <=> x.found_items.count}
+          expect(teams == @completed_hunt.leaderboard).to eq(true)
 
-        it 'has a link to each team show page' do
-
+          @completed_hunt.teams.each do |team|
+            expect(page).to have_link(team.name, href: hunt_team_path(@completed_hunt, team))
+            expect(page).to have_content(team.found_items.count)
+          end
         end
 
         it 'does not have links to edit/delete the hunt or items' do
+          visit hunt_path(@acompleted_hunt)
+          expect(page).to have_content("Hunt cannot be edited or deleted while it is active")
 
+          @completed_hunt.items.each do |item|
+            expect(page).to have_content(item.name)
+            expect(page).to_not have_link("Edit Item", href: edit_hunt_item_path(@completed_hunt, item))
+            expect(page).to_not have_button("Remove Item")
+          end
         end
       end
     end
@@ -223,15 +236,21 @@ describe 'Feature Test: Hunts', :type => :feature do
         #this page is the same if you are the hunt owner or participant
         before(:each) do
           @user = User.find(2)
+          @completed_hunt = Hunt.find(2)
           login_as(@user, scope: :user)
         end
 
-        it 'shows final tally of all teams' do
+        it 'shows final tally of all teams with link to team show pages' do
+          visit hunt_path(@completed_hunt)
+          expect(page).to have_content("Final Scores")
 
-        end
+          teams = @completed_hunt.teams.sort {|x, y| y.found_items.count <=> x.found_items.count}
+          expect(teams == @completed_hunt.leaderboard).to eq(true)
 
-        it 'has a link to each team show page' do
-
+          @completed_hunt.teams.each do |team|
+            expect(page).to have_link(team.name, href: hunt_team_path(@completed_hunt, team))
+            expect(page).to have_content(team.found_items.count)
+          end
         end
       end
     end
