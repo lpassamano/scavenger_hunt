@@ -123,10 +123,10 @@ describe 'Feature Test: Hunts', :type => :feature do
 
         it 'does not have edit/delete item options' do
           visit hunt_path(@active_hunt)
-
+          
           @active_hunt.items.each do |item|
             expect(page).to have_content(item.name)
-            expect(page).to_not have_link("Edit Item", href: edit_hunt_item_path(@owner_hunt, item))
+            expect(page).to_not have_link("Edit Item", href: edit_hunt_item_path(@active_hunt, item))
             expect(page).to_not have_button("Remove Item")
           end
         end

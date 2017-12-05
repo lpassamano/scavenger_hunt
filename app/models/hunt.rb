@@ -25,13 +25,15 @@ class Hunt < ActiveRecord::Base
     end
   end
 
-  def update_current_team(status)
+  def update_current_team(hunt_status)
     self.teams.each do |team|
       team.participants.each do |participant|
-        if status == "active"
+        if hunt_status == "active"
           participant.current_team = team
+          participant.save
         else
           participant.current_team = nil if participant.current_team == team
+          participant.save 
         end
       end
     end
