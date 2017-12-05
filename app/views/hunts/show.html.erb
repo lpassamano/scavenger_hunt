@@ -6,28 +6,4 @@
 <%= display_teams_for(@hunt) %>
 <%= link_to_make_new_team(@hunt) %>
 
-  <% if current_user == @hunt.owner  && @hunt.pending? %>
-    <h3>Items:</h3>
-
-    <ol>
-      <% @hunt.items.each do |item| %>
-        <li>
-          <%= item.name %><br />
-          <%= link_to "Edit Item", edit_hunt_item_path(@hunt, item) %> | <%= button_to "Remove Item", hunt_item_path(@hunt, item), :method => "delete", :class => "destroy" %>
-        </li>
-      <% end %>
-    </ol>
-  <% end %>
-
-
-<% if @hunt.active? || @hunt.completed? %>
-  <h3>Items:</h3>
-
-  <ol>
-    <% @hunt.items.each do |item| %>
-      <li>
-        <%= item.name %>
-      </li>
-    <% end %>
-  </ol>
-<% end %>
+<%= display_items_for(@hunt) %>
