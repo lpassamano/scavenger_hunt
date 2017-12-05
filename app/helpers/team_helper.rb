@@ -22,7 +22,12 @@ module TeamHelper
     else
       text = " | #{team.found_items.count} items found"
     end
-
     content_tag(:li, link_to(team.name, hunt_team_path(team.hunt, team)) + text)
+  end
+
+  def link_to_make_new_team(hunt)
+    if hunt.pending?
+      link_to("Make New Team", new_hunt_team_path(hunt))
+    end
   end
 end
