@@ -22,13 +22,11 @@ describe 'Feature Test: Hunts Forms', :type => :feature do
         #will probably need to change start and finish time formats once form is created
         fill_in("hunt[start_time]", :with => "12/23/2017, 7pm")
         fill_in("hunt[finish_time]", :with => "12/23/2017, 10pm")
-        fill_in("location[city]", :with => "Princeton")
-        fill_in("location[state]", :with => "NJ")
-        fill_in("hunt[items_attributes][0][name]", :with => Faker::Zelda.item)
-        fill_in("hunt[items_attributes][1][name]", :with => Faker::Zelda.item)
-        fill_in("hunt[items_attributes][2][name]", :with => Faker::Zelda.item)
-        fill_in("hunt[items_attributes][3][name]", :with => Faker::Zelda.item)
-        fill_in("hunt[items_attributes][4][name]", :with => Faker::Zelda.item)
+        fill_in("hunt[location_attributes][city]", :with => "Princeton")
+        fill_in("hunt[location_attributes][state]", :with => "NJ")
+        page.all(:fillable_field, "hunt[items_attributes][][name]").first.set("item 1")
+        page.all(:fillable_field, "hunt[items_attributes][][name]").last.set("item 2")
+        click_button('Create Hunt')
         click_button('Create Hunt')
         hunt = Hunt.last
 
@@ -43,37 +41,13 @@ describe 'Feature Test: Hunts Forms', :type => :feature do
         #will probably need to change start and finish time formats once form is created
         fill_in("hunt[start_time]", :with => "12/23/2017, 7pm")
         fill_in("hunt[finish_time]", :with => "12/23/2017, 10pm")
-        fill_in("hunt[items_attributes][0][name]", :with => Faker::Zelda.item)
-        fill_in("hunt[items_attributes][1][name]", :with => Faker::Zelda.item)
-        fill_in("hunt[items_attributes][2][name]", :with => Faker::Zelda.item)
-        fill_in("hunt[items_attributes][3][name]", :with => Faker::Zelda.item)
-        fill_in("hunt[items_attributes][4][name]", :with => Faker::Zelda.item)
+        page.all(:fillable_field, "hunt[items_attributes][][name]").first.set("item 1")
+        page.all(:fillable_field, "hunt[items_attributes][][name]").last.set("item 2")
         click_button('Create Hunt')
 
         expect(current_path).to eq(new_hunt_path)
         expect(page).to have_content("Location can't be blank")
       end
-
-      #it 'has drop down selections for existing Locations' do
-      #  visit new_hunt_path
-      #  location = Location.find_by(city: "Princeton")
-
-      #  fill_in("hunt[name]", :with => "Spooky Graveyard")
-        #will probably need to change start and finish time formats once form is created
-      #  fill_in("hunt[start_time]", :with => "12/23/2017, 7pm")
-      #  fill_in("hunt[finish_time]", :with => "12/23/2017, 10pm")
-      #  select(location.city_state, from: "location").select_option
-      #  fill_in("hunt[items_attributes][0][name]", :with => Faker::Zelda.item)
-      #  fill_in("hunt[items_attributes][1][name]", :with => Faker::Zelda.item)
-      #  fill_in("hunt[items_attributes][2][name]", :with => Faker::Zelda.item)
-      #  fill_in("hunt[items_attributes][3][name]", :with => Faker::Zelda.item)
-      #  fill_in("hunt[items_attributes][4][name]", :with => Faker::Zelda.item)
-      #  click_button('Create Hunt')
-      #  hunt = Hunt.last
-
-      #  expect(current_path).to eq(hunt_path(hunt))
-      #  expect(page).to have_content("Spooky Graveyard")
-      #end
     end
   end
 
