@@ -133,7 +133,6 @@ describe 'Feature Test: Hunts', :type => :feature do
       end
 
       context 'completed hunt' do
-        #this page is the same if you are the hunt owner or participant
         before(:each) do
           @user = User.find(1)
           @completed_hunt = Hunt.find(2)
@@ -233,7 +232,6 @@ describe 'Feature Test: Hunts', :type => :feature do
       end
 
       context 'completed hunt' do
-        #this page is the same if you are the hunt owner or participant
         before(:each) do
           @participant = User.find(2)
           @completed_hunt = Hunt.find(2)
@@ -257,69 +255,6 @@ describe 'Feature Test: Hunts', :type => :feature do
           visit hunt_path(@completed_hunt)
           expect(page).to_not have_link("Join your team and start finding items.", href: hunt_team_path(@completed_hunt, @participant.current_team))
         end
-      end
-    end
-  end
-
-  describe 'add new hunt form' do
-    context 'not logged in' do
-      it 'redirects to the home page' do
-
-      end
-    end
-
-    context 'logged in' do
-      before(:each) do
-        @user = User.find(1)
-        login_as(@user, scope: :user)
-      end
-
-      it 'allows a user to create a new hunt' do
-        #name, start_time, finish_time
-        #redirects to show page after to check if it was added
-      end
-
-      it 'contains a nested form to add location' do
-
-      end
-
-      it 'contains a nested form to add items' do
-
-      end
-
-      it 'displays errors if the hunt was not saved' do
-        # rerenders the add form
-      end
-    end
-  end
-
-  describe 'edit hunt form' do
-    context 'not logged in' do
-      it 'redirects to the home page' do
-
-      end
-    end
-
-    context 'logged in' do
-      before(:each) do
-        @user = User.find(1)
-        login_as(@user, scope: :user)
-      end
-
-      it 'can only be edited by its owner' do
-
-      end
-
-      it 'start and finish time cannot be changed to the past' do
-
-      end
-
-      it 'successfully updates a hunt' do
-
-      end
-
-      it 'displays error if the hunt was not saved' do
-
       end
     end
   end
