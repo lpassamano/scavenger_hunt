@@ -24,10 +24,11 @@ class HuntsController < ApplicationController
   def create
     @hunt = Hunt.new(hunt_params)
     @hunt.owner = current_user
-    if @hunt.save
+    if @hunt.valid?
+      @hunt.save
       redirect_to hunt_path(@hunt)
     else
-      render :new, {alert: @hunt.errors.full_messages}
+      render :new, {alert: "#{@hunt.errors.full_messages}"}
     end
   end
 

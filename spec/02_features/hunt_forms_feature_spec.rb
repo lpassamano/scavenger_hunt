@@ -13,20 +13,19 @@ describe 'Feature Test: Hunts Forms', :type => :feature do
         login_as(@user, scope: :user)
       end
 
-      it 'allows a user to create a new hunt -- nested form for items' do
+      it 'allows a user to create a new hunt -- nested forms for items and location' do
         visit root_path
         click_link("Add New Hunt")
         expect(current_path).to eq('/hunts/new')
 
         fill_in("hunt[name]", :with => "Canal Park")
         #will probably need to change start and finish time formats once form is created
-        fill_in("hunt[start_time]", :with => "12/23/2017, 7pm")
-        fill_in("hunt[finish_time]", :with => "12/23/2017, 10pm")
+        fill_in("hunt[start_time]", :with => "2018-12-23T19:00")
+        fill_in("hunt[finish_time]", :with => "2018-12-23T21:00")
         fill_in("hunt[location_attributes][city]", :with => "Princeton")
         fill_in("hunt[location_attributes][state]", :with => "NJ")
         page.all(:fillable_field, "hunt[items_attributes][][name]").first.set("item 1")
         page.all(:fillable_field, "hunt[items_attributes][][name]").last.set("item 2")
-        click_button('Create Hunt')
         click_button('Create Hunt')
         hunt = Hunt.last
 
@@ -38,14 +37,11 @@ describe 'Feature Test: Hunts Forms', :type => :feature do
         visit new_hunt_path
 
         fill_in("hunt[name]", :with => "Nassau Street")
-        #will probably need to change start and finish time formats once form is created
-        fill_in("hunt[start_time]", :with => "12/23/2017, 7pm")
-        fill_in("hunt[finish_time]", :with => "12/23/2017, 10pm")
         page.all(:fillable_field, "hunt[items_attributes][][name]").first.set("item 1")
         page.all(:fillable_field, "hunt[items_attributes][][name]").last.set("item 2")
         click_button('Create Hunt')
 
-        expect(current_path).to eq(new_hunt_path)
+        expect(current_path).to eq(hunts_path)
         expect(page).to have_content("Location can't be blank")
       end
     end
