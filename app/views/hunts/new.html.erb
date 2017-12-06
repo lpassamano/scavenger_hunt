@@ -1,5 +1,7 @@
 <h1>New Hunt</h1>
 
+
+
 <%= form_for @hunt do |f| %>
   <p>
     <%= f.label :name %>
@@ -22,8 +24,12 @@
   <p>
     Items:
   </p>
-  <%= f.fields_for :items_attributes do |item| %>
+  <%= f.fields_for "items_attributes[]", Item.new do |item| %>
     <ol>
+        <li>
+          <%= item.label :name %>
+          <%= item.text_field :name %>
+        </li>
         <li>
           <%= item.label :name %>
           <%= item.text_field :name %>

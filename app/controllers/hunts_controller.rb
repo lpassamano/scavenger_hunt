@@ -22,7 +22,13 @@ class HuntsController < ApplicationController
   end
 
   def create
-    raise params.inspect
+    @hunt = Hunt.new(hunt_params)
+    @hunt.owner = current_user
+    if @hunt.save
+      redirect_to hunt_path(@hunt)
+    else
+      render :new, {alert: @hunt.errors.full_messages}
+    end
   end
 
   private
@@ -36,11 +42,11 @@ class HuntsController < ApplicationController
       :name,
       :start_time,
       :finish_time,
-      location: [
+      location_attributes: [
         :city,
         :state
       ],
-      items: [
+      items_attributes: [
         :name
       ]
     )
