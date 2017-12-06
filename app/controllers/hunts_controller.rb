@@ -32,10 +32,23 @@ class HuntsController < ApplicationController
     end
   end
 
+  def edit
+    @hunt = Hunt.find(params[:id])
+    require_ownership(@hunt)
+  end
+
+  def update
+
+  end
+
   private
 
   def require_login
     return redirect_to root_path unless current_user
+  end
+
+  def require_ownership(hunt)
+    return redirect_to root_path unless hunt.owner == current_user
   end
 
   def hunt_params
