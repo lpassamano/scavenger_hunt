@@ -18,6 +18,8 @@ class HuntsController < ApplicationController
 
   def new
     @hunt = Hunt.new
+    @location = Location.new
+    @hunt.location = @location
     @locations = Location.all
   end
 
@@ -39,6 +41,7 @@ class HuntsController < ApplicationController
 
   def update
     @hunt = Hunt.find(params[:id])
+    binding.pry
     if @hunt.update(hunt_params)
       redirect_to hunts_path(@hunt)
     else
@@ -62,6 +65,7 @@ class HuntsController < ApplicationController
       :start_time,
       :finish_time,
       location_attributes: [
+        :id,
         :city,
         :state
       ],

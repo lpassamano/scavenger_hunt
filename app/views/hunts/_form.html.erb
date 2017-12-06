@@ -10,11 +10,11 @@
     <%= f.datetime_field :finish_time %>
   </p>
   <p>
-    <%= f.fields_for :location_attributes do |location| %>
-      <%= location.label :city %>
-      <%= location.text_field :city %><br />
-      <%= location.label :state %>
-      <%= location.text_field :state %>
+    <%= f.fields_for :location_attributes, hunt.location do |l| %>
+      <%= l.label :city %>
+      <%= l.text_field :city %><br />
+      <%= l.label :state %>
+      <%= l.text_field :state %>
     <% end %>
   </p>
   <p>
