@@ -1,0 +1,37 @@
+<%= form_for @hunt do |f| %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :start_time %>
+    <%= f.datetime_field :start_time %><br />
+    <%= f.label :finish_time %>
+    <%= f.datetime_field :finish_time %>
+  </p>
+  <p>
+    <%= f.fields_for :location_attributes do |location| %>
+      <%= location.label :city %>
+      <%= location.text_field :city %><br />
+      <%= location.label :state %>
+      <%= location.text_field :state %>
+    <% end %>
+  </p>
+  <p>
+    Items:
+  </p>
+  <%= f.fields_for "items_attributes[]", Item.new do |item| %>
+    <ol>
+        <li>
+          <%= item.label :name %>
+          <%= item.text_field :name %>
+        </li>
+        <li>
+          <%= item.label :name %>
+          <%= item.text_field :name %>
+        </li>
+    </ol>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>
