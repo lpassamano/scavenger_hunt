@@ -1,25 +1,28 @@
 class HuntsController < ApplicationController
-  # do a before each check!
+  before_action :require_login
+
   def index
-    if current_user
-      @locations = Location.all
-      if !params[:location].blank?
-        @hunts = Hunt.pending_in(params[:location])
-      else
-        @hunts = Hunt.pending
-      end
-      render :index
+    @locations = Location.all
+    if !params[:location].blank?
+      @hunts = Hunt.pending_in(params[:location])
     else
-      redirect_to root_path
+      @hunts = Hunt.pending
     end
+    render :index
   end
 
   def show
-    if current_user
-      @hunt = Hunt.find(params[:id])
-      render :show
-    else
-      redirect_to root_path
-    end
+    @hunt = Hunt.find(params[:id])
+    render :show
+  end
+
+  def new
+
+  end
+
+  private
+
+  def require_login
+    return redirect_to root_path unless current_user
   end
 end
