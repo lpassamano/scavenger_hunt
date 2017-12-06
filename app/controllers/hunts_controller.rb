@@ -28,7 +28,7 @@ class HuntsController < ApplicationController
       @hunt.save
       redirect_to hunt_path(@hunt)
     else
-      render :new, {alert: "#{@hunt.errors.full_messages}"}
+      render :new
     end
   end
 
@@ -38,7 +38,12 @@ class HuntsController < ApplicationController
   end
 
   def update
-
+    @hunt = Hunt.find(params[:id])
+    if @hunt.update(hunt_params)
+      redirect_to hunts_path(@hunt)
+    else
+      render :edit
+    end
   end
 
   private

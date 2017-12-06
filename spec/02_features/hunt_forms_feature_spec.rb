@@ -79,7 +79,7 @@ describe 'Feature Test: Hunts Forms', :type => :feature do
         fill_in("hunt[finish_time]", :with => "2015-12-23T21:00")
         click_button('Update Hunt')
 
-        expect(current_path).to eq(hunt_path(hunt))
+        expect(current_path).to eq(hunt_path(@hunt))
         expect(page).to have_content("There were some errors")
       end
 
