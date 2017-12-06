@@ -9,10 +9,10 @@ module ItemsHelper
 
   def li_for_item(item)
     if item.hunt.pending? && current_user == item.hunt.owner
-      text = tag(:br) + link_to("Edit Item", edit_hunt_item_path(item.hunt, item)) + button_to("Remove Item", hunt_item_path(@hunt, item), :method => "delete", :class => "destroy")
+      text = "#{item.name}" + tag(:br) + link_to("Edit Item", edit_hunt_item_path(item.hunt, item)) + button_to("Remove Item", hunt_item_path(@hunt, item), :method => "delete", :class => "destroy")
     else
-      text = ""
+      text = "#{item.name}"
     end
-    content_tag(:li, item.name + text)
+    content_tag(:li, text)
   end
 end
