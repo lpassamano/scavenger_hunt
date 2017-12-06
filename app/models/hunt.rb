@@ -10,8 +10,8 @@ class Hunt < ActiveRecord::Base
   validates_associated :location, :message => "can't be blank"
   validates :start_time, presence: true
   validates :finish_time, presence: true
-  validates_datetime :finish_time, :after => :start_time, :message => "must be after the start time"
-  validates_datetime :start_time, :after => DateTime.current, on: :create, :message => "must be in the future"
+  validates_datetime :finish_time, :after => :start_time
+  validates_datetime :start_time, :after => DateTime.current, on: :create
 
   accepts_nested_attributes_for :items
 
