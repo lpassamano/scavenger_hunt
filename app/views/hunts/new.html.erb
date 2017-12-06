@@ -1,0 +1,41 @@
+<h1>New Hunt</h1>
+
+<%= form_for @hunt do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br />
+  <%= f.label :start_time %>
+  <%= f.datetime_field :start_time %><br />
+  <%= f.label :finish_time %>
+  <%= f.datetime_field :finish_time %><br />
+
+  <p>
+    Select a Location:
+  </p>
+  <%= select_tag "location", options_from_collection_for_select(@locations, "id", "city_state"), include_blank: true %>
+
+  <p>
+    Or Create a New Location:
+  </p>
+  <%= f.fields_for :location do |location| %>
+    <%= location.label :city %>
+    <%= location.text_field :city %><br />
+    <%= location.label :state %>
+    <%= location.text_field :state %>
+  <% end %>
+
+  <%= f.fields_for :items do |item| %>
+    <p>
+      Items:
+    </p>
+    <ol>
+      <% 10.times do %>
+        <li>
+          <%= item.label :name %>
+          <%= item.text_field :name %>
+        </li>
+      <% end %>
+    </ol>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>

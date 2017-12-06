@@ -17,6 +17,12 @@ class HuntsController < ApplicationController
   end
 
   def new
+    @hunt = Hunt.new
+    @location = Location.new
+    @locations = Location.all 
+  end
+
+  def create
 
   end
 
