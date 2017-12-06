@@ -12,6 +12,9 @@ class Hunt < ActiveRecord::Base
   validates_datetime :finish_time, :after => :start_time
   validates_datetime :start_time, :after => DateTime.current, on: :create
 
+  accepts_nested_attributes_for :items
+  accepts_nested_attributes_for :location
+
   ## Attribute Setter Methods ##
   def status
     if DateTime.current < self.start_time

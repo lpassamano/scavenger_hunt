@@ -18,17 +18,31 @@ class HuntsController < ApplicationController
 
   def new
     @hunt = Hunt.new
-    @location = Location.new
-    @locations = Location.all 
+    @locations = Location.all
   end
 
   def create
-
+    raise params.inspect
   end
 
   private
 
   def require_login
     return redirect_to root_path unless current_user
+  end
+
+  def hunt_params
+    params.require(:hunt).permit(
+      :name,
+      :start_time,
+      :finish_time,
+      location: [
+        :city,
+        :state
+      ],
+      items: [
+        :name
+      ]
+    )
   end
 end
