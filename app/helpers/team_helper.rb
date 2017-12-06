@@ -20,7 +20,7 @@ module TeamHelper
     if team.hunt.pending?
       text = button_to("Join Team", hunt_team_path(team.hunt, team), :method => "patch", :class => "submit")
     else
-      text = " | #{team.found_items.count} items found"
+      text = " | #{team.found_items.count} #{pluralize(team.found_items.count, "item")} found"
     end
     content_tag(:li, link_to(team.name, hunt_team_path(team.hunt, team)) + text)
   end
