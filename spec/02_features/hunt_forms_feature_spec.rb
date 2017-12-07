@@ -19,13 +19,12 @@ describe 'Feature Test: Hunts Forms', :type => :feature do
         expect(current_path).to eq('/hunts/new')
 
         fill_in("hunt[name]", :with => "Canal Park")
-        #will probably need to change start and finish time formats once form is created
         fill_in("hunt[start_time]", :with => "2018-12-23T19:00")
         fill_in("hunt[finish_time]", :with => "2018-12-23T21:00")
         fill_in("hunt[location_attributes][city]", :with => "Princeton")
         fill_in("hunt[location_attributes][state]", :with => "NJ")
-        page.all(:fillable_field, "hunt[items_attributes][][name]").first.set("item 1")
-        page.all(:fillable_field, "hunt[items_attributes][][name]").last.set("item 2")
+        fill_in("hunt[items_attributes][0][name]", :with => "item 1")
+        fill_in("hunt[items_attributes][1][name]", :with => "item 2")
         click_button('Create Hunt')
         hunt = Hunt.last
 
@@ -37,8 +36,8 @@ describe 'Feature Test: Hunts Forms', :type => :feature do
         visit new_hunt_path
 
         fill_in("hunt[name]", :with => "Nassau Street")
-        page.all(:fillable_field, "hunt[items_attributes][][name]").first.set("item 1")
-        page.all(:fillable_field, "hunt[items_attributes][][name]").last.set("item 2")
+        fill_in("hunt[items_attributes][0][name]", :with => "item 1")
+        fill_in("hunt[items_attributes][1][name]", :with => "item 2")
         click_button('Create Hunt')
 
         expect(current_path).to eq(hunts_path)
@@ -74,7 +73,6 @@ describe 'Feature Test: Hunts Forms', :type => :feature do
         click_link("Edit Hunt")
         expect(current_path).to eq(edit_hunt_path(@hunt))
 
-        #will probably need to change start and finish time formats once form is created
         fill_in("hunt[start_time]", :with => "2015-12-23T19:00")
         fill_in("hunt[finish_time]", :with => "2015-12-23T21:00")
         click_button('Update Hunt')
@@ -84,16 +82,15 @@ describe 'Feature Test: Hunts Forms', :type => :feature do
       end
 
       it 'successfully updates a hunt' do
-        visit edit_hunt_path(@hunt)
+        visit hunt_path(@hunt)
+        click_link("Edit Hunt")
+        expect(current_path).to eq(edit_hunt_path(@hunt))
 
-        #will probably need to change start and finish time formats once form is created
-        fill_in("hunt[start_time]", :with => "2019-12-23T19:00")
-        fill_in("hunt[finish_time]", :with => "2019-12-23T21:00")
+        fill_in("hunt_name", :with => "Pending Hunt Has a New Name!!!!!!")
         click_button('Update Hunt')
 
         expect(current_path).to eq(hunt_path(@hunt))
-        expect(@hunt.start_time).to eq(DateTime.new(2019, 12, 23, 19, 00, 00))
-        expect(@hunt.finish_time).to eq(DateTime.new(2019, 12, 23, 12, 00, 00))
+        expect(page).to have_content("Pending Hunt Has a New Name!!!!!!")
       end
     end
   end
