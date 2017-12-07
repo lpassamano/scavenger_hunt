@@ -17,21 +17,22 @@
       <%= l.text_field :state %>
     <% end %>
   </p>
+
   <p>
     Items:
   </p>
-  <%= f.fields_for "items_attributes[]", Item.new do |item| %>
-    <ol>
-        <li>
-          <%= item.label :name %>
-          <%= item.text_field :name %>
-        </li>
-        <li>
-          <%= item.label :name %>
-          <%= item.text_field :name %>
-        </li>
-    </ol>
-  <% end %>
+
+  <ol>
+    <%= f.fields_for :items do |i| %>
+      <li>
+        <%= i.text_field :name %>
+        <% if i.object.name %>
+          <%= i.check_box :_destroy %>Remove
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+
 
   <%= f.submit %>
 <% end %>

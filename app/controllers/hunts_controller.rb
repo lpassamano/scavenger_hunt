@@ -20,6 +20,7 @@ class HuntsController < ApplicationController
     @hunt = Hunt.new
     @location = Location.new
     @hunt.location = @location
+    add_items(10, @hunt)
     @locations = Location.all
   end
 
@@ -36,12 +37,12 @@ class HuntsController < ApplicationController
 
   def edit
     @hunt = Hunt.find(params[:id])
+    add_items(5, @hunt)
     require_ownership(@hunt)
   end
 
   def update
     @hunt = Hunt.find(params[:id])
-    binding.pry
     if @hunt.update(hunt_params)
       redirect_to hunts_path(@hunt)
     else
@@ -59,6 +60,12 @@ class HuntsController < ApplicationController
     return redirect_to root_path unless hunt.owner == current_user
   end
 
+  def add_items(num, hunt)
+    num.times do
+      hunt.items.build
+    end
+  end
+
   def hunt_params
     params.require(:hunt).permit(
       :name,
@@ -70,7 +77,9 @@ class HuntsController < ApplicationController
         :state
       ],
       items_attributes: [
-        :name
+        :id,
+        :name,
+        :_destroy
       ]
     )
   end
