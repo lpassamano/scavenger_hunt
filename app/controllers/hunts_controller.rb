@@ -44,7 +44,7 @@ class HuntsController < ApplicationController
   def update
     @hunt = Hunt.find(params[:id])
     if @hunt.update(hunt_params)
-      redirect_to hunts_path(@hunt)
+      redirect_to hunt_path(@hunt)
     else
       render :edit
     end
