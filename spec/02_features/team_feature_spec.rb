@@ -144,10 +144,44 @@ describe 'Feature Test: Team', :type => :feature do
   end
 
   describe 'new page' do
-    # new/edit team
-      # field for name
-      # option to invite users - autocomplete w/ registered users usernames?
-      # can be edited by any team participant
+    before(:each) do
+      @user = User.find(1)
+      @participant = User.find(2)
+      @hunt = Hunt.find(3)
+      @active = Hunt.find(1)
+      @completed = Hunt.find(2)
+      login_as(@user, scope: :user)
+    end
+
+    it 'lets a user create a new team for a pending hunt' do
+      visit hunt_path(@hunt)
+      click_link("Make New Team")
+      expect(current_path).to eq(new_hunt_team_path(@hunt))
+
+      fill_in("hunt[team][name]", :with => "New Test Hunt")
+      click_button("Create Team")
+
+      new_team = Team.all.last
+      expect(@hunt.teams).to include(new_team)
+      expect(@user.teams).to include(new_team)
+      expect(current_path).to eq(hunt_team_path(new_team))
+    end
+
+    it 'make team link is only visible if user is not on a team for that hunt' do
+      login_as(@participant, scope: :user)
+      visit hunt_path(@hunt)
+      expect(page).to_not have_button("Make New Team")
+    end
+
+    it 'does not let a user create teams for active or completed hunts' do
+      visit new_hunt_team_path(@active)
+      expect(current_path).to eq(hunt_path(@active))
+      expect(page).to have_content("Can't add team to an active hunt!")
+
+      visit new_hunt_team_path(@completed)
+      expect(current_path).to eq(hunt_path(@completed))
+      expect(page).to have_content("Can't add team to a completed hunt!")
+    end
   end
 
   describe 'edit page' do
