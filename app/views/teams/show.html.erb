@@ -24,12 +24,19 @@
         <% if found_item.found == false %>
           <%= form_for([@team.hunt, @team, found_item]) do |f| %>
             <%= hidden_field_tag('found_item_id', found_item.id) %>
-            <%= f.submit "Found it!" %>
+            <%= f.submit "Found it!", id: "found_item_id_#{found_item.id}" %>
           <% end %>
-        <% end %> 
+        <% end %>
       </li>
     <% end %>
   </ol>
 <% else %>
   <!-- show for active team for any user or completed hunt -->
+  <ol>
+    <% @team.items.each do |item| %>
+      <li>
+        <%= item.name %>
+      </li>
+    <% end %>
+  </ol>
 <% end %>
