@@ -1,8 +1,9 @@
 ## Active Hunt: 1
 ## Completed Hunt: 2
 ## Pending Hunt: 3
-## All Test Hunts Owner: 1
+## All Test Hunts Owner: 1 -- should not be on any teams
 ## All Test Teams Participant: 2
+## Not on any teams: 3
 
 
 ## Create Users ##
@@ -84,7 +85,7 @@ pending_team.participants << User.find(2)
 ## Assign Users to Teams ##
 max = Team.all.count
 User.all.each do |user|
-  if user.id > 2
+  if user.id > 3
     user.team_participants << TeamParticipant.new(team_id: rand(1..max))
     user.save
   end

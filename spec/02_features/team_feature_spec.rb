@@ -145,7 +145,7 @@ describe 'Feature Test: Team', :type => :feature do
 
   describe 'new page' do
     before(:each) do
-      @user = User.find(1)
+      @user = User.find(3)
       @participant = User.find(2)
       @hunt = Hunt.find(3)
       @active = Hunt.find(1)
@@ -165,6 +165,7 @@ describe 'Feature Test: Team', :type => :feature do
       expect(@hunt.teams).to include(new_team)
       expect(@user.teams).to include(new_team)
       expect(current_path).to eq(hunt_team_path(@hunt, new_team))
+      new_team.destroy
     end
 
     it 'make team link is only visible if user is not on a team for that hunt' do
