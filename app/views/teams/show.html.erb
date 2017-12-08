@@ -18,10 +18,10 @@
 <% elsif @team.status == "active" && current_user.current_team == @team %>
   <ol>
     <% @team.items.each do |item| %>
-      <li>
+      <li class="<%= 'found' if item.found_items.where(team: @team).first.found %>" >
         <%= item.name %>
         <% found_item = @team.found_items.where(item: item).first %>
-        <% if found_item.found == false %>
+        <% unless found_item.found %>
           <%= form_for([@team.hunt, @team, found_item]) do |f| %>
             <%= hidden_field_tag('found_item_id', found_item.id) %>
             <%= f.submit "Found it!", id: "found_item_id_#{found_item.id}" %>
@@ -34,7 +34,7 @@
   <!-- show for active team for any user or completed hunt -->
   <ol>
     <% @team.items.each do |item| %>
-      <li>
+      <li class="<%= 'found' if item.found_items.where(team: @team).first.found %>" >
         <%= item.name %>
       </li>
     <% end %>
