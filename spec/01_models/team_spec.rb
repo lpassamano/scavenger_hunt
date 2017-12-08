@@ -41,4 +41,11 @@ RSpec.describe Team, type: :model do
     @team.found_items << FoundItem.create(item: Item.create(name: "black cat"), found: true)
     expect(@team.missing_items.count).to eq(1)
   end
+
+  it 'upon instantiation will create a found_item for every item its hunt has' do
+    num_items = @team.items.count
+    new_team = Team.create(hunt: @hunt)
+
+    expect(new_team.items.count).to eq(num_items)
+  end
 end
