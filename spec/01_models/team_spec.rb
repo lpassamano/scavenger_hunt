@@ -7,7 +7,6 @@ RSpec.describe Team, type: :model do
     @user3 = User.create(name: Faker::Internet.user_name, email: Faker::Internet.email, password: "password123")
     @hunt = Hunt.create(location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), owner: @user1, name: "Test Hunt")
     @team = @hunt.teams.build
-    @hunt.items.build(name: "Test Item")
     @hunt.save
   end
 
@@ -26,6 +25,9 @@ RSpec.describe Team, type: :model do
   end
 
   it 'has many found items' do
+    @hunt.items.build(name: "Test Item")
+    @hunt.save
+
     expect(@team.found_items.count).to eq(1)
   end
 
@@ -37,10 +39,13 @@ RSpec.describe Team, type: :model do
   it 'lists items that still need to be found' do
     @team.found_items << FoundItem.create(item: Item.create(name: "item"), found: false)
     @team.found_items << FoundItem.create(item: Item.create(name: "black cat"), found: true)
-    expect(@team.missing_items.count).to eq(2)
+    expect(@team.missing_items.count).to eq(1)
   end
 
   it 'upon instantiation will create a found_item for every item its hunt has' do
+    @hunt.items.build(name: "Test Item")
+    @hunt.save
+
     num_items = @team.items.count
     new_team = @hunt.teams.build
     @hunt.save

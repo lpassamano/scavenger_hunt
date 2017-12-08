@@ -8,6 +8,8 @@ class Team < ActiveRecord::Base
 
   scope :pending, -> { where()}
 
+  after_create :add_found_items
+
   def name
     read_attribute(:name) || "Team #{self.id}"
   end
@@ -18,5 +20,13 @@ class Team < ActiveRecord::Base
 
   def participants_count
     self.participants.count
+  end
+
+  def add_found_items
+    if self.hunt.items.count > 0
+      self.hunt.items.each do |item|
+        self.found_items << item.found_items.build
+      end
+    end
   end
 end
