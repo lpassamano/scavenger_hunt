@@ -37,10 +37,11 @@ describe 'Feature Test: Team', :type => :feature do
         expect(@user.teams).to include(@team)
       end
 
-      it 'has a button to leave team if current_user is on the team' do
+      it 'if current_user is on the team has leave team button instead of join team' do
         login_as(@participant, scope: :user)
         visit hunt_team_path(@hunt, @team)
         expect(page).to have_button("Leave Team")
+        expect(page).to_not have_button("Join Team")
       end
     end
 

@@ -18,7 +18,7 @@ module TeamHelper
 
   def li_for_team(team)
     if team.hunt.pending?
-      text = join_team_button(team.hunt, team)
+      text = join_or_leave_team_button(team.hunt, team)
     else
       text = " | #{team.found_items.count} #{pluralize(team.found_items.count, "item")} found"
     end
@@ -31,13 +31,21 @@ module TeamHelper
     end
   end
 
-  def join_team_button(hunt, team)
-    capture do
-      form_for([hunt, team]) do |f|
-        concat hidden_field_tag('team[participant_id]', current_user.id)
-        concat f.submit("Join Team")
+  def join_or_leave_team_button(hunt, team)
+    if current_user.teams.where(hunt: hunt).count == 0
+      capture do
+        form_for([hunt, team]) do |f|
+          concat hidden_field_tag('team[participant_id]', current_user.id)
+          concat f.submit("Join Team")
+        end
+      end
+    elsif current_user.teams.include?(team)
+      capture do
+        form_for([hunt, team]) do |f|
+          concat hidden_field_tag('team[remove_participant_id]', current_user.id)
+          concat f.submit("Leave Team")
+        end
       end
     end
-
   end
 end
