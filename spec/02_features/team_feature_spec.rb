@@ -47,13 +47,51 @@ describe 'Feature Test: Team', :type => :feature do
 
     context 'active hunt' do
       context 'logged in as team participant' do
+        before(:each) do
+          @participant = User.find(2)
+          @hunt = Hunt.find(1)
+          @team = @participant.teams.where(hunt: @hunt).first
+          login_as(@participant, scope: :user)
+        end
+
+        it 'for each team: lists all items in the hunt and a button to click when it is found' do
+          @hunt.teams.each do |team|
+            visit hunt_team_path(@hunt, team)
+
+            team.items.each do |item|
+              expect(page).to have_content(item.name)
+              expect(page).to have_button("Found it!") if team.participants.include?(@participant)
+              expect(page).to_not have_button("Found it!") if team.participants.exclude?(@participant)
+            end
+          end
+        end
         # when hunt is active for team participant:
-          ## page is a form where they can check off items that are found
+          ## clicking button Found it! marks item as found, moves it to bottom of list and italicizes it
       end
 
       context 'logged in as other user' do
-        ## list all team members w/ link to their user pages
-        ## list all items in the hunt marking which ones were found
+        before(:each) do
+          @user = User.find(1)
+          @hunt = Hunt.find(1)
+          @team = @hunt.teams.first
+          login_as(@user, scope: :user)
+        end
+
+        it 'lists all items in the hunt and found items are marked' do
+          visit hunt_team_path(@hunt, @team)
+
+          @team.items.each do |item|
+            expect(page).to have_content(item.name)
+          end
+        end
+
+        it 'lists all team members with links to their profiles' do
+          visit hunt_team_path(@hunt, @team)
+
+          @team.participants.each do |participant|
+            expect(page).to have_link(participant.name, href: user_path(participant))
+          end
+        end
       end
     end
 
