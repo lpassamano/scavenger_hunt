@@ -4,11 +4,7 @@
   Hunt info goes here!
 </p>
 
-<%= form_for([@hunt, @team]) do |f| %>
-  <!-- hidden field w/ current_user's id  -->
-  <%= hidden_field_tag 'team[participant_id]', current_user.id %>
-  <%= f.submit "Join Team" %>
-<% end %>
+<%= join_team_button(@hunt, @team) %>
 
 <h3>Members:</h3>
 <ul>
