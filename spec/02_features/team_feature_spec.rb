@@ -13,13 +13,13 @@ describe 'Feature Test: Team', :type => :feature do
         @user = User.find(1)
         @participant = User.find(2)
         @hunt = Hunt.find(3)
-        @team = @user.teams.where(hunt: @hunt)
+        @team = @participant.teams.where(hunt: @hunt).first
         login_as(@user, scope: :user)
       end
 
       it 'lists all team members with link to their user profiles' do
         visit hunt_team_path(@hunt, @team)
-
+        
         @team.participants.each do |participant|
           expect(page).to have_link(participant.name, href: user_path(participant))
         end
