@@ -3,7 +3,7 @@ class Team < ActiveRecord::Base
   has_many :participants, through: :team_participants, source: :user
   belongs_to :hunt
   delegate :status, to: :hunt
-  has_many :found_items
+  has_many :found_items, :dependent => :destroy
   has_many :items, through: :found_items
 
   scope :pending, -> { where()}

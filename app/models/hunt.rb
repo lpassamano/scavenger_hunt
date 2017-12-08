@@ -1,6 +1,6 @@
 class Hunt < ActiveRecord::Base
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
-  has_many :items
+  has_many :items 
   has_many :teams
   has_many :participants, through: :teams
   belongs_to :location
@@ -11,7 +11,7 @@ class Hunt < ActiveRecord::Base
   validates :start_time, presence: true
   validates :finish_time, presence: true
   validates_datetime :finish_time, :after => :start_time
-  validates_datetime :start_time, :after => DateTime.current, on: :create ## may need to uncomment if I have to re-seed the DB
+  validates_datetime :start_time, :after => DateTime.current#, on: :create ## may need to uncomment if I have to re-seed the DB
 
   accepts_nested_attributes_for :items, :reject_if => lambda {|a| a[:name].blank?}, allow_destroy: true
   #accepts_nested_attributes_for :location

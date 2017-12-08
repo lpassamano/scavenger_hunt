@@ -1,6 +1,5 @@
 ## make it so on instantiation of team and item -- found_items are created
--- update seed file after this works!
--- destroy found_item if team or item is deleted! 
+-- destroy found_item if team or item is deleted!
 
 - hunt show page:
 1. add date and location and meeting place

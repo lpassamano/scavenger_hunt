@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
   belongs_to :hunt
   delegate :owner, to: :hunt
-  has_many :found_items
+  has_many :found_items, :dependent => :destroy
 
   validates :name, presence: true
 
