@@ -19,7 +19,7 @@ describe 'Feature Test: Team', :type => :feature do
 
       it 'lists all team members with link to their user profiles' do
         visit hunt_team_path(@hunt, @team)
-        
+
         @team.participants.each do |participant|
           expect(page).to have_link(participant.name, href: user_path(participant))
         end
@@ -28,6 +28,13 @@ describe 'Feature Test: Team', :type => :feature do
       it 'has a button to join team if current_user is not already on a team for this hunt' do
         visit hunt_team_path(@hunt, @team)
         expect(page).to have_button("Join Team")
+      end
+
+      it 'clicking the join button adds the user to the team' do
+        visit hunt_team_path(@hunt, @team)
+        click_button("Join Team")
+
+        expect(@user.teams).to include(@team)
       end
 
       it 'has a button to leave team if current_user is on the team' do
