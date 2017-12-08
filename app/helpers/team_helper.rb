@@ -20,7 +20,7 @@ module TeamHelper
     if team.hunt.pending?
       text = join_or_leave_team_button(team.hunt, team)
     else
-      text = " | #{team.found_items.count} #{pluralize(team.found_items.count, "item")} found"
+      text = " | #{pluralize(team.found_items.where(found: true).count, "Item")} found"
     end
     content_tag(:li, link_to(team.name, hunt_team_path(team.hunt, team)) + text)
   end
