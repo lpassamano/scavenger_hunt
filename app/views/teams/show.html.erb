@@ -4,6 +4,9 @@
   Hunt info goes here!
 </p>
 
+<%= button_to("Join Team", hunt_team_path(@hunt, @team), :method => "patch", :class => "submit") %>
+
+<h3>Members:</h3>
 <ul>
   <% @team.participants.each do |participant| %>
     <li>
