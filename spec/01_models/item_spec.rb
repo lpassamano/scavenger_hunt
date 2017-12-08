@@ -18,7 +18,8 @@ RSpec.describe Item, type: :model do
     team = @hunt.teams.first
     num_items = team.items.count
 
-    Item.create(hunt: @hunt)
+    @hunt.items.build(name: "New Item")
+    @hunt.save
     expect(team.items.count).to eq(num_items + 1)
   end
 end
