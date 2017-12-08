@@ -4,7 +4,11 @@
 3. remove edit/delete item links from hunt show page
 
 - home page:
-1. if you have active hunt - link to it from home page 
+1. if you have active hunt - link to it from home page
+
+- css style
+1. found items -- .found_items
+2. upcoming hunts -- .upcoming_hunt
 
 
 4. controllers
