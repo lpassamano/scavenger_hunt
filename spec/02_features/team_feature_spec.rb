@@ -69,7 +69,7 @@ describe 'Feature Test: Team', :type => :feature do
         end
 
         it 'marks item as found when button is clicked' do
-          visit hunt_team_path(@hunt, @team)t
+          visit hunt_team_path(@hunt, @team)
           id = "team_#{@team.id}_found_item_#{@item.id}"
 
           expect(@found_item.found).to eq(false)
@@ -103,7 +103,7 @@ describe 'Feature Test: Team', :type => :feature do
           @team.items.each do |item|
             expect(page).to have_content(item.name)
             if item == @item
-              page.find(item.name).has_css:(".found")
+              page.find(item.name).has_css?(".found")
             end
           end
         end
