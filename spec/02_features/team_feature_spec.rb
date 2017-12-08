@@ -117,8 +117,29 @@ describe 'Feature Test: Team', :type => :feature do
     end
 
     context 'completed hunt' do
-      ## list all team members w/ link to their user pages
-      ## list all items in the hunt marking which ones were found
+      before(:each) do
+        @user = User.find(1)
+        @hunt = Hunt.find(2)
+        @team = @hunt.teams.first
+        @item = @hunt.items.first
+        fi = @item.found_items.where(team: @team).first
+        fi.found = true
+        fi.save
+        login_as(@user, scope: :user)
+      end
+
+      it 'lists all items in the hunt and found items are marked' do
+        visit hunt_team_path(@hunt, @team)
+        expect(page).to have_css("li.found", :count => 1)
+      end
+
+      it 'lists all team members with links to their profiles' do
+        visit hunt_team_path(@hunt, @team)
+
+        @team.participants.each do |participant|
+          expect(page).to have_link(participant.name, href: user_path(participant))
+        end
+      end
     end
   end
 
