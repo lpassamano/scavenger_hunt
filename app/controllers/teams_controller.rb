@@ -6,10 +6,26 @@ class TeamsController < ApplicationController
     @hunt = Hunt.find(params[:hunt_id])
   end
 
+  def new
+    @hunt = Hunt.find(params[:hunt_id])
+    @team = @hunt.teams.build(name: "")
+  end
+
+  def create
+    @hunt = Hunt.find(params[:hunt_id])
+    @team = @hunt.teams.build(new_team_params)
+    if @hunt.save
+      @team.participants << current_user
+      redirect_to hunt_team_path(@hunt, @team)
+    else
+      render :new
+    end
+  end
+
   def update
     @team = Team.find(params[:id])
     @hunt = Hunt.find(params[:hunt_id])
-    
+
     if params[:team][:participant_id]
       @team.participants << User.find(params[:team][:participant_id])
       redirect_to hunt_team_path(@hunt, @team)
@@ -23,6 +39,10 @@ class TeamsController < ApplicationController
 
   def team_params
     params.require(:team).permit(:participant_id, :remove_participant_id)
+  end
+
+  def new_team_params
+    params.require(:team).permit(:name)
   end
 
   def require_login

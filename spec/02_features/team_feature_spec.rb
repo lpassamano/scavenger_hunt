@@ -158,13 +158,13 @@ describe 'Feature Test: Team', :type => :feature do
       click_link("Make New Team")
       expect(current_path).to eq(new_hunt_team_path(@hunt))
 
-      fill_in("hunt[team][name]", :with => "New Test Hunt")
+      fill_in("team[name]", :with => "New Test Hunt")
       click_button("Create Team")
 
       new_team = Team.all.last
       expect(@hunt.teams).to include(new_team)
       expect(@user.teams).to include(new_team)
-      expect(current_path).to eq(hunt_team_path(new_team))
+      expect(current_path).to eq(hunt_team_path(@hunt, new_team))
     end
 
     it 'make team link is only visible if user is not on a team for that hunt' do
