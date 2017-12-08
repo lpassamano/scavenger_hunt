@@ -9,6 +9,7 @@ class TeamsController < ApplicationController
   def new
     @hunt = Hunt.find(params[:hunt_id])
     @team = @hunt.teams.build(name: "")
+    check_hunt_status(@hunt)
   end
 
   def create
@@ -48,5 +49,9 @@ class TeamsController < ApplicationController
 
   def require_login
     return redirect_to root_path unless current_user
+  end
+
+  def check_hunt_status(hunt)
+    return redirect_to hunt_path(hunt) if hunt.active? || hunt.completed?
   end
 end
