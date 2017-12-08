@@ -14,12 +14,12 @@ class TeamsController < ApplicationController
   def create
     @hunt = Hunt.find(params[:hunt_id])
     @team = @hunt.teams.build(new_team_params)
-    @hunt.save
     if @team.add_participant(current_user)
+      @hunt.save
       redirect_to hunt_team_path(@hunt, @team)
     else
       #:message => "You can't create a team because you are already in a team for this hunt."
-      redirect_to hunt_path(@hunt) # add error message to this! 
+      redirect_to hunt_path(@hunt) # add error message to this!
     end
   end
 

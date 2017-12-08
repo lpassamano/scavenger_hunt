@@ -11,8 +11,8 @@ class Team < ActiveRecord::Base
   after_create :add_found_items
 
   def name
-    self.name = "Team #{self.id}" if self.name = ""
-    read_attribute(:name) || self.name = "Team #{self.id}"
+    @name = "Team #{self.id}" if read_attribute(:name) == ""
+    read_attribute(:name) || @name = "Team #{self.id}"
   end
 
   def missing_items

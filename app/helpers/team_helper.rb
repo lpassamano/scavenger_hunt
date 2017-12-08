@@ -26,7 +26,7 @@ module TeamHelper
   end
 
   def link_to_make_new_team(hunt)
-    if hunt.pending?
+    if hunt.pending? && !current_user.team(hunt)
       link_to("Make New Team", new_hunt_team_path(hunt))
     end
   end
