@@ -40,11 +40,13 @@ RSpec.describe Hunt, type: :model do
   end
 
   it 'has a method to display all active hunts' do
-    expect(Hunt.active.count).to be >= 1
+    active = Hunt.active
+    expect(active.count).to be >= 1
   end
 
   it 'has a method to display all completed hunts' do
-    expect(Hunt.completed.count).to be >= 1
+    completed = Hunt.completed
+    expect(completed.count).to be >= 1
   end
 
   it 'requires a name, location, start and finish time' do

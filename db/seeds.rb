@@ -59,25 +59,27 @@ h.name = "Pending Hunt"
 h.owner = owner
 h.save
 
-## Add Items to Hunts ##
 ## Add Teams to Hunts ##
+## Add Items to Hunts ##
 Hunt.all.each do |hunt|
-  10.times do
-    Item.create(
-      name: Faker::Zelda.item,
-      hunt: hunt
-    )
+  5.times do
+    hunt.teams.build
+    hunt.save
   end
 
-  5.times do
-    Team.create(hunt: hunt)
+  10.times do
+    hunt.items.build(name: Faker::Zelda.item)
+    hunt.save
   end
 end
 
-## Make one participant on Team for Active Hunt ##
-Hunt.find(1).teams.first.participants << User.find(2)
-Hunt.find(2).teams.first.participants << User.find(2)
-Hunt.find(3).teams.first.participants << User.find(2)
+## Make one participant on Team for Active/Pending/Completed Hunt ##
+active_team = Hunt.find(1).teams.first
+active_team.participants << User.find(2)
+completed_team = Hunt.find(2).teams.first
+completed_team.participants << User.find(2)
+pending_team = Hunt.find(3).teams.first
+pending_team.participants << User.find(2)
 
 ## Assign Users to Teams ##
 max = Team.all.count

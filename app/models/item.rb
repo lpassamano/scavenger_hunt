@@ -4,4 +4,14 @@ class Item < ActiveRecord::Base
   has_many :found_items
 
   validates :name, presence: true
+
+  after_create :add_found_items
+
+  def add_found_items
+    if self.hunt.teams.count > 0
+      self.hunt.teams.each do |team|
+        team.found_items << self.found_items.build
+      end
+    end
+  end
 end

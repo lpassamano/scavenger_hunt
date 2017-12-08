@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   before(:each) do
     @hunt = Hunt.first
-    @item = Item.create(hunt: hunt)
+    @item = Item.create(hunt: @hunt)
   end
 
   it 'has a hunt' do
