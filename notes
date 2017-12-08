@@ -11,6 +11,10 @@
 1. found items -- .found_items
 2. upcoming hunts -- .upcoming_hunt
 
+-messages --
+go through spec comments re: error messages
+add error and success messages for better UX
+
 
 4. controllers
     - requires nested resources w/ restful urls

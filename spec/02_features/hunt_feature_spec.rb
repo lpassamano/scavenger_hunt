@@ -192,11 +192,6 @@ describe 'Feature Test: Hunts', :type => :feature do
           end
         end
 
-        it 'has a link to create a new team' do
-          visit hunt_path(@participant_hunt)
-          expect(page).to have_link("Make New Team", href: new_hunt_team_path(@participant_hunt))
-        end
-
         it 'does not list the items for the hunt' do
           visit hunt_path(@participant_hunt)
           expect(page).to_not have_content(@participant_hunt.items.first.name)
