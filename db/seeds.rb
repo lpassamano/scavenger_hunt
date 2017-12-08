@@ -59,19 +59,8 @@ h.name = "Pending Hunt"
 h.owner = owner
 h.save
 
-## Make one team for each Hunt ##
-active_team = Team.create(hunt_id: 1)
-completed_team = Team.create(hunt_id: 2)
-pending_team = Team.create(hunt_id: 3)
-
-## Make one participant on Team for Active Hunt ##
-active_team.participants << User.find(2)
-completed_team.participants << User.find(2)
-pending_team.participants << User.find(2)
-
 ## Add Items to Hunts ##
 ## Add Teams to Hunts ##
-## Add FoundItems for Item/Team ##
 Hunt.all.each do |hunt|
   10.times do
     Item.create(
@@ -81,14 +70,14 @@ Hunt.all.each do |hunt|
   end
 
   5.times do
-    team = Team.create(hunt: hunt)
-
-    hunt.items.each do |item|
-      item.found_items << FoundItem.new(team: team)
-      item.save
-    end
+    Team.create(hunt: hunt)
   end
 end
+
+## Make one participant on Team for Active Hunt ##
+Hunt.find(1).teams.first.participants << User.find(2)
+Hunt.find(2).teams.first.participants << User.find(2)
+Hunt.find(3).teams.first.participants << User.find(2)
 
 ## Assign Users to Teams ##
 max = Team.all.count
