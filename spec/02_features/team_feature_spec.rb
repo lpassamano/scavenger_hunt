@@ -51,6 +51,8 @@ describe 'Feature Test: Team', :type => :feature do
           @participant = User.find(2)
           @hunt = Hunt.find(1)
           @team = @participant.teams.where(hunt: @hunt).first
+          @item = @hunt.item.first
+          @found_item = @item.found_items.where(team: @team).first
           login_as(@participant, scope: :user)
         end
 
@@ -65,8 +67,25 @@ describe 'Feature Test: Team', :type => :feature do
             end
           end
         end
-        # when hunt is active for team participant:
-          ## clicking button Found it! marks item as found, moves it to bottom of list and italicizes it
+
+        it 'marks item as found when button is clicked' do
+          visit hunt_team_path(@hunt, @team)t
+          id = "team_#{@team.id}_found_item_#{@item.id}"
+
+          expect(@found_item.found).to eq(false)
+
+          find("##{id}").click
+          expect(@found_item.found).to eq(true)
+          #need to make id of the button unique to id of the item -- .team_1_found_item_1
+        end
+
+        it 'does not have found it button if item is already found' do
+          visit hunt_team_path(@hunt, @team)
+          @found_item.found = true
+          id = "team_#{@team.id}_found_item_#{@item.id}"
+
+          expect(page).to_not have_css("##{id}")
+        end
       end
 
       context 'logged in as other user' do
@@ -74,6 +93,7 @@ describe 'Feature Test: Team', :type => :feature do
           @user = User.find(1)
           @hunt = Hunt.find(1)
           @team = @hunt.teams.first
+          @item = @hunt.item.first
           login_as(@user, scope: :user)
         end
 
@@ -82,6 +102,9 @@ describe 'Feature Test: Team', :type => :feature do
 
           @team.items.each do |item|
             expect(page).to have_content(item.name)
+            if item == @item
+              page.find(item.name).has_css:(".found")
+            end
           end
         end
 
