@@ -23,6 +23,14 @@ class Team < ActiveRecord::Base
     self.participants.count
   end
 
+  def add_participant(user)
+    if user.teams.where(hunt: self.hunt) == []
+      self.participants << user
+    else
+      false
+    end
+  end
+
   def add_found_items
     if self.hunt.items.count > 0
       self.hunt.items.each do |item|
