@@ -51,7 +51,7 @@ describe 'Feature Test: Team', :type => :feature do
           @participant = User.find(2)
           @hunt = Hunt.find(1)
           @team = @participant.teams.where(hunt: @hunt).first
-          @item = @hunt.item.first
+          @item = @hunt.items.first
           @found_item = @item.found_items.where(team: @team).first
           login_as(@participant, scope: :user)
         end

@@ -1,12 +1,10 @@
-## make it so on instantiation of team and item -- found_items are created
--- destroy found_item if team or item is deleted!
-
 - hunt show page:
 1. add date and location and meeting place
 2. add link to add item
 3. remove edit/delete item links from hunt show page
 
-
+- home page:
+1. if you have active hunt - link to it from home page 
 
 
 4. controllers

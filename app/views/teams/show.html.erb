@@ -4,13 +4,32 @@
   Hunt info goes here!
 </p>
 
-<%= join_or_leave_team_button(@hunt, @team) %>
+<% if @team.status == "pending" %>
+  <%= join_or_leave_team_button(@hunt, @team) %>
 
-<h3>Members:</h3>
-<ul>
-  <% @team.participants.each do |participant| %>
-    <li>
-      <%= link_to participant.name, user_path(participant) %>
-    </li>
-  <% end %>
-</ul>
+  <h3>Members:</h3>
+  <ul>
+    <% @team.participants.each do |participant| %>
+      <li>
+        <%= link_to participant.name, user_path(participant) %>
+      </li>
+    <% end %>
+  </ul>
+<% elsif @team.status == "active" && current_user.current_team == @team %>
+  <ol>
+    <% @team.items.each do |item| %>
+      <li>
+        <%= item.name %>
+        <% found_item = @team.found_items.where(item: item).first %>
+        <% if found_item.found == false %>
+          <%= form_for([@team.hunt, @team, found_item]) do |f| %>
+            <%= hidden_field_tag('found_item_id', found_item.id) %>
+            <%= f.submit "Found it!" %>
+          <% end %>
+        <% end %> 
+      </li>
+    <% end %>
+  </ol>
+<% else %>
+  <!-- show for active team for any user or completed hunt -->
+<% end %>
