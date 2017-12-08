@@ -1,2 +1,13 @@
-<h1>Team#show</h1>
-<p>Find me in app/views/team/show.html.erb</p>
+<h1><%= @team.name %></h1>
+
+<p>
+  Hunt info goes here!
+</p>
+
+<ul>
+  <% @team.participants.each do |participant| %>
+    <li>
+      <%= link_to participant.name, user_path(participant) %>
+    </li>
+  <% end %>
+</ul>
