@@ -2,6 +2,9 @@
 1. add date and location and meeting place
 2. add link to add item
 3. remove edit/delete item links from hunt show page
+4. cannot join multiple teams for same hunt!
+5. hunt show page - display join teams only if you aren't member of a team for that hunt!
+
 
 not getting error class on location or items nested form!
 
