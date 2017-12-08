@@ -112,12 +112,12 @@ describe 'Feature Test: Hunts', :type => :feature do
           visit hunt_path(@active_hunt)
           expect(page).to have_content("Leaderboard")
 
-          teams = @active_hunt.teams.sort {|x, y| y.found_items.count <=> x.found_items.count}
+          teams = @active_hunt.teams.sort {|x, y| y.found_items.where(found: true).count <=> x.found_items.where(found: true).count}
           expect(teams == @active_hunt.leaderboard).to eq(true)
 
           @active_hunt.teams.each do |team|
             expect(page).to have_link(team.name, href: hunt_team_path(@active_hunt, team))
-            expect(page).to have_content(team.found_items.count)
+            expect(page).to have_content(team.found_items.where(found: true).count)
           end
         end
 

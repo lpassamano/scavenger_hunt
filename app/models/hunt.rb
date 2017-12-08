@@ -1,6 +1,6 @@
 class Hunt < ActiveRecord::Base
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
-  has_many :items 
+  has_many :items
   has_many :teams
   has_many :participants, through: :teams
   belongs_to :location
@@ -123,6 +123,6 @@ class Hunt < ActiveRecord::Base
   end
 
   def leaderboard
-    self.teams.sort {|x, y| y.found_items.count <=> x.found_items.count}
+    self.teams.sort {|x, y| y.found_items.where(found: true).count <=> x.found_items.where(found: true).count}
   end
 end
