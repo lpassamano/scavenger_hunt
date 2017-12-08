@@ -84,6 +84,8 @@ pending_team.participants << User.find(2)
 ## Assign Users to Teams ##
 max = Team.all.count
 User.all.each do |user|
-  user.team_participants << TeamParticipant.new(team_id: rand(1..max))
-  user.save
+  if user.id > 2
+    user.team_participants << TeamParticipant.new(team_id: rand(1..max))
+    user.save
+  end
 end
