@@ -3,16 +3,38 @@ describe 'Feature Test: Team', :type => :feature do
     context 'not logged in' do
       it 'redirects to the home page' do
         team = Team.find(1)
-        visit hunt_team_path(team)
+        visit hunt_team_path(team.hunt, team)
         expect(page.current_path).to eq(root_path)
       end
     end
 
     context 'pending hunt' do
-      # when hunt is pending:
-        ## list all team members w/ link to their user pages
-        ## has join team button if current_user is not already on team
-        ## if already on team has button to leave team
+      before(:each) do
+        @user = User.find(1)
+        @participant = User.find(2)
+        @hunt = Hunt.find(3)
+        @team = @user.teams.where(hunt: @hunt)
+        login_as(@user, scope: :user)
+      end
+
+      it 'lists all team members with link to their user profiles' do
+        visit hunt_team_path(@hunt, @team)
+
+        @team.participants.each do |participant|
+          expect(page).to have_link(participant.name, href: user_path(participant))
+        end
+      end
+
+      it 'has a button to join team if current_user is not already on a team for this hunt' do
+        visit hunt_team_path(@hunt, @team)
+        expect(page).to have_button("Join Team")
+      end
+
+      it 'has a button to leave team if current_user is on the team' do
+        login_as(@participant, scope: :user)
+        visit hunt_team_path(@hunt, @team)
+        expect(page).to have_button("Leave Team")
+      end
     end
 
     context 'active hunt' do
