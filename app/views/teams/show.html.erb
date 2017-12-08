@@ -39,4 +39,12 @@
       </li>
     <% end %>
   </ol>
+
+  <ul>
+    <% @team.participants.each do |participant| %>
+      <li>
+        <%= link_to participant.name, user_path(participant) %> 
+      </li>
+    <% end %>
+  </ul>
 <% end %>
