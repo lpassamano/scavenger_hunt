@@ -4,7 +4,11 @@
   Hunt info goes here!
 </p>
 
-<%= button_to("Join Team", hunt_team_path(@hunt, @team), :method => "patch", :class => "submit") %>
+<%= form_for([@hunt, @team]) do |f| %>
+  <!-- hidden field w/ current_user's id  -->
+  <%= hidden_field_tag 'team[participant_id]', current_user.id %>
+  <%= f.submit "Join Team" %>
+<% end %>
 
 <h3>Members:</h3>
 <ul>
