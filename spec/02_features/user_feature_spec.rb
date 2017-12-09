@@ -64,9 +64,9 @@ describe 'Feature Test: User', :type => :feature do
       click_link("Update Profile")
       expect(current_path).to eq(edit_user_path(@user))
 
-      fill_in("name", :with => "fluffy_kitty_2000")
-      fill_in("location[city]", :with => "West Orange")
-      fill_in("location[state]", :with => "NJ")
+      fill_in("user[name]", :with => "fluffy_kitty_2000")
+      fill_in("user[location_attributes][city]", :with => "West Orange")
+      fill_in("user[location_attributes][city]", :with => "NJ")
       click_button("Update Profile")
 
       expect(current_path).to eq(user_path(@user))

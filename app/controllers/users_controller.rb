@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    raise params.inspect
     require_current_user_to_be(@user)
   end
 
