@@ -47,10 +47,6 @@ class TeamsController < ApplicationController
     params.require(:team).permit(:name)
   end
 
-  def require_login
-    return redirect_to root_path unless current_user
-  end
-
   def check_hunt_status(hunt)
     return redirect_to hunt_path(hunt) if hunt.active? || hunt.completed?
   end
