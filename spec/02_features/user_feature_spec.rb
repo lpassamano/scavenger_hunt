@@ -11,6 +11,7 @@ describe 'Feature Test: User', :type => :feature do
       before(:each) do
         @user = User.find(1)
         @user2 = User.find(2)
+        @user2.location = Location.find(1)
         login_as(@user, scope: :user)
       end
 

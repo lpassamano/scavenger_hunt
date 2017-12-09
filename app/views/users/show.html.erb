@@ -1,0 +1,10 @@
+<h1><%= @user.name %>'s Profile</h1>
+<h3><%= @user.location.city_state if @user.location %></h3>
+
+<h3>Teams:</h3>
+
+<h3>Hunts made by <% @user.name %></h3>
+
+<% if @user == current_user %>
+  <%= link_to "Update Profile", edit_user_path(current_user) %>
+<% end %>
