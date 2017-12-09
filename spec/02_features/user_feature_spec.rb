@@ -1,4 +1,4 @@
-# after signing up redirects to profile page 
+# after signing up redirects to profile page
 # show
   ## lists pending hunts and teams that user is participating in
   ## lists home location
@@ -9,4 +9,4 @@
 
 # edit
   # /users/user-slug/location/edit
-  # only to update home location
+  # only to update home location and username 
