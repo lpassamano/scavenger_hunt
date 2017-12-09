@@ -184,11 +184,4 @@ describe 'Feature Test: Team', :type => :feature do
       #expect(page).to have_content("Can't add team to a completed hunt!")
     end
   end
-
-  describe 'edit page' do
-    # new/edit team
-      # field for name
-      # option to invite users - autocomplete w/ registered users usernames?
-      # can be edited by any team participant
-  end
 end
