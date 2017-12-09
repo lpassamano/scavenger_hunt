@@ -1,2 +1,21 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<h1>Edit Profile</h1>
+
+<%= form_for @user do |f| %>
+  <p>
+    Your Username:<br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    Your Location:<br />
+
+    <%= f.fields_for :location_attributes, @user.location do |l| %>
+      <%= l.label :city %>
+      <%= l.text_field :city %><br />
+      <%= l.label :state %>
+      <%= l.text_field :state %>
+    <% end %>
+  </p>
+
+  <%= f.submit "Update Profile" %>
+<% end %>
