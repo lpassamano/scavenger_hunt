@@ -12,6 +12,11 @@
 </ul>
 
 <h3>Hunts made by <% @user.name %></h3>
+<ul>
+  <% @user.owned_hunts.each do |hunt| %>
+    <%= li_for_hunt(hunt, :with_date) %>
+  <% end %>
+</ul>
 
 <% if @user == current_user %>
   <%= link_to "Update Profile", edit_user_path(current_user) %>

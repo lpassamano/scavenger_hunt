@@ -11,7 +11,6 @@ describe 'Feature Test: User', :type => :feature do
       before(:each) do
         @user = User.find(1)
         @user2 = User.find(2)
-        @user2.location = Location.find(1)
         login_as(@user, scope: :user)
       end
 
@@ -25,6 +24,9 @@ describe 'Feature Test: User', :type => :feature do
       end
 
       it 'lists the users home location and username' do
+        @user2.location = Location.find(1)
+        @user2.save
+
         visit user_path(@user2)
         location = "#{@user2.location.city}, #{@user2.location.state}"
 
