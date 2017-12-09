@@ -2,6 +2,14 @@
 <h3><%= @user.location.city_state if @user.location %></h3>
 
 <h3>Teams:</h3>
+<ul>
+  <% @user.upcoming_participating_hunts.each do |hunt| %>
+    <li>
+      <strong><%= link_to @user.team(hunt).name, hunt_team_path(hunt, @user.team(hunt)) %></strong><br />
+      <%= link_to hunt.name, hunt_path(hunt) %>
+    </li>
+  <% end %>
+</ul>
 
 <h3>Hunts made by <% @user.name %></h3>
 

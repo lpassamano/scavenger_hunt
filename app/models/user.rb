@@ -25,11 +25,12 @@ class User < ApplicationRecord
   end
 
   def upcoming_participating_hunts
-    self.teams.collect do |team|
+    hunts = self.teams.collect do |team|
       if team.status == "pending"
         team.hunt
       end
     end
+    hunts.compact
   end
 
   def upcoming_owned_hunts
