@@ -53,9 +53,32 @@ describe 'Feature Test: User', :type => :feature do
   end
 
   describe 'edit profile' do
-    #only can change home location and username
-        # /users/id/location/edit
-    #user can only edit their own profile
+    before(:each) do
+      @user = User.find(1)
+      @user2 = User.find(2)
+      login_as(@user, scope: :user)
+    end
 
+    it 'can update users name and location' do
+      visit user_path(@user)
+      click_link("Update Profile")
+      expect(current_path).to eq(edit_user_path(@user))
+
+      fill_in("name", :with => "fluffy_kitty_2000")
+      fill_in("location[city]", :with => "West Orange")
+      fill_in("location[state]", :with => "NJ")
+      click_button("Update Profile")
+
+      expect(current_path).to eq(user_path(@user))
+      expect(page).to have_content("West Orange, NJ")
+      expect(@user.location.city_state).to eq("West Orange, NJ")
+      expect(@user.naem).to eq("fluffy_kitty_2000")
+    end
+
+    it 'current_user can only edit their own profile' do
+      visit edit_user_path(@user2)
+
+      expect(current_path).to eq(root_path)
+    end
   end
 end

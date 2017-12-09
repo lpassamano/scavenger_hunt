@@ -43,6 +43,7 @@ class HuntsController < ApplicationController
 
   def update
     @hunt = Hunt.find(params[:id])
+    require_ownership(@hunt)
     if @hunt.update(hunt_params)
       redirect_to hunt_path(@hunt)
     else
