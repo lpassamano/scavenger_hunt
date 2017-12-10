@@ -17,17 +17,6 @@ add error and success messages for better UX
 
 
 
-5. views
-    - authentication: standard login and outside service (fb)
-        - authentication (use oauth for FB)
-    - forms should display validation errors enclosed in class="fields_with_errors" with error messages present in views   --- put devise errors in layouts/application for now!
-    - dropdown menu w/ all us states
-    - add username field to login/signup pages
-5.5 features
-    - when hunt is active there is a leaderboard on the hunt view page
-    - can only join pending hunts
-    - when hunt becomes active the current_team of all team participants becomes the team's id
-    - status of hunt automatically turns to active at start time and completed at end time
 5.6 integrate use of slugs instead of ids in the urls
 5.7 add descriptions to hunts???? see what the show page looks like once some styling is added.
 5.9 REFACTOR!!!  -- modules for methods that are the same?
