@@ -33,11 +33,13 @@ module HuntHelper
   end
 
   def display_hunts(hunts)
-    html = []
-    hunts.each do |hunt|
-      html << li_for_hunt(hunt, :with_date)
+    if !!hunts
+      html = []
+      hunts.each do |hunt|
+        html << li_for_hunt(hunt, :with_date)
+      end
+      content_tag(:ul, html.join.html_safe)
     end
-    content_tag(:ul,html.join.html_safe)
   end
 
   def edit_and_delete_buttons(hunt)
