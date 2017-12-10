@@ -71,6 +71,7 @@ describe 'Feature Test: User', :type => :feature do
 
       expect(current_path).to eq(user_path(@user))
       expect(page).to have_content("fluffy_kitty_2000")
+      # not working in spec but works on server 
       # expect(@user.location.city_state).to eq("West Orange, NJ")
       # expect(@user.name).to eq("fluffy_kitty_2000")
     end
