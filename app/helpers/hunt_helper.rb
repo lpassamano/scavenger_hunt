@@ -20,11 +20,12 @@ module HuntHelper
     if user.all_upcoming_hunts == []
       content_tag(:p, link_to("You don't have any upcoming scavenger hunts! Why don't you join one today?", hunts_path))
     else
-      html = []
-      user.all_upcoming_hunts.each do |hunt|
-        html << li_for_hunt(hunt, user.team(hunt), :with_date_and_team)
+      html = capture do
+        user.all_upcoming_hunts.each do |hunt|
+          concat li_for_hunt(hunt, user.team(hunt), :with_date_and_team)
+        end
       end
-      content_tag(:ul, html.join.html_safe)
+      content_tag(:ul, html)
     end
   end
 
@@ -40,11 +41,12 @@ module HuntHelper
 
   def display_hunts(hunts)
     if !!hunts
-      html = []
-      hunts.each do |hunt|
-        html << li_for_hunt(hunt, :with_date)
+      html = capture do
+        hunts.each do |hunt|
+          concat li_for_hunt(hunt, :with_date)
+        end
       end
-      content_tag(:ul, html.join.html_safe)
+      content_tag(:ul, html)
     end
   end
 
@@ -64,12 +66,12 @@ module HuntHelper
 
   def link_to_team_for_active_hunt(hunt)
     if hunt.active? && hunt.teams.include?(current_user.current_team)
-      text = capture do
+      html = capture do
         concat "The hunt is on!"
         concat tag(:br)
         concat link_to("Join your team and start finding items.", hunt_team_path(hunt, current_user.current_team))
       end
-      content_tag(:p, text)
+      content_tag(:p, html)
     end
   end
 end
