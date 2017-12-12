@@ -1,28 +1,31 @@
 module TeamHelper
   def display_teams_for(hunt)
-    html = []
     if hunt.pending?
       header = "Teams"
-      hunt.teams.each do |team|
-        html << li_for_team(team)
+      html = capture do
+        hunt.teams.each do |team|
+          concat li_for_team(team)
+        end
       end
     else
       header = "Leaderboard" if hunt.active?
       header = "Final Scores" if hunt.completed?
-      hunt.leaderboard.each do |team|
-        html << li_for_team(team)
+      html = capture do
+        hunt.leaderboard.each do |team|
+          concat li_for_team(team)
+        end
       end
     end
-    content_tag(:h3, header) + content_tag(:ol, html.join.html_safe)
+    content_tag(:h3, header) + content_tag(:ol, html)
   end
 
   def li_for_team(team)
     if team.hunt.pending?
-      text = join_or_leave_team_button(team.hunt, team)
+      html = join_or_leave_team_button(team.hunt, team)
     else
-      text = " | #{pluralize(team.found_items.where(found: true).count, "Item")} found"
+      html = " | #{pluralize(team.found_items.where(found: true).count, "Item")} found"
     end
-    content_tag(:li, link_to(team.name, hunt_team_path(team.hunt, team)) + text)
+    content_tag(:li, link_to(team.name, hunt_team_path(team.hunt, team)) + html)
   end
 
   def link_to_make_new_team(hunt)
