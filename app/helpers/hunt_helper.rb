@@ -17,16 +17,22 @@ module HuntHelper
   end
 
   def display_upcoming_hunts_for(user)
-    html = []
-    user.all_upcoming_hunts.each do |hunt|
-      html << li_for_hunt(hunt, user.team(hunt), :with_date_and_team)
+    if user.all_upcoming_hunts == []
+      content_tag(:p, link_to("You don't have any upcoming scavenger hunts! Why don't you join one today?", hunts_path))
+    else
+      html = []
+      user.all_upcoming_hunts.each do |hunt|
+        html << li_for_hunt(hunt, user.team(hunt), :with_date_and_team)
+      end
+      content_tag(:ul, html.join.html_safe)
     end
-    content_tag(:ul, html.join.html_safe)
   end
 
   def display_nearby_hunts(hunts)
     if hunts.nil?
       link_to("Add Your Location", edit_user_path(current_user))
+    elsif hunts == []
+      content_tag(:p, link_to("There aren't any upcoming scavenger hunts in your area! Why don't you create one today?", new_hunt_path))
     else
       display_hunts(hunts)
     end
