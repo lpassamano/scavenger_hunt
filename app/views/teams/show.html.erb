@@ -1,6 +1,6 @@
 <h1><%= @team.name %></h1>
 
-<h3>Scavenger Hunt: <%= @hunt.name %></h3>
+<h3>Scavenger Hunt: <%= link_to @hunt.name, hunt_path(@hunt) %></h3>
 <p>
   <%= @hunt.location.city_state %><br />
   <%= @hunt.date %>

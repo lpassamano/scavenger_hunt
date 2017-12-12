@@ -1,5 +1,10 @@
 <h1><%= @hunt.name %></h1>
 
+<p>
+  <%= @hunt.location.city_state %><br />
+  <%= @hunt.date %>
+</p>
+
 <%= edit_and_delete_buttons(@hunt) %>
 <%= link_to_team_for_active_hunt(@hunt) %>
 
