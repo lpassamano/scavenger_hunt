@@ -13,8 +13,4 @@ class Location < ActiveRecord::Base
   def city_state
     "#{self.city}, #{self.state}"
   end
-
-  def self.all_states
-    (Location.all.collect {|l| l.state}).uniq
-  end
 end

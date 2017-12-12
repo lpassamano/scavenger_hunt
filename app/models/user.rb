@@ -38,7 +38,7 @@ class User < ApplicationRecord
 
   def all_upcoming_hunts
     hunts = (upcoming_participating_hunts << upcoming_owned_hunts).flatten.compact
-    hunts.sort! {|y, z| y.start_time <=> z.start_time }
+    hunts.sort! { |y, z| y.start_time <=> z.start_time }
   end
 
   def upcoming_participating_hunts
@@ -59,7 +59,7 @@ class User < ApplicationRecord
   end
 
   def active_hunt
-    team = self.teams.find { |team| team.status == "active"}
+    team = self.teams.find { |team| team.status == "active" }
     team.hunt
   end
 end

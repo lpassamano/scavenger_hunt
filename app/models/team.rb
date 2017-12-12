@@ -6,17 +6,11 @@ class Team < ActiveRecord::Base
   has_many :found_items, :dependent => :destroy
   has_many :items, through: :found_items
 
-  scope :pending, -> { where()}
-
   after_create :add_found_items
 
   def name
     @name = "Team #{self.id}" if read_attribute(:name) == ""
     read_attribute(:name) || @name = "Team #{self.id}"
-  end
-
-  def missing_items
-    self.found_items.where(found: false)
   end
 
   def participants_count
