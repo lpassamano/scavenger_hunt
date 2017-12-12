@@ -15,6 +15,7 @@ class TeamsController < ApplicationController
   def create
     @hunt = Hunt.find(params[:hunt_id])
     @team = @hunt.teams.build(new_team_params)
+    check_hunt_status(@hunt)
     if @team.add_participant(current_user)
       @hunt.save
       redirect_to hunt_team_path(@hunt, @team)

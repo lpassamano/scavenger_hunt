@@ -37,8 +37,8 @@ class HuntsController < ApplicationController
 
   def edit
     @hunt = Hunt.find(params[:id])
-    add_items(5, @hunt)
     require_ownership(@hunt)
+    add_items(5, @hunt)
   end
 
   def update
