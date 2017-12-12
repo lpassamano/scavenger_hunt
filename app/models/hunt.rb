@@ -80,19 +80,6 @@ class Hunt < ActiveRecord::Base
     self.where(location: location).where(status: "pending")
   end
 
-  def self.upcoming_for(user)
-    #see if this can happen
-
-    #SELECT * FROM hunts
-    #  JOIN teams ON teams.hunt_id = hunts.id
-    #  JOIN team_participants ON team_participants.team_id = team.id
-    #  JOIN users ON users.id = team_participants.user_id
-    #WHERE
-    #  hunt.status = "pending"
-
-    #self.joins(teams: {team_participants: :user}).where(user: {user_id: user.id}, hunt: {status: "pending"})
-  end
-
   def self.top_five
     list = self.all.sort {|x, y| y.participants.count <=> x.participants.count}
     list[0, 5]
@@ -101,9 +88,12 @@ class Hunt < ActiveRecord::Base
   ## Instance Methods ##
   def date
     # display as Sat, December 2 at 12pm
-    start = self.start_time
-    start_str = (start.strftime("%a, %B %-e at %-I:%M") + start.strftime("%p").downcase)
-    #self.start_time.strftime("%a, %B%e at %m:%M %p")
+    if start_time.strftime("%m%d%Y") == finish_time.strftime("%m%d%Y")
+      finish = (finish_time.strftime("%-I:%M") + finish_time.strftime("%p").downcase)
+    else
+      finish = (finish_time.strftime("%a, %B %-e at %-I:%M") + finish_time.strftime("%p").downcase)
+    end
+    start_time.strftime("%a, %B %-e at %-I:%M") + start_time.strftime("%p").downcase + " - " + finish
   end
 
   def pending?

@@ -1,9 +1,5 @@
 - hunt show page:
 1. add date and location and meeting place
-4. if there are no remaining team members, the team is destroyed!
-
-- home page:
-1. if you have active hunt - link to it from home page
 
 - css style
 1. found items -- .found_items
