@@ -33,6 +33,9 @@ class TeamsController < ApplicationController
       redirect_to hunt_team_path(@hunt, @team)
     elsif params[:team][:remove_participant_id]
       @team.participants.delete(params[:team][:remove_participant_id])
+      if @team.participants == []
+        @team.destroy
+      end
       redirect_to root_path
     end
   end

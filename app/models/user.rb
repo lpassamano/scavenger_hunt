@@ -57,4 +57,9 @@ class User < ApplicationRecord
       end
     end
   end
+
+  def active_hunt
+    team = self.teams.find { |team| team.status == "active"}
+    team.hunt
+  end
 end

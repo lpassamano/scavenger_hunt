@@ -2,6 +2,8 @@
 
 <% if current_user %>
 
+  <%= link_to_team_for_active_hunt(current_user.active_hunt) %>
+
   <h2>Your Upcoming Hunts</h2>
   <%= display_upcoming_hunts_for(current_user) %>
 
