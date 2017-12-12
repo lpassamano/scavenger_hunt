@@ -64,8 +64,12 @@ module HuntHelper
 
   def link_to_team_for_active_hunt(hunt)
     if hunt.active? && hunt.teams.include?(current_user.current_team)
-      content_tag(:p, "The hunt is on!") +
-      content_tag(:p, link_to("Join your team and start finding items.", hunt_team_path(hunt, current_user.current_team)))
+      text = capture do
+        concat "The hunt is on!"
+        concat tag(:br)
+        concat link_to("Join your team and start finding items.", hunt_team_path(hunt, current_user.current_team))
+      end
+      content_tag(:p, text)
     end
   end
 end
