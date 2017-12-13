@@ -1,5 +1,5 @@
 module HuntHelper
-  def li_for_hunt(hunt, *args, method)
+  def li_for_hunt(method, hunt, *args)
     content_tag(:li, send(method, hunt, *args), class: ("upcoming_hunt" if hunt.upcoming?))
   end
 
@@ -22,7 +22,7 @@ module HuntHelper
     else
       html = capture do
         user.all_upcoming_hunts.each do |hunt|
-          concat li_for_hunt(hunt, user.team(hunt), :with_date_and_team)
+          concat li_for_hunt(:with_date_and_team, hunt, user.team(hunt))
         end
       end
       content_tag(:ul, html)
@@ -43,7 +43,7 @@ module HuntHelper
     if !!hunts
       html = capture do
         hunts.each do |hunt|
-          concat li_for_hunt(hunt, :with_date)
+          concat li_for_hunt(:with_date, hunt)
         end
       end
       content_tag(:ul, html)

@@ -14,7 +14,7 @@
 <h3>Scavenger Hunts made by <%= @user.name %>:</h3>
 <ul>
   <% @user.owned_hunts.each do |hunt| %>
-    <%= li_for_hunt(hunt, :with_date) %>
+    <%= li_for_hunt(:with_date, hunt) %>
   <% end %>
 </ul>
 
