@@ -71,7 +71,7 @@ module HuntHelper
         concat tag(:br)
         concat link_to("Join your team and start finding items.", hunt_team_path(hunt, current_user.current_team))
       end
-      content_tag(:p, html)
+      content_tag(:h4, html, id: "active_hunt_link")
     end
   end
 end

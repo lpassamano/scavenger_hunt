@@ -27,3 +27,18 @@ div.field_with_errors input {
   border-style: solid;
   border-color: red;
 }
+
+li.upcoming_hunt {
+  font-weight: bold;
+}
+
+h4#active_hunt_link {
+  background-color: #7DBD93;
+  padding: 10px;
+  text-align: center;
+}
+
+h4#active_hunt_link a {
+  font-weight: bold;
+  color: #333333;
+}
