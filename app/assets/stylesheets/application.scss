@@ -30,6 +30,11 @@ div.field_with_errors input {
 
 li.upcoming_hunt {
   font-weight: bold;
+  border: 1px;
+  border-style: solid;
+  border-color: #7DBD93;
+  padding: 2px;
+  display: inline-block;
 }
 
 h4#active_hunt_link {
