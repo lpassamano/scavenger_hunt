@@ -83,6 +83,6 @@ RSpec.describe Hunt, type: :model do
   end
 
   it 'has a method to display the date' do
-    expect(@hunt.date).to eq("Mon, January 1 at 12:00pm")
+    expect(@hunt.date).to eq("Mon, January 1 at 12:00pm - 3:00pm")
   end
 end

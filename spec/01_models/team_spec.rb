@@ -36,12 +36,6 @@ RSpec.describe Team, type: :model do
     expect(team.name).to eq("Team #{team.id}")
   end
 
-  it 'lists items that still need to be found' do
-    @team.found_items << FoundItem.create(item: Item.create(name: "item"), found: false)
-    @team.found_items << FoundItem.create(item: Item.create(name: "black cat"), found: true)
-    expect(@team.missing_items.count).to eq(1)
-  end
-
   it 'upon instantiation will create a found_item for every item its hunt has' do
     @hunt.items.build(name: "Test Item")
     @hunt.save

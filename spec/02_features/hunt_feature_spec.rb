@@ -84,16 +84,6 @@ describe 'Feature Test: Hunts', :type => :feature do
           visit hunt_path(@owner_hunt)
           expect(page).to have_link("Make New Team", href: new_hunt_team_path(@owner_hunt))
         end
-
-        it 'lists all items with links to edit and remove item' do
-          visit hunt_path(@owner_hunt)
-
-          @owner_hunt.items.each do |item|
-            expect(page).to have_content(item.name)
-            expect(page).to have_link("Edit Item", href: edit_hunt_item_path(@owner_hunt, item))
-            expect(page).to have_button("Remove Item")
-          end
-        end
       end
 
       context 'active hunt' do
