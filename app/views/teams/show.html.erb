@@ -11,7 +11,7 @@
   <ul>
     <% @team.participants.each do |participant| %>
       <li>
-        <%= link_to participant.name, user_path(participant) %>
+        <%= link_to participant.name, user_profile_path(participant) %>
       </li>
     <% end %>
   </ul>
@@ -45,7 +45,7 @@
   <ul>
     <% @team.participants.each do |participant| %>
       <li>
-        <%= link_to participant.name, user_path(participant) %>
+        <%= link_to participant.name, user_profile_path(participant) %>
       </li>
     <% end %>
   </ul>

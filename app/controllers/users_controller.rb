@@ -14,10 +14,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     require_current_user_to_be(@user)
     if @user.update(user_params)
-      redirect_to user_path(@user)
+      redirect_to user_profile_path(@user)
     else
       render :edit
-    end 
+    end
   end
 
   private

@@ -31,7 +31,7 @@ module HuntHelper
 
   def display_nearby_hunts(hunts)
     if hunts.nil?
-      link_to("Add Your Location", edit_user_path(current_user))
+      link_to("Add Your Location", edit_user_profile_path(current_user))
     elsif hunts == []
       content_tag(:p, link_to("There aren't any upcoming scavenger hunts in your area! Why don't you create one today?", new_hunt_path))
     else

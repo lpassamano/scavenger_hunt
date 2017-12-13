@@ -11,5 +11,5 @@ Rails.application.routes.draw do
     resources :items, only: [:new, :create, :edit, :update, :destroy]
   end
 
-  resources :users, only: [:show, :edit, :update]
+  resources :user_profiles, only: [:show, :edit, :update], :controller => 'users'
 end

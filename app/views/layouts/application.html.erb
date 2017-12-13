@@ -23,7 +23,7 @@
             <%= link_to "Add New Hunt", new_hunt_path %>
           </li>
           <li>
-            <%= link_to current_user.name, user_path(current_user) %> | <%= link_to("Sign Out", destroy_user_session_path, :method => "delete") %>
+            <%= link_to current_user.name, user_profile_path(current_user) %> | <%= link_to("Sign Out", destroy_user_session_path, :method => :delete) %>
           </li>
         </ul>
       <% else %>
