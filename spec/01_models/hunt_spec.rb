@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Hunt, type: :model do
 
   before (:each) do
-    @hunt = Hunt.create(owner: User.first, location: Location.first, name: "Test Hunt", start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00))
+    @hunt = Hunt.create(owner: User.first, location: Location.first, name: "Test Hunt", start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), meeting_place: Faker::Address.street_address)
   end
 
   it 'has a user' do
@@ -29,13 +29,13 @@ RSpec.describe Hunt, type: :model do
   end
 
   it 'a new hunt has a default status of pending' do
-    hunt = Hunt.create(owner: User.first, location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), name: "Test Hunt")
+    hunt = Hunt.create(owner: User.first, location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), name: "Test Hunt", meeting_place: Faker::Address.street_address)
     expect(hunt.status).to eq("pending")
   end
 
   it 'has a method to display all pending hunts' do
     count = Hunt.pending.count
-    Hunt.create(owner: User.first, name: "Test Hunt", location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00))
+    Hunt.create(owner: User.first, name: "Test Hunt", location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), meeting_place: Faker::Address.street_address)
     expect(Hunt.pending.count).to eq(count + 1)
   end
 
@@ -49,27 +49,29 @@ RSpec.describe Hunt, type: :model do
     expect(completed.count).to be >= 1
   end
 
-  it 'requires a name, location, start and finish time' do
-    no_name = Hunt.new(location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), owner: User.first)
-    no_location = Hunt.new(name: "Test Hunt", start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), owner: User.first)
-    no_start = Hunt.new(name: "Test Hunt", location: Location.first, finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), owner: User.first)
-    no_end = Hunt.new(name: "Test Hunt", location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), owner: User.first)
-    hunt = Hunt.new(name: "Test Hunt", location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), owner: User.first)
+  it 'requires a name, location, meeting_place, start and finish time' do
+    no_name = Hunt.new(location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), owner: User.first, meeting_place: Faker::Address.street_address)
+    no_location = Hunt.new(name: "Test Hunt", start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), owner: User.first, meeting_place: Faker::Address.street_address)
+    no_meeting_place = Hunt.new(name: "Test Hunt", location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), owner: User.first)
+    no_start = Hunt.new(name: "Test Hunt", location: Location.first, finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), owner: User.first, meeting_place: Faker::Address.street_address)
+    no_end = Hunt.new(name: "Test Hunt", location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), owner: User.first, meeting_place: Faker::Address.street_address)
+    hunt = Hunt.new(name: "Test Hunt", location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), owner: User.first, meeting_place: Faker::Address.street_address)
 
     expect(no_name.valid?).to eq(false)
     expect(no_location.valid?).to eq(false)
+    expect(no_meeting_place.valid?).to eq(false)
     expect(no_start.valid?).to eq(false)
     expect(no_end.valid?).to eq(false)
     expect(hunt.valid?).to eq(true)
   end
 
   it 'is invalid if the end time is before the start time' do
-    hunt = Hunt.new(owner: User.first, name: "Test Hunt", location: Location.first, finish_time: '2018, 1, 1, 12, 00, 00', start_time: '2018, 1, 1, 15, 00, 00')
+    hunt = Hunt.new(owner: User.first, name: "Test Hunt", location: Location.first, finish_time: '2018, 1, 1, 12, 00, 00', start_time: '2018, 1, 1, 15, 00, 00', meeting_place: Faker::Address.street_address)
     expect(hunt.valid?).to eq(false)
   end
 
   it 'cannot be instantiated with a date in the past' do
-    hunt = Hunt.new(owner: User.first, name: "Test Hunt", location: Location.first, start_time: DateTime.new(2016, 1, 1, 12, 00, 00), finish_time: DateTime.new(2016, 1, 1, 15, 00, 00))
+    hunt = Hunt.new(owner: User.first, name: "Test Hunt", location: Location.first, start_time: DateTime.new(2016, 1, 1, 12, 00, 00), finish_time: DateTime.new(2016, 1, 1, 15, 00, 00), meeting_place: Faker::Address.street_address)
     expect(hunt.valid?).to eq(false)
   end
 
