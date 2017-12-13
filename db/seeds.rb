@@ -31,7 +31,8 @@ Location.create(city: "Dallas", state: "TX")
     location_id: location,
     name: Faker::Zelda.location,
     start_time: start,
-    finish_time: finish
+    finish_time: finish,
+    meeting_place: Faker::Address.street_address
   )
 end
 
