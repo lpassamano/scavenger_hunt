@@ -4,12 +4,12 @@ module HuntHelper
   end
 
   def with_date(hunt)
-    link_to("#{hunt.name}", hunt_path(hunt)) + " | #{hunt.date}"
+    link_to(hunt.name, hunt_path(hunt)) + " | #{hunt.date}"
   end
 
   def with_date_and_team(hunt, team)
     if current_user.teams.include?(team)
-      user_team = link_to("#{team.name}", hunt_team_path(hunt, team))
+      user_team = link_to(team.name, hunt_team_path(hunt, team))
     else
       user_team = ""
     end
