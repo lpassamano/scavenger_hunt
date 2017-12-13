@@ -71,13 +71,18 @@ describe 'Feature Test: Hunts', :type => :feature do
           expect(page).to have_button("Delete Hunt")
         end
 
-        it 'lists all teams participating in the hunt with number of team members and a link to join the team' do
+        it 'lists all teams participating in the hunt with a link to join the team' do
           visit hunt_path(@owner_hunt)
 
           @owner_hunt.teams.each do |team|
             expect(page).to have_content(team.name)
             expect(page).to have_button("Join Team")
           end
+        end
+
+        it 'lists the meeting place for the hunt' do
+          visit hunt_path(@owner_hunt)
+          expect(page).to have_content(@owner_hunt.meeting_place)
         end
 
         it 'has link to create a new team' do
@@ -180,6 +185,11 @@ describe 'Feature Test: Hunts', :type => :feature do
           @participant_hunt.teams.each do |team|
             expect(page).to have_content(team.name)
           end
+        end
+
+        it 'lists the meeting place for the hunt' do
+          visit hunt_path(@participant_hunt)
+          expect(page).to have_content(@participant_hunt.meeting_place)
         end
 
         it 'does not list the items for the hunt' do

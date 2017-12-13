@@ -23,6 +23,7 @@ describe 'Feature Test: Hunts Forms', :type => :feature do
         fill_in("hunt[finish_time]", :with => "2018-12-23T21:00")
         fill_in("hunt[location_attributes][city]", :with => "Princeton")
         fill_in("hunt[location_attributes][state]", :with => "NJ")
+        fill_in("hunt[meeting_place]", :with => "1 Nassau Street")
         fill_in("hunt[items_attributes][0][name]", :with => "item 1")
         fill_in("hunt[items_attributes][1][name]", :with => "item 2")
         click_button('Create Hunt')
