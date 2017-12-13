@@ -25,7 +25,7 @@ module HuntHelper
           concat li_for_hunt(:with_date_and_team, hunt, user.team(hunt))
         end
       end
-      content_tag(:ul, html)
+      content_tag(:ul, html, class: "hunt_list")
     end
   end
 
@@ -46,7 +46,7 @@ module HuntHelper
           concat li_for_hunt(:with_date, hunt)
         end
       end
-      content_tag(:ul, html)
+      content_tag(:ul, html, class: "hunt_list")
     end
   end
 
