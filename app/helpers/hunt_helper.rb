@@ -65,7 +65,7 @@ module HuntHelper
   end
 
   def link_to_team_for_active_hunt(hunt)
-    if hunt.active? && hunt.teams.include?(current_user.current_team)
+    if !hunt.nil? && hunt.active? && hunt.teams.include?(current_user.current_team)
       html = capture do
         concat "The hunt is on!"
         concat tag(:br)

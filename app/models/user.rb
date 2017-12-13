@@ -60,6 +60,6 @@ class User < ApplicationRecord
 
   def active_hunt
     team = self.teams.find { |team| team.status == "active" }
-    team.hunt
+    team.hunt if !team.nil?
   end
 end
