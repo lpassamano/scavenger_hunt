@@ -21,7 +21,7 @@ describe 'Feature Test: Team', :type => :feature do
         visit hunt_team_path(@hunt, @team)
 
         @team.participants.each do |participant|
-          expect(page).to have_link(participant.name, href: user_path(participant))
+          expect(page).to have_link(participant.name, href: user_profile_path(participant))
         end
       end
 
@@ -110,7 +110,7 @@ describe 'Feature Test: Team', :type => :feature do
           visit hunt_team_path(@hunt, @team)
 
           @team.participants.each do |participant|
-            expect(page).to have_link(participant.name, href: user_path(participant))
+            expect(page).to have_link(participant.name, href: user_profile_path(participant))
           end
         end
       end
@@ -137,7 +137,7 @@ describe 'Feature Test: Team', :type => :feature do
         visit hunt_team_path(@hunt, @team)
 
         @team.participants.each do |participant|
-          expect(page).to have_link(participant.name, href: user_path(participant))
+          expect(page).to have_link(participant.name, href: user_profile_path(participant))
         end
       end
     end

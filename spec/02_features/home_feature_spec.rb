@@ -50,7 +50,7 @@ describe 'Feature Test: Home', :type => :feature do
 
       it "will have a link for the current user to set their location if it has not already been set" do
         visit root_path
-        expect(page).to have_link("Add Your Location", href: edit_user_path(@user))
+        expect(page).to have_link("Add Your Location", href: edit_user_profile_path(@user))
       end
 
       it "lists all hunts that are pending in the current user's home location" do
@@ -99,7 +99,7 @@ describe 'Feature Test: Home', :type => :feature do
 
       it "tells the user who they are logged in as" do
         visit root_path
-        expect(page).to have_link("#{@user.name}", href: user_path(@user))
+        expect(page).to have_link("#{@user.name}", href: user_profile_path(@user))
       end
 
       it "has log out link" do
