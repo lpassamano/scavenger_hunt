@@ -1,6 +1,6 @@
 module HuntHelper
-  def li_for_hunt(method, hunt, *args)
-    content_tag(:li, send(method, hunt, *args), class: ("upcoming_hunt" if hunt.upcoming?))
+  def li_for_hunt(with_details, hunt, *opt_details)
+    content_tag(:li, send(with_details, hunt, *opt_details), class: ("upcoming_hunt" if hunt.upcoming?))
   end
 
   def with_date(hunt)
