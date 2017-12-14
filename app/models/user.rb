@@ -32,7 +32,7 @@ class User < ApplicationRecord
 
   def all_upcoming_hunts
     hunts = (upcoming_participating_hunts << upcoming_owned_hunts).flatten.compact
-    hunts.sort! { |y, z| y.start_time <=> z.start_time }
+    hunts.sort! { |y, z| y.start_time <=> z.start_time }.uniq
   end
 
   def upcoming_participating_hunts
