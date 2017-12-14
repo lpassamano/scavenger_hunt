@@ -15,7 +15,7 @@ class Hunt < ActiveRecord::Base
   validates_datetime :start_time, :after => DateTime.current#, on: :create ## may need to uncomment if I have to re-seed the DB
 
   accepts_nested_attributes_for :items, :reject_if => lambda {|a| a[:name].blank?}, allow_destroy: true
-  include LocationNestedAttributes::InstanceMethods
+  include AcceptsNestedAttributesForLocation::InstanceMethods
 
   ## Attribute Setter Methods ##
   def status

@@ -16,7 +16,7 @@ class User < ApplicationRecord
   belongs_to :current_team, class_name: "Team", required: false
   belongs_to :location, required: false
 
-  include LocationNestedAttributes::InstanceMethods
+  include AcceptsNestedAttributesForLocation::InstanceMethods
 
   def self.from_omniauth(auth)
     self.where(uid: auth.uid).first_or_create do |user|

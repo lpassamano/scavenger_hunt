@@ -1,4 +1,4 @@
-module LocationNestedAttributes
+module AcceptsNestedAttributesForLocation
   module InstanceMethods
     def location_attributes=(new_location)
       existing_location = Location.find_by(city: new_location[:city])
@@ -8,5 +8,5 @@ module LocationNestedAttributes
         self.location = Location.create(city: new_location[:city], state: new_location[:state])
       end
     end
-  end 
+  end
 end

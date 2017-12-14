@@ -1,8 +1,7 @@
 
 5.9 REFACTOR!!!  -- modules for methods that are the same?
-    nested attributes for location --- Hunt and User
     add_found_items -- Team and Item
-6. refactor nav into a partial 
+6. refactor nav into a partial
 7. write README.md
 8. record walk through
 
