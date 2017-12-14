@@ -16,19 +16,12 @@ class User < ApplicationRecord
   belongs_to :current_team, class_name: "Team", required: false
   belongs_to :location, required: false
 
+  include LocationNestedAttributes::InstanceMethods
+
   def self.from_omniauth(auth)
     self.where(uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
-    end
-  end
-
-  def location_attributes=(new_location)
-    existing_location = Location.find_by(city: new_location[:city])
-    if existing_location && existing_location.state == new_location[:state]
-      self.location = existing_location
-    else
-      self.location = Location.create(city: new_location[:city], state: new_location[:state])
     end
   end
 
