@@ -68,6 +68,7 @@ class HuntsController < ApplicationController
       :name,
       :start_time,
       :finish_time,
+      :meeting_place,
       location_attributes: [
         :id,
         :city,
