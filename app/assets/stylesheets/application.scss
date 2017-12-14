@@ -15,11 +15,41 @@
 @import "bootstrap";
 /* Some Style from the Bootstrap Default Theme */
 
-body {
+section {
   padding-top: 40px;
   padding-bottom: 50px;
   padding-left: 80px;
   padding-right: 80px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
+}
+
+nav li {
+  float: left;
+  display: block;
+  color: white;
+  padding: 20px;
+}
+
+nav a {
+  text-align: center;
+  color: white;
+  text-decoration: none;
+}
+
+nav li:hover {
+  background-color: #111111;
+}
+
+nav li a:hover {
+  color: white;
+  text-decoration: none;
 }
 
 div.field_with_errors input {
