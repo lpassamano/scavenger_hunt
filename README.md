@@ -1,27 +1,23 @@
 # Scavenger Hunt
-Scavenger Hunt -- Ruby on Rails Project
+### Ruby on Rails portfolio project for the Flatiron School
 
-# README
+## Overview
+This app allows users to create scavenger hunts and join teams to find items during the hunt.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Installation
+Fork and clone this repository, and then within the main directory execute:
+```
+$ bundle install
+$ rake db:migrate
+```
+Then run:
+```
+$ rails
+```
+Open a new browser tab and navigate to the link provided, which will most likely be http://0.0.0.0:3000/.
 
-Things you may want to cover:
+## Contributors
+Bug reports and pull requests are welcome on GitHub at https://github.com/lpassamano/scavenger_hunt. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## License
+This app is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

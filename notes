@@ -1,9 +1,11 @@
-
-
-6. refactor nav into a partial
-7. write README.md
 8. record walk through
 
+
+
+
+Ideas for future development:
+- JQUERY PROJECT - for filter by location in Hunts index view make the city list update once you select the state
+- make items for hunt appear in order (ie the next one shows only after you find the first one)
 
 GEMS to research
 -factory_bot #creates seed data
@@ -11,8 +13,3 @@ GEMS to research
 -database_cleaner #look up how ot use this again
 -faker #generates fake data
 -friendly_id #slugging and permalink gem
-
-
-Ideas for future development:
-- JQUERY PROJECT - for filter by location in Hunts index view make the city list update once you select the state
-- make items for hunt appear in order (ie the next one shows only after you find the first one)
