@@ -48,7 +48,7 @@ module HuntHelper
       end
       content_tag(:ul, html, class: "hunt_list")
     elsif current_user
-      content_tag(:p, link_to("You haven't made any scavenger hunts yet! Why don't you create one today?", new_hunt_path))
+      content_tag(:p, link_to("We couldn't find any hunts! Why don't you create one today?", new_hunt_path))
     end
   end
 
