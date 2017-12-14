@@ -20,8 +20,7 @@ class TeamsController < ApplicationController
       @hunt.save
       redirect_to hunt_team_path(@hunt, @team)
     else
-      #:message => "You can't create a team because you are already in a team for this hunt."
-      redirect_to hunt_path(@hunt) # add error message to this!
+      redirect_to hunt_path(@hunt), { alert: "You can't create a team because you are already in a team for this hunt!"}
     end
   end
 
@@ -52,6 +51,6 @@ class TeamsController < ApplicationController
   end
 
   def check_hunt_status(hunt)
-    return redirect_to hunt_path(hunt) if hunt.active? || hunt.completed?
+    return redirect_to hunt_path(hunt), { alert: "You can't add a team after the hunt has started!"} if hunt.active? || hunt.completed?
   end
 end

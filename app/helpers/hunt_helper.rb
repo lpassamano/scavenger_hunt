@@ -40,13 +40,15 @@ module HuntHelper
   end
 
   def display_hunts(hunts)
-    if !!hunts
+    if !!hunts && hunts != []
       html = capture do
         hunts.each do |hunt|
           concat li_for_hunt(:with_date, hunt)
         end
       end
       content_tag(:ul, html, class: "hunt_list")
+    elsif current_user
+      content_tag(:p, link_to("You haven't made any scavenger hunts yet! Why don't you create one today?", new_hunt_path))
     end
   end
 

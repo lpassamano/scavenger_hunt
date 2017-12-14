@@ -23,7 +23,7 @@ section {
   padding-bottom: 50px;
   padding-left: 80px;
   padding-right: 80px;
-  width: 900px;
+  width: 850px;
 }
 
 nav ul {
@@ -54,6 +54,11 @@ nav li:hover {
 nav li a:hover {
   color: white;
   text-decoration: none;
+}
+
+.alert {
+  font-weight: bold;
+  color: red;
 }
 
 div.field_with_errors input {

@@ -1,5 +1,8 @@
 <h1><%= @user.name %>'s Profile</h1>
 <h3><%= @user.location.city_state if @user.location %></h3>
+<% if @user == current_user %>
+  <%= link_to "Update Profile", edit_user_profile_path(current_user) %>
+<% end %>
 
 <h3>Teams:</h3>
 <ul>
@@ -12,12 +15,4 @@
 </ul>
 
 <h3>Scavenger Hunts made by <%= @user.name %>:</h3>
-<ul>
-  <% @user.owned_hunts.each do |hunt| %>
-    <%= li_for_hunt(:with_date, hunt) %>
-  <% end %>
-</ul>
-
-<% if @user == current_user %>
-  <%= link_to "Update Profile", edit_user_profile_path(current_user) %>
-<% end %>
+<%= display_hunts(@user.owned_hunts) %> 

@@ -177,11 +177,11 @@ describe 'Feature Test: Team', :type => :feature do
     it 'does not let a user create teams for active or completed hunts' do
       visit new_hunt_team_path(@active)
       expect(current_path).to eq(hunt_path(@active))
-      #expect(page).to have_content("Can't add team to an active hunt!")
+      expect(page).to have_content("You can't add a team after the hunt has started!")
 
       visit new_hunt_team_path(@completed)
       expect(current_path).to eq(hunt_path(@completed))
-      #expect(page).to have_content("Can't add team to a completed hunt!")
+      expect(page).to have_content("You can't add a team after the hunt has started!")
     end
   end
 end
