@@ -1,7 +1,9 @@
 <h1><%= @hunt.name %></h1>
 
 <p>
-
+  Created by: <%= link_to @hunt.owner.name, user_profile_path(@hunt.owner) %>
+</p>
+<p>
   <%= @hunt.date %>
 </p>
 <p>
