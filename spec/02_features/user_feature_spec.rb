@@ -43,11 +43,11 @@ describe 'Feature Test: User', :type => :feature do
 
       it 'if it is the current users page there is a link to edit the profile' do
         visit user_profile_path(@user)
-        expect(page).to have_link("Update Profile", edit_user_profile_path(@user))
+        expect(page).to have_link("Update Profile", href: edit_user_profile_path(@user))
 
         login_as(@user2, scope: :user)
         visit user_profile_path(@user)
-        expect(page).to_not have_link("Update Profile", edit_user_profile_path(@user))
+        expect(page).to_not have_link("Update Profile", href: edit_user_profile_path(@user))
       end
     end
   end
