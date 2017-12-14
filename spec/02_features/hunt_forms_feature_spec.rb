@@ -42,7 +42,7 @@ describe 'Feature Test: Hunts Forms', :type => :feature do
         click_button('Create Hunt')
 
         expect(current_path).to eq(hunts_path)
-        expect(page).to have_content("Location can't be blank")
+        expect(page).to have_content("Location - please use the state abbreviation and the city must be in the US state entered.")
       end
     end
   end
