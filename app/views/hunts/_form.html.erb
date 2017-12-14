@@ -1,24 +1,24 @@
 <%= form_for hunt do |f| %>
   <p>
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, required: true %>
   </p>
   <p>
     <%= f.label :start_time %>
-    <%= f.datetime_field :start_time %><br />
+    <%= f.datetime_field :start_time, required: true %><br />
     <%= f.label :finish_time %>
-    <%= f.datetime_field :finish_time %>
+    <%= f.datetime_field :finish_time, require: true %>
   </p>
   <p>
     <%= f.label :meeting_place %>
-    <%= f.text_field :meeting_place %> 
+    <%= f.text_field :meeting_place, required: true %>
   </p>
   <p>
     <%= f.fields_for :location_attributes, hunt.location do |l| %>
       <%= l.label :city %>
-      <%= l.text_field :city %><br />
+      <%= l.text_field :city, required: true %><br />
       <%= l.label :state %>
-      <%= l.text_field :state %>
+      <%= l.text_field :state, required: true %>
     <% end %>
   </p>
 

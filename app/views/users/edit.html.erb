@@ -3,7 +3,7 @@
 <%= form_for @user, :url => user_profile_path(@user) do |f| %>
   <p>
     Your Username:<br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name, required: true %>
   </p>
 
   <p>

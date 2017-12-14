@@ -1,18 +1,18 @@
 class Hunt < ActiveRecord::Base
-  belongs_to :owner, class_name: "User", foreign_key: "user_id"
-  has_many :items
-  has_many :teams
-  has_many :participants, through: :teams
-  belongs_to :location
-
   validates :name, presence: true
   validates :location, presence: true
-  validates_associated :location, :message => "can't be blank"
+  validates_associated :location, :message => "- please use the state abbreviation and the city must be in the US state entered."
   validates :meeting_place, presence: true
   validates :start_time, presence: true
   validates :finish_time, presence: true
   validates_datetime :finish_time, :after => :start_time
   validates_datetime :start_time, :after => DateTime.current#, on: :create ## may need to uncomment if I have to re-seed the DB
+
+  belongs_to :owner, class_name: "User", foreign_key: "user_id"
+  has_many :items
+  has_many :teams
+  has_many :participants, through: :teams
+  belongs_to :location
 
   accepts_nested_attributes_for :items, :reject_if => lambda {|a| a[:name].blank?}, allow_destroy: true
   include AcceptsNestedAttributesForLocation::InstanceMethods

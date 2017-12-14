@@ -1,9 +1,9 @@
 class Item < ActiveRecord::Base
+  validates :name, presence: true
+  
   belongs_to :hunt
   delegate :owner, to: :hunt
   has_many :found_items, :dependent => :destroy
-
-  validates :name, presence: true
 
   after_create :add_found_items
 
