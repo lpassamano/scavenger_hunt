@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true
   validates :name, uniqueness: true
+  validates_associated :location, :message => "- please use the state abbreviation and the city must be in the US state entered."
 
   has_many :owned_hunts, class_name: "Hunt"
   has_many :items, through: :owned_hunts

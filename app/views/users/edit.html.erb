@@ -1,5 +1,18 @@
 <h1>Edit Profile</h1>
 
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h3>There were some errors and we could not save your profile!</h3>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li>
+          <%= message %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for @user, :url => user_profile_path(@user) do |f| %>
   <p>
     Your Username:<br />
