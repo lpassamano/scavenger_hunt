@@ -16,7 +16,7 @@ module TeamHelper
         end
       end
     end
-    content_tag(:h3, header) + content_tag(:ol, html)
+    content_tag(:h3, header) + content_tag(:ol, html, class: "team_list")
   end
 
   def li_for_team(team)

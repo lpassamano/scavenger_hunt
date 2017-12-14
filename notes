@@ -1,13 +1,8 @@
-- css style
-3. add classes to some buttons to style them??? (join team when on hunt show page, found it!)
-
 -messages --
 go through spec comments re: error messages
 add error and success messages for better UX
 
 
-
-5.7 add descriptions to hunts???? see what the show page looks like once some styling is added.
 5.9 REFACTOR!!!  -- modules for methods that are the same?
     nested attributes for location --- Hunt and User
     add_found_items -- Team and Item

@@ -14,12 +14,16 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 /* Some Style from the Bootstrap Default Theme */
+body {
+
+}
 
 section {
-  padding-top: 40px;
+  padding-top: 10px;
   padding-bottom: 50px;
   padding-left: 80px;
   padding-right: 80px;
+  width: 900px;
 }
 
 nav ul {
@@ -84,6 +88,7 @@ ul.hunt_list {
 
 ul.hunt_list li {
   padding: 2px;
+  margin: 5px;
 }
 
 li.found {
@@ -93,4 +98,8 @@ li.found {
 
 .center_text {
   text-align: center;
+}
+
+ol li {
+  padding: 5px;
 }
