@@ -1,8 +1,12 @@
 <h1><%= @hunt.name %></h1>
 
 <p>
-  <%= @hunt.location.city_state %><br />
+
   <%= @hunt.date %>
+</p>
+<p>
+  <%= @hunt.meeting_place %><br />
+  <%= @hunt.location.city_state %>
 </p>
 
 <%= edit_and_delete_buttons(@hunt) %>
