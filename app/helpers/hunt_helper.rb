@@ -17,7 +17,7 @@ module HuntHelper
   end
 
   def with_participants_and_date(hunt)
-    "#{pluralize(hunt.participants.count, "hunter")} | #{hunt.name} | #{hunt.date}"
+    "#{pluralize(hunt.participants.count, "Hunter")} | #{hunt.name} | #{hunt.date}"
   end
 
   def display_upcoming_hunts_for(user)
@@ -41,6 +41,15 @@ module HuntHelper
     else
       display_hunts(hunts)
     end
+  end
+
+  def display_top_five_hunts(hunts)
+    html = capture do
+      hunts.each do |hunt|
+        concat li_for_hunt(:with_participants_and_date, hunt)
+      end
+    end
+    content_tag(:ul, html, class: "hunt_list")
   end
 
   def display_hunts(hunts)
