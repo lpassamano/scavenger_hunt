@@ -47,8 +47,7 @@ class Hunt < ActiveRecord::Base
   ## Class Methods ##
   def self.pending
     self.update_status
-    pending_hunts = self.where(status: "pending")
-    pending_hunts.sort{|x, y| x.start_time <=> y.start_time}
+    self.where(status: "pending").sort{|x, y| x.start_time <=> y.start_time}
   end
 
   def self.active
@@ -70,7 +69,7 @@ class Hunt < ActiveRecord::Base
 
   def self.pending_in(location)
     self.update_status
-    self.where(location: location).where(status: "pending")
+    self.where(location: location).where(status: "pending").sort{|x, y| x.start_time <=> y.start_time}
   end
 
   def self.top_five
