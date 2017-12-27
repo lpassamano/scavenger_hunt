@@ -6,7 +6,7 @@ class Hunt < ActiveRecord::Base
   validates :start_time, presence: true
   validates :finish_time, presence: true
   validates_datetime :finish_time, :after => :start_time
-  validates_datetime :start_time, :after => DateTime.current#, on: :create ## may need to uncomment if I have to re-seed the DB
+  validates_datetime :start_time, :after => DateTime.current, on: :create ## may need to uncomment if I have to re-seed the DB
 
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
   has_many :items
@@ -47,7 +47,8 @@ class Hunt < ActiveRecord::Base
   ## Class Methods ##
   def self.pending
     self.update_status
-    self.where(status: "pending").sort{|x, y| x.start_time <=> y.start_time}
+    pending_hunts = self.where(status: "pending")
+    pending_hunts.sort{|x, y| x.start_time <=> y.start_time}
   end
 
   def self.active
@@ -73,7 +74,7 @@ class Hunt < ActiveRecord::Base
   end
 
   def self.top_five
-    list = self.all.sort {|x, y| y.participants.count <=> x.participants.count}
+    list = self.pending.sort {|x, y| y.participants.count <=> x.participants.count}
     list[0, 5]
   end
 
