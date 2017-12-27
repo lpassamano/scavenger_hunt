@@ -16,6 +16,10 @@ module HuntHelper
     with_date(hunt) + tag(:br) + user_team
   end
 
+  def with_participants_and_date(hunt)
+    "#{pluralize(hunt.participants.count, "hunter")} | #{hunt.name} | #{hunt.date}"
+  end
+
   def display_upcoming_hunts_for(user)
     if user.all_upcoming_hunts == []
       content_tag(:p, link_to("You don't have any upcoming scavenger hunts! Why don't you join one today?", hunts_path))
