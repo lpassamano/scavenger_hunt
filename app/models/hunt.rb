@@ -6,7 +6,7 @@ class Hunt < ActiveRecord::Base
   validates :start_time, presence: true
   validates :finish_time, presence: true
   validates_datetime :finish_time, :after => :start_time
-  validates_datetime :start_time, :after => DateTime.current, on: :create ## may need to uncomment if I have to re-seed the DB
+  validates_datetime :start_time, :after => DateTime.current#, on: :create ## may need to uncomment if I have to re-seed the DB
 
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
   has_many :items
