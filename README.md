@@ -12,7 +12,7 @@ $ rake db:migrate
 ```
 Then run:
 ```
-$ rails
+$ rails s
 ```
 Open a new browser tab and navigate to the link provided, which will most likely be http://0.0.0.0:3000/.
 

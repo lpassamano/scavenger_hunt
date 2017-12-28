@@ -99,7 +99,7 @@ describe 'Feature Test: Home', :type => :feature do
 
       it "tells the user who they are logged in as" do
         visit root_path
-        expect(page).to have_link("#{@user.name}", href: user_profile_path(@user))
+        expect(page).to have_link("My Profile", href: user_profile_path(@user))
       end
 
       it "has log out link" do
