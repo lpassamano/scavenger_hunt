@@ -4,9 +4,9 @@ class HuntsController < ApplicationController
   def index
     @locations = Location.all
     if !params[:location].blank?
-      @hunts = Hunt.pending_in(params[:location])
+      @hunts = Hunt.pending_in(params[:location]).sort{|x, y| x.start_time <=> y.start_time}
     else
-      @hunts = Hunt.pending
+      @hunts = Hunt.pending.sort{|x, y| x.start_time <=> y.start_time}
     end
     render :index
   end
