@@ -51,7 +51,7 @@ class Hunt < ActiveRecord::Base
   # end
 
   def self.pending
-    self.where("start_time > ?", DateTime.current).sort{|x, y| x.start_time <=> y.start_time}
+    self.where("start_time > ?", DateTime.current)#.sort{|x, y| x.start_time <=> y.start_time}
   end
 
   # def self.active
@@ -80,9 +80,13 @@ class Hunt < ActiveRecord::Base
     end
   end
 
+  # def self.pending_in(location)
+  #   self.update_status
+  #   self.where(location: location).where(status: "pending").sort{|x, y| x.start_time <=> y.start_time}
+  # end
+
   def self.pending_in(location)
-    self.update_status
-    self.where(location: location).where(status: "pending").sort{|x, y| x.start_time <=> y.start_time}
+    self.pending.where(location: location).sort{|x, y| x.start_time <=> y.start_time}
   end
 
   def self.top_five
