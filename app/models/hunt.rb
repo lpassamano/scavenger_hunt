@@ -55,9 +55,17 @@ class Hunt < ActiveRecord::Base
     self.where(status: "active")
   end
 
+  def self.active_new
+    self.where("start_time <= ?", DateTime.current).where("finish_time >= ?", DateTime.current)
+  end
+
+  # def self.completed
+  #   self.update_status
+  #   self.where(status: "completed")
+  # end
+
   def self.completed
-    self.update_status
-    self.where(status: "completed")
+    self.where("finish_time < ?", DateTime.current)
   end
 
   def self.update_status
