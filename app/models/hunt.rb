@@ -50,12 +50,12 @@ class Hunt < ActiveRecord::Base
     self.where(status: "pending").sort{|x, y| x.start_time <=> y.start_time}
   end
 
-  def self.active
-    self.update_status
-    self.where(status: "active")
-  end
+  # def self.active
+  #   self.update_status
+  #   self.where(status: "active")
+  # end
 
-  def self.active_new
+  def self.active
     self.where("start_time <= ?", DateTime.current).where("finish_time >= ?", DateTime.current)
   end
 
