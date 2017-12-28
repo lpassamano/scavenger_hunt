@@ -2,7 +2,6 @@ class Team < ActiveRecord::Base
   has_many :team_participants
   has_many :participants, through: :team_participants, source: :user
   belongs_to :hunt
-  #delegate :status, to: :hunt ## need to delete this and add in an instance method?
   has_many :found_items, :dependent => :destroy
   has_many :items, through: :found_items
 
