@@ -30,14 +30,6 @@ class Hunt < ActiveRecord::Base
     self.where("finish_time < ?", DateTime.current)
   end
 
-  def self.update_status
-    #delete this when all dependencies on it are changed
-    self.all.each do |hunt|
-      hunt.status
-      hunt.save
-    end
-  end
-
   def self.pending_in(location)
     self.pending.where(location: location)
   end
