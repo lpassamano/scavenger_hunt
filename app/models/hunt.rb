@@ -17,13 +17,27 @@ class Hunt < ActiveRecord::Base
   accepts_nested_attributes_for :items, :reject_if => lambda {|a| a[:name].blank?}, allow_destroy: true
   include AcceptsNestedAttributesForLocation::InstanceMethods
 
-  ## Attribute Setter Methods ##
-  def update_current_team(hunt_status)
-    #update to remove dependency on status attribute
-    # have it take in no arguments and if self.active? then...
+  ## User Attribute Setter ##
+  # def update_current_team(hunt_status)
+  #   #update to remove dependency on status attribute
+  #   # have it take in no arguments and if self.active? then...
+  #   self.teams.each do |team|
+  #     team.participants.each do |participant|
+  #       if hunt_status == "active"
+  #         participant.current_team = team
+  #         participant.save
+  #       else
+  #         participant.current_team = nil if participant.current_team == team
+  #         participant.save
+  #       end
+  #     end
+  #   end
+  # end
+
+  def update_current_team
     self.teams.each do |team|
       team.participants.each do |participant|
-        if hunt_status == "active"
+        if self.active?
           participant.current_team = team
           participant.save
         else
@@ -96,10 +110,10 @@ class Hunt < ActiveRecord::Base
     if self.pending?
       self.status = "pending"
     elsif self.active?
-      self.update_current_team("active")
+      self.update_current_team
       self.status = "active"
     elsif self.completed?
-      self.update_current_team("completed")
+      self.update_current_team
       self.status = "completed"
     end
   end
