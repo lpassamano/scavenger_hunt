@@ -45,9 +45,13 @@ class Hunt < ActiveRecord::Base
   end
 
   ## Class Methods ##
+  # def self.pending
+  #   self.update_status
+  #   self.where(status: "pending").sort{|x, y| x.start_time <=> y.start_time}
+  # end
+
   def self.pending
-    self.update_status
-    self.where(status: "pending").sort{|x, y| x.start_time <=> y.start_time}
+    self.where("start_time > ?", DateTime.current).sort{|x, y| x.start_time <=> y.start_time}
   end
 
   # def self.active
@@ -69,6 +73,7 @@ class Hunt < ActiveRecord::Base
   end
 
   def self.update_status
+    #delete this when all dependencies on it are changed
     self.all.each do |hunt|
       hunt.status
       hunt.save
