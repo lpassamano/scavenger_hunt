@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
     # are items routes needed?
     resources :items, only: [:new, :create, :edit, :update, :destroy]
+    resources :comments, only: [:new, :create, :edit, :update]
   end
 
   resources :user_profiles, only: [:show, :edit, :update], :controller => 'users'

@@ -16,7 +16,9 @@ class User < ApplicationRecord
   #has_many :hunts, through: :teams, class_name: "Hunt", foreign_key: "hunt_id"
   belongs_to :current_team, class_name: "Team", required: false
   belongs_to :location, required: false
+  has_many :comments
 
+  accepts_nested_attributes_for :comments
   include AcceptsNestedAttributesForLocation::InstanceMethods
 
   def self.from_omniauth(auth)

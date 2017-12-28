@@ -13,8 +13,10 @@ class Hunt < ActiveRecord::Base
   has_many :teams
   has_many :participants, through: :teams
   belongs_to :location
+  has_many :comments
 
   accepts_nested_attributes_for :items, :reject_if => lambda {|a| a[:name].blank?}, allow_destroy: true
+  accepts_nested_attributes_for :comments
   include AcceptsNestedAttributesForLocation::InstanceMethods
 
   ## Class Methods ##

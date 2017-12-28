@@ -13,6 +13,7 @@ class HuntsController < ApplicationController
 
   def show
     @hunt = Hunt.find(params[:id])
+    @comment = @hunt.comments.build(user: current_user)
     render :show
   end
 
@@ -78,6 +79,10 @@ class HuntsController < ApplicationController
         :id,
         :name,
         :_destroy
+      ],
+      comments_attributes: [
+        :text,
+        :user_id
       ]
     )
   end

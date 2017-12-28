@@ -1,3 +1,16 @@
+<% if @hunt.errors.any? %>
+  <div id="error_explanation">
+    <h3>There were some errors and we could not save your scavenger hunt!</h3>
+    <ul>
+      <% @hunt.errors.full_messages.each do |message| %>
+        <li>
+          <%= message %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <h1><%= @hunt.name %></h1>
 
 <p>
@@ -18,3 +31,17 @@
 <%= link_to_make_new_team(@hunt) %>
 
 <%= display_items_for(@hunt) %>
+
+
+<!-- list comments -->
+
+<!-- have form there to add comment -->
+<h3>Comments:</h3>
+<%= display_comments_for(@hunt) %>
+
+<%= form_for([@hunt, @comment]) do |f| %>
+  <%= f.label "Add Comment" %>
+  <%= f.text_field :text %>
+  <%= f.hidden_field :user_id, value: current_user.id, required: true %>
+  <%= f.submit "Submit" %>
+<% end %>
