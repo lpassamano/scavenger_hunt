@@ -6,7 +6,7 @@ class Hunt < ActiveRecord::Base
   validates :start_time, presence: true
   validates :finish_time, presence: true
   validates_datetime :finish_time, :after => :start_time
-  validates_datetime :start_time, :after => DateTime.current#, on: :create ## may need to uncomment if I have to re-seed the DB
+  validates_datetime :start_time, :after => DateTime.current#, on: :create ## need to uncomment if I have to re-seed the DB
 
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
   has_many :items
@@ -19,6 +19,7 @@ class Hunt < ActiveRecord::Base
 
   ## Attribute Setter Methods ##
   def status
+    # remove method? or just use it as a way to return status w/out updating it in the db?
     if DateTime.current < self.start_time
       self.status = "pending"
     elsif DateTime.current >= self.start_time && DateTime.current <= self.finish_time
@@ -31,6 +32,7 @@ class Hunt < ActiveRecord::Base
   end
 
   def update_current_team(hunt_status)
+    #update to remove dependency on status attribute
     self.teams.each do |team|
       team.participants.each do |participant|
         if hunt_status == "active"
@@ -45,28 +47,13 @@ class Hunt < ActiveRecord::Base
   end
 
   ## Class Methods ##
-  # def self.pending
-  #   self.update_status
-  #   self.where(status: "pending").sort{|x, y| x.start_time <=> y.start_time}
-  # end
-
   def self.pending
     self.where("start_time > ?", DateTime.current)
   end
 
-  # def self.active
-  #   self.update_status
-  #   self.where(status: "active")
-  # end
-
   def self.active
     self.where("start_time <= ?", DateTime.current).where("finish_time >= ?", DateTime.current)
   end
-
-  # def self.completed
-  #   self.update_status
-  #   self.where(status: "completed")
-  # end
 
   def self.completed
     self.where("finish_time < ?", DateTime.current)
@@ -79,11 +66,6 @@ class Hunt < ActiveRecord::Base
       hunt.save
     end
   end
-
-  # def self.pending_in(location)
-  #   self.update_status
-  #   self.where(location: location).where(status: "pending").sort{|x, y| x.start_time <=> y.start_time}
-  # end
 
   def self.pending_in(location)
     self.pending.where(location: location)
@@ -106,7 +88,6 @@ class Hunt < ActiveRecord::Base
   end
 
   def pending?
-    #self.status == "pending"
     self.start_time > DateTime.current
   end
 
@@ -115,12 +96,10 @@ class Hunt < ActiveRecord::Base
   end
 
   def active?
-    #self.status == "active"
     self.start_time <= DateTime.current && self.finish_time >= DateTime.current
   end
 
   def completed?
-    #self.status == "completed"
     self.finish_time < DateTime.current
   end
 
