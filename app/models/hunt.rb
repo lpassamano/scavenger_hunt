@@ -92,13 +92,13 @@ class Hunt < ActiveRecord::Base
   end
 
   def status
-    # remove method? or just use it as a way to return status w/out updating it in the db?
+  # refactor to return status as a string and and updating the current_team for all hunt participants
     if self.pending?
       self.status = "pending"
     elsif self.active?
       self.update_current_team("active")
       self.status = "active"
-    elsif self.completed? 
+    elsif self.completed?
       self.update_current_team("completed")
       self.status = "completed"
     end
