@@ -7,7 +7,7 @@ class Location < ActiveRecord::Base
   has_many :users
 
   def pending_hunts
-    self.hunts.where(status: "pending")
+    self.hunts.where("start_time > ?", DateTime.current)
   end
 
   def city_state
