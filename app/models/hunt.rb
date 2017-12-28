@@ -67,15 +67,13 @@ class Hunt < ActiveRecord::Base
   end
 
   def status
-  # refactor to return status as a string and and updating the current_team for all hunt participants
+    self.update_current_team
     if self.pending?
-      self.status = "pending"
+      "pending"
     elsif self.active?
-      self.update_current_team
-      self.status = "active"
+      "active"
     elsif self.completed?
-      self.update_current_team
-      self.status = "completed"
+      "completed"
     end
   end
 
