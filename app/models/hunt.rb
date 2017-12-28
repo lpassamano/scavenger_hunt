@@ -18,21 +18,9 @@ class Hunt < ActiveRecord::Base
   include AcceptsNestedAttributesForLocation::InstanceMethods
 
   ## Attribute Setter Methods ##
-  def status
-    # remove method? or just use it as a way to return status w/out updating it in the db?
-    if DateTime.current < self.start_time
-      self.status = "pending"
-    elsif DateTime.current >= self.start_time && DateTime.current <= self.finish_time
-      self.update_current_team("active")
-      self.status = "active"
-    elsif DateTime.current > self.finish_time
-      self.update_current_team("completed")
-      self.status = "completed"
-    end
-  end
-
   def update_current_team(hunt_status)
     #update to remove dependency on status attribute
+    # have it take in no arguments and if self.active? then...
     self.teams.each do |team|
       team.participants.each do |participant|
         if hunt_status == "active"
@@ -101,6 +89,19 @@ class Hunt < ActiveRecord::Base
 
   def completed?
     self.finish_time < DateTime.current
+  end
+
+  def status
+    # remove method? or just use it as a way to return status w/out updating it in the db?
+    if self.pending?
+      self.status = "pending"
+    elsif self.active?
+      self.update_current_team("active")
+      self.status = "active"
+    elsif self.completed? 
+      self.update_current_team("completed")
+      self.status = "completed"
+    end
   end
 
   def leaderboard
