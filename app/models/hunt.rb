@@ -51,7 +51,7 @@ class Hunt < ActiveRecord::Base
   # end
 
   def self.pending
-    self.where("start_time > ?", DateTime.current)#.sort{|x, y| x.start_time <=> y.start_time}
+    self.where("start_time > ?", DateTime.current)
   end
 
   # def self.active
@@ -86,7 +86,7 @@ class Hunt < ActiveRecord::Base
   # end
 
   def self.pending_in(location)
-    self.pending.where(location: location).sort{|x, y| x.start_time <=> y.start_time}
+    self.pending.where(location: location)
   end
 
   def self.top_five
@@ -106,7 +106,8 @@ class Hunt < ActiveRecord::Base
   end
 
   def pending?
-    self.status == "pending"
+    #self.status == "pending"
+    self.start_time > DateTime.current
   end
 
   def upcoming?
@@ -114,11 +115,13 @@ class Hunt < ActiveRecord::Base
   end
 
   def active?
-    self.status == "active"
+    #self.status == "active"
+    self.start_time <= DateTime.current && self.finish_time >= DateTime.current
   end
 
   def completed?
-    self.status == "completed"
+    #self.status == "completed"
+    self.finish_time < DateTime.current
   end
 
   def leaderboard
