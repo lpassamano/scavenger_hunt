@@ -19,8 +19,8 @@ Open a new browser tab and navigate to the link provided, which will most likely
 
 ## Demo
 You can demo this app on Heroku!
-https://scavenger-hunt-lpassamano.herokuapp.com/
-login: test@email.com
+https://scavenger-hunt-lpassamano.herokuapp.com/  
+login: test@email.com  
 password: password123
 
 ## Contributors
