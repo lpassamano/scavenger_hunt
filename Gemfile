@@ -68,4 +68,4 @@ gem 'dotenv-rails'
 gem 'bootstrap-sass'
 gem 'jquery-rails'
 
-gem 'pg', group: :production
+gem 'pg'
