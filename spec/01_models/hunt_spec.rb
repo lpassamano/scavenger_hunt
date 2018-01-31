@@ -13,7 +13,7 @@ RSpec.describe Hunt, type: :model do
   it 'has many items' do
     @hunt.items << Item.new(name: "Ball")
     @hunt.items << Item.new(name: "Stick")
-    expect(@hunt.items.count).to eq(2)
+    expect(@hunt.items.count).to eq(2), "expected: 2\ngot: #{@hunt.items.count}\nIF THIS IS FAILING CHECK THE START/FINISH TIMES OF THE TEST HUNT!"
   end
 
   it 'has a location' do
