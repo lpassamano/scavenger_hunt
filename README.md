@@ -17,6 +17,12 @@ $ rails s
 ```
 Open a new browser tab and navigate to the link provided, which will most likely be http://0.0.0.0:3000/.
 
+## Demo
+You can demo this app on Heroku!
+https://scavenger-hunt-lpassamano.herokuapp.com/
+login: test@email.com
+password: password123
+
 ## Contributors
 Bug reports and pull requests are welcome on GitHub at https://github.com/lpassamano/scavenger_hunt. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
