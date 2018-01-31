@@ -8,6 +8,7 @@ This app allows users to create scavenger hunts and join teams to find items dur
 Fork and clone this repository, and then within the main directory execute:
 ```
 $ bundle install
+$ rake db:create
 $ rake db:migrate
 ```
 Then run:

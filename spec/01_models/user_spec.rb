@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   before (:each) do
     @user = User.create(name: Faker::Internet.user_name, email: Faker::Internet.email, password: "password123")
-    @hunt1 = Hunt.new(location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), name: "Test Hunt 1", meeting_place: Faker::Address.street_address)
-    @hunt2 = Hunt.new(location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), name: "Test Hunt 2", meeting_place: Faker::Address.street_address)
-    @hunt3 = Hunt.new(location: Location.first, start_time: DateTime.new(2018, 1, 1, 12, 00, 00), finish_time: DateTime.new(2018, 1, 1, 15, 00, 00), name: "Test Hunt 3", meeting_place: Faker::Address.street_address)
+    @hunt1 = Hunt.new(location: Location.first, start_time: DateTime.new(2058, 1, 1, 12, 00, 00), finish_time: DateTime.new(2058, 1, 1, 15, 00, 00), name: "Test Hunt 1", meeting_place: Faker::Address.street_address)
+    @hunt2 = Hunt.new(location: Location.first, start_time: DateTime.new(2058, 1, 1, 12, 00, 00), finish_time: DateTime.new(2058, 1, 1, 15, 00, 00), name: "Test Hunt 2", meeting_place: Faker::Address.street_address)
+    @hunt3 = Hunt.new(location: Location.first, start_time: DateTime.new(2058, 1, 1, 12, 00, 00), finish_time: DateTime.new(2058, 1, 1, 15, 00, 00), name: "Test Hunt 3", meeting_place: Faker::Address.street_address)
   end
 
   it 'has many hunts' do
