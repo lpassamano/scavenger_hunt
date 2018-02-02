@@ -21,7 +21,9 @@ Open a new browser tab and navigate to the link provided, which will most likely
 If you want to create your own hunt you can [demo the app on Heroku](https://scavenger-hunt-lpassamano.herokuapp.com/)!   
 If you do not want to create a new account you can log in with the test account:  
 email: test@email.com  
-password: password1233
+password: password1233  
+
+[Watch the video walk through!](https://vimeo.com/254018788)
 
 ## Contributors
 Bug reports and pull requests are welcome on GitHub at https://github.com/lpassamano/scavenger_hunt. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
