@@ -1,3 +1,4 @@
+# Controller for user routes
 class UsersController < ApplicationController
   before_action :require_login
 

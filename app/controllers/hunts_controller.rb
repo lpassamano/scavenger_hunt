@@ -1,12 +1,15 @@
+# controller for hunt routes
 class HuntsController < ApplicationController
   before_action :require_login
 
   def index
     @locations = Location.all
     if !params[:location].blank?
-      @hunts = Hunt.pending_in(params[:location]).sort{|x, y| x.start_time <=> y.start_time}
+      # if location is given in params
+      # show only the pending hunts in that location
+      @hunts = Hunt.pending_in(params[:location]).sort_by(&:start_time)
     else
-      @hunts = Hunt.pending.sort{|x, y| x.start_time <=> y.start_time}
+      @hunts = Hunt.pending.sort_by(&:start_time)
     end
     render :index
   end

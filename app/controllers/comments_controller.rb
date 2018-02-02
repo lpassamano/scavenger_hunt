@@ -1,6 +1,6 @@
+# controller for creation of comments
 class CommentsController < ApplicationController
-  def new
-  end
+  def new; end
 
   def create
     @hunt = Hunt.find(params[:hunt_id])

@@ -15,7 +15,6 @@
       </li>
     <% end %>
   </ul>
-
   <%= join_or_leave_team_button(@hunt, @team) %>
 <% elsif @team.status == "active" && current_user.current_team == @team %>
   <ol>
@@ -41,7 +40,8 @@
       </li>
     <% end %>
   </ol>
-
+  
+  <h3>Members:</h3>
   <ul>
     <% @team.participants.each do |participant| %>
       <li>

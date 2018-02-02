@@ -41,7 +41,7 @@ group :development, :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'factory_bot'
-  # gem 'database_cleaner'
+  gem 'database_cleaner'
   gem 'pry'
   gem 'better_errors'
   gem 'binding_of_caller'

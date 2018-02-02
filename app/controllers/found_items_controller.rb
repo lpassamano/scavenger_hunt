@@ -1,3 +1,4 @@
+# controller to update when a team finds an item
 class FoundItemsController < ApplicationController
   def update
     found_item = FoundItem.find(found_item_params)

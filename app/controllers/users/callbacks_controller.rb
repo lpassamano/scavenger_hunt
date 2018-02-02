@@ -1,3 +1,4 @@
+# Controller to handle FB login/signup
 class Users::CallbacksController < Devise::OmniauthCallbacksController
   def facebook
     @user = User.from_omniauth(auth)
