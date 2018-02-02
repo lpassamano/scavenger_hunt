@@ -2,9 +2,9 @@
 module ItemsHelper
   def display_items_for(hunt)
     # creates ol of all items in the hunt passed as an argument
-    if hunt.active? ||
-       hunt.completed? ||
-       (hunt.pending? && current_user == hunt.owner)
+    if hunt.active? || hunt.completed? || (hunt.pending? && current_user == hunt.owner)
+      # only shows list of items when hunt is pending if user is hunt owner
+      # shows list of items to all users when hunt is active or completed
       html = capture do
         li_for_item_list(hunt.items)
       end
