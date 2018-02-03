@@ -2,7 +2,7 @@
 ### Ruby on Rails portfolio project for the Flatiron School
 
 ## Overview
-This app allows users to create scavenger hunts and join teams to find items during the hunt.
+Create scavenger hunts and join teams to work collaboratively to find items during a hunt.
 
 ## Installation
 Fork and clone this repository, and then within the main directory execute:
