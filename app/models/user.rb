@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true
   validates :name, uniqueness: true
+
   # location validates that the city entered is in the state entered
   # if city is not in state it is not saved to DB and gives an error message
   validates_associated :location, message: '- please use the state
@@ -18,6 +19,7 @@ class User < ApplicationRecord
   has_many :team_participants
   has_many :teams, through: :team_participants
   has_many :comments
+
   # allows user to be valid even if doesn't have a current team or location
   belongs_to :current_team, class_name: 'Team', required: false
   belongs_to :location, required: false
@@ -54,9 +56,10 @@ class User < ApplicationRecord
 
   def upcoming_owned_hunts
     # returns all pending hunts that the user created
-    owned_hunts do |hunt|
-      hunt if hunt.status == 'pending'
+    hunts = owned_hunts.collect do |hunt|
+      hunts << hunt if hunt.pending?
     end
+    hunts.compact
   end
 
   def active_hunt
