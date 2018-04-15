@@ -57,7 +57,7 @@ class User < ApplicationRecord
   def upcoming_owned_hunts
     # returns all pending hunts that the user created
     hunts = owned_hunts.collect do |hunt|
-      hunts << hunt if hunt.pending?
+      hunt if hunt.pending?
     end
     hunts.compact
   end
