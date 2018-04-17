@@ -1,5 +1,9 @@
 **** Tests will only work until 1/1/2058! ****
 
+TO DO:
+- fix FB/oAuth login on Heroku, temporarily disabled it, fix views/devise/shared/_links
+  to put it back
+
 Ideas for future development:
 - JQUERY PROJECT - for filter by location in Hunts index view make the city list
  update once you select the state
