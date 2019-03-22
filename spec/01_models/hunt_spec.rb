@@ -28,25 +28,30 @@ RSpec.describe Hunt, type: :model do
     expect(@hunt.teams.count).to eq(2)
   end
 
-  it 'a new hunt has a default status of pending' do
+  it 'has a default status of pending' do
     hunt = Hunt.create(owner: User.first, location: Location.first, start_time: DateTime.new(2058, 1, 1, 12, 00, 00), finish_time: DateTime.new(2058, 1, 1, 15, 00, 00), name: "Test Hunt", meeting_place: Faker::Address.street_address)
     expect(hunt.status).to eq("pending")
   end
 
   it 'has a method to display all pending hunts' do
     count = Hunt.pending.count
-    Hunt.create(owner: User.first, name: "Test Hunt", location: Location.first, start_time: DateTime.new(2058, 1, 1, 12, 00, 00), finish_time: DateTime.new(2058, 1, 1, 15, 00, 00), meeting_place: Faker::Address.street_address)
+    pending_hunt = Hunt.create(owner: User.first, name: "Test Hunt", location: Location.first, start_time: DateTime.new(2058, 1, 1, 12, 00, 00), finish_time: DateTime.new(2058, 1, 1, 15, 00, 00), meeting_place: Faker::Address.street_address)
     expect(Hunt.pending.count).to eq(count + 1)
+    expect(Hunt.pending).to include(pending_hunt)
   end
 
   it 'has a method to display all active hunts' do
-    active = Hunt.active
-    expect(active.count).to be >= 1
+    count = Hunt.active.count
+    active_hunt = Hunt.create(owner: User.first, location: Location.first, name: "Test Hunt", start_time: DateTime.current, finish_time: DateTime.new(2058, 1, 1, 15, 00, 00), meeting_place: Faker::Address.street_address)
+    expect(Hunt.active.count).to eq(count + 1)
+    expect(Hunt.active).to include(active_hunt)
   end
 
   it 'has a method to display all completed hunts' do
-    completed = Hunt.completed
-    expect(completed.count).to be >= 1
+    count = Hunt.completed.count
+    completed_hunt = Hunt.create(owner: User.first, location: Location.first, name: "Test Hunt", start_time: DateTime.current, finish_time: DateTime.current, meeting_place: Faker::Address.street_address)
+    expect(Hunt.completed.count).to eq(count + 1)
+    expect(Hunt.completed).to include(completed_hunt)
   end
 
   it 'requires a name, location, meeting_place, start and finish time' do
