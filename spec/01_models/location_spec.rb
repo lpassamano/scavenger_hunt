@@ -10,7 +10,7 @@ RSpec.describe Location, type: :model do
 
   it 'is invalid if the city given is not in the state given' do
     location = build :location, city: "New York", state: "NJ"
-    expect(location.valid?).to eq(false)
+    expect(location).to_not be_valid
   end
 
   it 'lists all pending hunts in a specific location' do

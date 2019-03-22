@@ -35,20 +35,28 @@ RSpec.describe Hunt, type: :model do
   end
 
   it 'is invalid if the end time is before the start time' do
-    hunt = build :hunt, finish_time: DateTime.new(2028, 1, 1, 12, 00, 00), start_time: DateTime.new(2028, 1, 1, 15, 00, 00)
-    expect(hunt.valid?).to eq(false)
+    hunt = build :hunt,
+      finish_time: DateTime.new(2028, 1, 1, 12, 00, 00),
+      start_time: DateTime.new(2028, 1, 1, 15, 00, 00)
+
+    expect(hunt).to_not be_valid
   end
 
   it 'is invalid with a date in the past' do
-    hunt = build :hunt, start_time: DateTime.new(2016, 1, 1, 12, 00, 00), finish_time: DateTime.new(2016, 1, 1, 15, 00, 00)
-    expect(hunt.valid?).to eq(false)
+    hunt = build :hunt,
+      start_time: DateTime.new(2016, 1, 1, 12, 00, 00),
+      finish_time: DateTime.new(2016, 1, 1, 15, 00, 00)
+
+    expect(hunt).to_not be_valid
   end
 
-  it 'updates the status of the hunt to active at start time and completed at end time' do
+  it 'updates the status to active at start time' do
     hunt = create :hunt, start_time: DateTime.current
     expect(hunt.status).to eq("active")
+  end
 
-    hunt.finish_time = DateTime.current
+  it 'updates the status to completed at end time' do
+    hunt = create :hunt, start_time: DateTime. current, finish_time: DateTime.current
     expect(hunt.status).to eq("completed")
   end
 

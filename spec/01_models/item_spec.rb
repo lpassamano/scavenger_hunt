@@ -8,13 +8,12 @@ RSpec.describe Item, type: :model do
     expect(item).to_not eq(item2)
   end
 
-  it 'create a found_item for each team in its hunt' do
+  it 'creates a found_item for each team in its hunt' do
     hunt = create :hunt
-    team = create :team, hunt: hunt
-    num_items = team.items.count
+    create :team, hunt: hunt
 
-    hunt.items.build(name: "New Item")
-    hunt.save
-    expect(team.items.count).to eq(num_items + 1)
+    expect{
+      hunt.items.create(name: "New Item")
+    }.to change(FoundItem, :count).by(1)
   end
 end
