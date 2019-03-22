@@ -29,7 +29,7 @@ Location.create(city: "Dallas", state: "TX")
   Hunt.create(
     user_id: user,
     location_id: location,
-    name: Faker::Zelda.location,
+    name: Faker::Games::Zelda.location,
     start_time: start,
     finish_time: finish,
     meeting_place: Faker::Address.street_address
@@ -70,7 +70,7 @@ Hunt.all.each do |hunt|
   end
 
   10.times do
-    hunt.items.build(name: Faker::Zelda.item)
+    hunt.items.build(name: Faker::Games::Zelda.item)
     hunt.save
   end
 end
