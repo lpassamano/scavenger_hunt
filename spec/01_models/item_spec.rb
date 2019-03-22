@@ -1,17 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  before(:each) do
-    @hunt = Hunt.first
-    @item = Item.create(hunt: @hunt)
-  end
+  it 'has a working factory' do
+    item = create :item
+    item2 = create :item
 
-  it 'has a hunt' do
-    expect(@item.hunt).to eq(Hunt.first)
-  end
-
-  it 'has a user' do
-    expect(@item.owner).to eq(@item.hunt.owner)
+    expect(item).to_not eq(item2)
   end
 
   it 'upon instantiation creates found_items for each team in its hunt' do

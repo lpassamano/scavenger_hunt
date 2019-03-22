@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Hunt, type: :model do
-
   it 'has a working factory' do
     hunt = create :hunt
     hunt2 = create :hunt
