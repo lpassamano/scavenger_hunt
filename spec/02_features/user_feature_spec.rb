@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe 'Feature Test: User', :type => :feature do
   describe 'show profile' do
     context 'not logged in' do

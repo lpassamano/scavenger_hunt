@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe 'Feature Test: Team', :type => :feature do
   describe 'show page' do
     context 'not logged in' do

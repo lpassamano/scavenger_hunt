@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe 'Feature Test: Home', :type => :feature do
   describe 'Pending Hunts' do
     context "not logged in" do

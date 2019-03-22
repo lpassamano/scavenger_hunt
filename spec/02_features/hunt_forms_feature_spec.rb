@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe 'Feature Test: Hunts Forms', :type => :feature do
   describe 'add new hunt form' do
     context 'not logged in' do

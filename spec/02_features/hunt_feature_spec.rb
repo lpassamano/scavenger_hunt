@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 describe 'Feature Test: Hunts', :type => :feature do
   describe 'index page' do
     context 'not logged in' do
