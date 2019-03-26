@@ -19,6 +19,15 @@ FactoryBot.define do
     meeting_place { Faker::Address.street_address }
   end
 
+  factory :hunt_params, class: Hunt do
+    association :owner, factory: :user
+    name { Faker::Games::Zelda.location }
+    start_time { (DateTime.current + rand(1..30).days).to_datetime }
+    finish_time { (start_time + 2.hours).to_datetime }
+    meeting_place { Faker::Address.street_address }
+    location_attributes { attributes_for :location }
+  end
+
   factory :active_hunt, class: Hunt do
     association :owner, factory: :user
     location
