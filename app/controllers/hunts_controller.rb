@@ -1,6 +1,7 @@
 # controller for hunt routes
 class HuntsController < ApplicationController
   before_action :require_login
+  before_action :require_ownership, only: [:edit, :update, :destroy]
 
   def index
     @locations = Location.all
@@ -41,13 +42,11 @@ class HuntsController < ApplicationController
 
   def edit
     @hunt = Hunt.find(params[:id])
-    require_ownership(@hunt)
     add_items(5, @hunt)
   end
 
   def update
     @hunt = Hunt.find(params[:id])
-    require_ownership(@hunt)
     if @hunt.update(hunt_params)
       redirect_to hunt_path(@hunt)
     else
@@ -55,9 +54,14 @@ class HuntsController < ApplicationController
     end
   end
 
+  def destroy
+    #code
+  end
+
   private
 
-  def require_ownership(hunt)
+  def require_ownership
+    hunt = Hunt.find(params[:id])
     return redirect_to root_path unless hunt.owner == current_user
   end
 
