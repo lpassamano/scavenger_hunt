@@ -1,6 +1,7 @@
 # Controller for teams routes
 class TeamsController < ApplicationController
   before_action :require_login
+  before_action :require_team_membership, only: [:update]
 
   def show
     @team = Team.find(params[:id])
@@ -38,6 +39,11 @@ class TeamsController < ApplicationController
   end
 
   private
+
+  def require_team_membership
+    team = Team.find(params[:id])
+    return redirect_to root_path unless team.participants.include?(current_user)
+  end
 
   def team_params
     params.require(:team).permit(:participant_id, :remove_participant_id)
