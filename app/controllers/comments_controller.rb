@@ -1,5 +1,7 @@
 # controller for creation of comments
 class CommentsController < ApplicationController
+  before_action :require_login
+
   def new; end
 
   def create
