@@ -16,18 +16,13 @@ module HuntHelper
 
   def with_date_and_team(hunt, team)
     # opt_details for li_for_hunt
-    if current_user.teams.include?(team)
-      user_team = link_to(team.name, hunt_team_path(hunt, team))
-    else
-      user_team = ''
-    end
+    user_team = link_to(team.name, hunt_team_path(hunt, team))
     with_date(hunt) + tag(:br) + user_team
   end
 
   def with_participants_and_date(hunt)
     # opt_details for li_for_hunt
-    "#{pluralize(hunt.participants.count, 'Hunter')} | #{hunt.name} |
-    #{hunt.date}"
+    "#{pluralize(hunt.participants.count, 'Hunter')} | #{hunt.name} | #{hunt.date}"
   end
 
   ## Methods for displaying lists of hunts ##
@@ -104,8 +99,9 @@ module HuntHelper
   def link_to_team_for_active_hunt(hunt)
     # if user is on a team for an active hunt, a link to their teams show page
     # will appear on root page and hunt show page
+    current_user.update_current_team
     return nil unless !hunt.nil? &&
-                      hunt.active? &&
+                      hunt.status == 'active' &&
                       hunt.teams.include?(current_user.current_team)
     html = capture do
       concat 'The hunt is on!'
