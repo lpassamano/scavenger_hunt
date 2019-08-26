@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe HuntsController, type: :controller do
-  let :user { create :user }
+  let(:user) { create :user }
 
-  let :valid_params { attributes_for :hunt_params }
+  let(:valid_params) { attributes_for :hunt_params }
 
   let :invalid_params do
     valid_params.deep_merge({ name: "" })
