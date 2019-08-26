@@ -1,6 +1,7 @@
 # Controller for user routes
 class UsersController < ApplicationController
   before_action :require_login
+  before_action  :require_profile_ownership, only: [:edit, :update]
 
   def show
     @user = User.find(params[:id])
@@ -8,12 +9,10 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    require_current_user_to_be(@user)
   end
 
   def update
     @user = User.find(params[:id])
-    require_current_user_to_be(@user)
     if @user.update(user_params)
       redirect_to user_profile_path(@user)
     else
@@ -23,7 +22,8 @@ class UsersController < ApplicationController
 
   private
 
-  def require_current_user_to_be(user)
+  def require_profile_ownership
+    user = User.find(params[:id])
     return redirect_to root_path unless current_user == user
   end
 

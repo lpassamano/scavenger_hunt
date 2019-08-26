@@ -7,6 +7,7 @@ require 'rspec/rails'
 require 'devise'
 require 'capybara/rails'
 require 'capybara/rspec'
+require 'byebug'
 #require 'rack_session_access/capybara'
 #require 'support/factory_bot'
 ## if not using this delete the /factories and /support files
