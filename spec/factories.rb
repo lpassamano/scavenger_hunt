@@ -53,6 +53,5 @@ FactoryBot.define do
 
   factory :team do
     hunt
-    name { Faker::Games::Zelda.item }
   end
 end

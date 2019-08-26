@@ -68,4 +68,12 @@ class User < ApplicationRecord
     team = teams.find { |t| t.status == 'active' }
     team.hunt unless team.nil?
   end
+
+  def update_current_team
+    teams.each do |team|
+      if team.hunt.active?
+        update(current_team: team)
+      end
+    end
+  end
 end

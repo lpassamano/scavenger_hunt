@@ -125,12 +125,13 @@ class Hunt < ApplicationRecord
           # if hunt is active participants current team is updated to their
           # team for this hunt
           participant.current_team = team
+          participant.save
         elsif participant.current_team == team
           # if hunt is not active the current team is changed to nil
           # only if their current team was a team for this hunt
           participant.current_team = nil
+          participant.save
         end
-        participant.save
       end
     end
   end
